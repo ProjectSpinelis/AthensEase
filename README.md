@@ -1,19 +1,19 @@
 # Multi-Module Maven Project for AthenEase
 
-Εχουμε βαλει πολλα Maven μεσα σε ενα μεγαλο Maven (ναι πρεπει να μαθετε Maven)
-Καθε λειτουργικοτητα της εφαρμογης εχει το δικο της (αυτονομο) Maven Module οπου γραφει τον κωδικα της κανονικα στο src/main/java/com/athensease/
+- Εχουμε βαλει πολλα Maven μεσα σε ενα μεγαλο Maven (ναι πρεπει να μαθετε Maven)
+- Καθε λειτουργικοτητα της εφαρμογης εχει το δικο της (αυτονομο) Maven Module οπου γραφει τον κωδικα της κανονικα στο src/main/java/com/athensease/
 
 ## Repository Structure
-Η Δομή του Repository ειναι:
+- Η Δομή του Repository ειναι:
 
-athensease/
-├── pom.xml
-├── interface/
-│   ├── pom.xml
-├── optimization/
-│   ├── pom.xml
-├── data-retrieval/
-│   ├── pom.xml
+- athensease/
+- ├── pom.xml
+- ├── interface/
+- │   ├── pom.xml
+- ├── optimization/
+- │   ├── pom.xml
+- ├── data-retrieval/
+- │   ├── pom.xml
 
 ## Modules
 - **athensease**: Manages dependencies and build configuration for the project.
