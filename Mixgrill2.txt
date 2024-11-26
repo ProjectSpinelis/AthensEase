@@ -1,0 +1,144 @@
+@startuml
+class ApiToJava {
+    + main(args: String[]): void
+    -- Εσωτερικές Κλάσεις --
+    AttractionDistance: nested class
+    ApiResponse: nested class
+}
+
+' Σχέσεις με εξωτερικές κλάσεις
+ApiToJava --> JsonCreator : <<uses>>
+
+
+' Κλάση JsonCreator
+class JsonCreator {
+    - url: String
+    + generateUrl(): void
+    + getUrl(): String
+    + main(args:String[]):void
+}
+
+
+' Κλάση ProperListCreation
+class ProperListCreation {
+    +main(args:String[] ): void
+    -readAttraction(reader:JsonReader ): AttractionDistance
+    -getAttractionNameFromAddress(fullAddress:String ,attractionsMap: Map<String, String>): String
+    -extractNumber(input:String ): int
+}
+
+
+ProperListCreation --> App : <<uses>>
+ProperListCreation --> QuestionnaireNew :<<uses>>
+
+' Κλάση City
+class City {
+    - name: String
+    - longitude: double
+    - latitude: double
+    + City(name: String, longitude: double, latitude: double)
+    + getName(): String
+    + getLongitude(): double
+    + getLatitude(): double
+    + calculateDistanceToCity(city: City): double
+}
+
+' Κλάση RoutePlan
+class RoutePlan <<PlanningSolution>> {
+    @ValueRangeProvider
+    @ProblemFactCollectionProperty
+    - cityList: List<City>
+    
+    @PlanningEntityCollectionProperty
+    - visitList: List<Visit>
+    
+    @PlanningScore
+    - score: HardSoftScore
+    + RoutePlan()
+    + RoutePlan(cityList: List<City>, visitList: List<Visit>)
+    + getCityList(): List<City>
+    + setCityList(cityList: List<City>): void
+    + getVisitList(): List<Visit>
+    + setVisitList(visitList: List<Visit>): void
+    + getScore(): HardSoftScore
+    + setScore(score: HardSoftScore): void
+    + toString(): String
+}
+
+RoutePlan --> City : <<uses>>
+RoutePlan --> Visit : <<uses>>
+
+
+' Κλάση Visit
+class Visit <<PlanningEntity>> {
+     @PlanningVariable    
+    - city: City
+    - visitOrder: int
+    + Visit()
+    + Visit(visitOrder: int, city: City)
+    + setCity(city: City): void
+    + getCity(): City
+    + getVisitOrder(): int
+    + calculateDistanceToVisit(previousVisit: Visit): double
+}
+
+Visit --> City : <<uses>>
+
+
+' Κλάση RoutePlanConstraintProvider
+
+class RoutePlanConstraintProvider {
+    + defineConstraints(constraintFactory: ConstraintFactory): Constraint[]
+    - eachCityMustBeVisitedOnce(constraintFactory: ConstraintFactory): Constraint
+    - penalizeDistance1(constraintFactory: ConstraintFactory): Constraint
+    - penalizeDistance2(constraintFactory: ConstraintFactory): Constraint
+}
+
+RoutePlanConstraintProvider --> City : <<uses>>
+RoutePlanConstraintProvider --> Visit : <<uses>>
+
+
+
+
+
+
+' Κλάση App
+class App {
+    - solverConfig: SolverConfig
+    - solverFactory: SolverFactory
+    - solver: Solver
+    - solution: RoutePlan
+
+    + main(args: String[]): void
+    + generateDemoData(): RoutePlan
+    - printRoutePlan(routePlan: RoutePlan): void
+}
+
+
+App --> RoutePlanConstraintProvider :<<uses>>
+App -->PlanningSolution : <<uses>>
+App -->City :<<uses>>
+App -->Visit:<<uses>>
+
+' Κλάση QuestionnaireNew
+class QuestionnaireNew {
+    - s: Scanner
+    + gatherHolidayDuration(): int
+    + gatherTrailheads(): void
+    + gatherONETrailhead(): String
+    + gatherChangeDays(): ArrayList<Integer>
+    + gatherMANYTrailheads(changeDays: ArrayList<Integer>): ArrayList<String>
+    + gatherFinishPoints(trailheads: ArrayList<String>): ArrayList<String>
+    + gatherBudget(): int
+    + chooseCategories(): ArrayList<Integer>
+    + displayAttractions(choiceOfCategories: ArrayList<Integer>): void
+}
+
+' Κλάση PlannerNew
+class PlannerNew {
+    + main(args: String[]): void
+}
+
+PlannerNew --> QuestionnaireNew : <<uses>>
+
+@enduml
