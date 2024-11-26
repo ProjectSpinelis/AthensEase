@@ -96,24 +96,45 @@ public class ProperListCreation {
         }
         reader.endObject();
 
-        return new AttractionDistance(origin, destination, distance, duration, status);
+        return new AttractionDistance(origin, destination, extractNumber(distance), extractNumber(duration), status);
     }
 
     // Μοντέλο για τα δεδομένα
     static class AttractionDistance {
         String origin;
         String destination;
-        String distance;
-        String duration;
+        int distance;
+        int duration;
         String status;
 
-        AttractionDistance(String origin, String destination, String distance, String duration, String status) {
+        AttractionDistance(String origin, String destination, int distance, int duration, String status) {
             this.origin = origin;
             this.destination = destination;
             this.distance = distance;
             this.duration = duration;
             this.status = status;
         }
+    }
+
+    public static int extractNumber(String input) {
+        // Use a StringBuilder to accumulate numeric characters
+        StringBuilder numberBuilder = new StringBuilder();
+
+        // Loop through each character in the string
+        for (char c : input.toCharArray()) {
+            // Check if the character is a digit
+            if (Character.isDigit(c)) {
+                numberBuilder.append(c);
+            }
+        }
+
+        // If no digits were found, throw an exception
+        if (numberBuilder.length() == 0) {
+            throw new IllegalArgumentException("No numbers found in the input string");
+        }
+
+        // Convert the accumulated digits to an integer
+        return Integer.parseInt(numberBuilder.toString());
     }
 
     // Μέθοδος για να εξάγουμε το όνομα του αξιοθέατου από την πλήρη διεύθυνση
