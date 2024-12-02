@@ -1,3 +1,5 @@
+package com.athensease;
+
 public class PlannerNew {
     
     public static void main (String args[]) {

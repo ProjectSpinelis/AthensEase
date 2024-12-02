@@ -1,8 +1,10 @@
-//import gr.aueb.dmst.AthensEase;
+package com.athensease;
+
 import java.util.InputMismatchException;
 import java.util.Scanner;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 public class QuestionnaireNew {
 
@@ -292,11 +294,15 @@ public class QuestionnaireNew {
     }
 
     public ArrayList<Integer> chooseCategories() {
-        
+        ArrayList<String> ListOfCategories = new ArrayList<>();
+        ListOfCategories.add("1. History");
+        ListOfCategories.add("2. Art");
+        ListOfCategories.add("3. Nature & Outdoors");
+
         System.out.println("It's time for you to choose the categories of attractions you prefer to see.");
-        System.out.println("Here are the categories: \n 1.Archaeology/History \n 2.Art \n 3.Nature \n 4.Science");
+        System.out.println(ListOfCategories.toString);
         //do it with only History bc it takes TOO MUCH TIME and with interface it's gonna be too easy
-        ArrayList<Integer> ListOfCategories = new ArrayList<>();
+        ArrayList<Integer> ListOfChosenCategories = new ArrayList<>();
         ArrayList<Integer> ListOfAttractions = new ArrayList<>();
         //loop needed to check if they want to choose more categories
         boolean validAnswer = false;
@@ -317,8 +323,9 @@ public class QuestionnaireNew {
                     s.nextLine();
                 }
             } while (!validAnswer) ;
-        ListOfCategories.add(choice);
-        displayAttractions(ListOfCategories);
+        ListOfChosenCategories.add(choice);
+        Map<String, List<String>> attractionsMap = filterAttractionsByCategories(ListOfChosenCategories);
+        displayAttractions(attractionsMap);
         //flag
         int stop = 8;
         //int sumTickets = 0;
@@ -369,13 +376,17 @@ public class QuestionnaireNew {
     } 
 
     //we need ARRAYS GAMW
-    public void displayAttractions(ArrayList<Integer> choiceOfCategories) {
-        int x = choiceOfCategories.size();
-        for (int i=0; i<x; i++) {
-            if (choiceOfCategories.get(i) == 1) {
-                System.out.println("Here are the attractions for 1.Archaeology/History.");
-                System.out.println("1.Acropolis  15€ \n2.Acropolis Museum    12€ \n3.Ancient Agora   0€");
-            
+    public void displayAttractionsByCategory(Map<String, List<String>> attractionsMap) {
+        if (attractionsMap.isEmpty()) {
+            System.out.println("No attractions found for the selected categories.");
+        } else {
+            for (Map.Entry<String, List<String>> entry : attractionsMap.entrySet()) {
+                System.out.println("Category: " + entry.getKey());
+                for (String attraction : entry.getValue()) {
+                    System.out.println(" - " + attraction);
+                }
+                System.out.println("Press Enter to see the next category...");
+                scanner.nextLine(); // Περιμένει από τον χρήστη να πατήσει Enter
             }
         }
     }
