@@ -1,0 +1,15 @@
+com\example\DataRetrieval\ProperListCreation$AttractionDistance.class
+com\example\DataRetrieval\ApiToJson$ApiResponse$Row$Element.class
+com\example\solver\RoutePlanConstraintProvider.class
+com\example\DataRetrieval\ApiToJson$ApiResponse.class
+com\example\DataRetrieval\ApiToJson$ApiResponse$Row$Element$Distance.class
+com\example\domain\Visit.class
+com\example\DataRetrieval\URLCreator.class
+com\example\DataRetrieval\ApiToJson$AttractionDistance.class
+com\example\domain\RoutePlan.class
+com\example\DataRetrieval\ApiToJson.class
+com\example\DataRetrieval\ApiToJson$ApiResponse$Row$Element$Duration.class
+com\example\App.class
+com\example\DataRetrieval\ApiToJson$ApiResponse$Row.class
+com\example\DataRetrieval\ProperListCreation.class
+com\example\domain\City.class
