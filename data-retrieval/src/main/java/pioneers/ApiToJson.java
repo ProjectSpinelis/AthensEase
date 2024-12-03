@@ -7,8 +7,11 @@ import java.net.http.HttpResponse;
 import com.google.gson.Gson;
 import java.util.ArrayList;
 import java.util.List;
+import java.io.FileWriter;   
+import java.io.IOException; 
+ 
 
-public class ApiToJava {
+public class ApiToJson {
 
     // Δημιουργία κλάσης για τα αποτελέσματα αποστάσεων και διάρκειας
     static class AttractionDistance {
@@ -55,7 +58,7 @@ public class ApiToJava {
     }
 
     public static void main(String[] args) {
-        JsonCreator o = new JsonCreator();
+        URLCreator o = new URLCreator();
         o.generateUrl();
         System.out.println("URL: " + o.getUrl());
 
@@ -120,6 +123,15 @@ public class ApiToJava {
                 System.out.println("Σφάλμα: " + response.statusCode());
             }
         } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+    public static void saveToFile(List<AttractionDistance> attractionDistances, String jsonfromapi) {
+        Gson gson = new Gson();
+        try (FileWriter writer = new FileWriter(jsonfromapi)) {
+            gson.toJson(attractionDistances, writer);  // Convert the list to JSON and save to the file
+           
+        } catch (IOException e) {
             e.printStackTrace();
         }
     }
