@@ -1,0 +1,5 @@
+com\example\domain\RoutePlan.class
+com\example\domain\City.class
+com\example\solver\RoutePlanConstraintProvider.class
+com\example\App.class
+com\example\domain\Visit.class
