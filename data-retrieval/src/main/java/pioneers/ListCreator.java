@@ -104,7 +104,7 @@ public class ListCreator {
         attraction10.put("category", 1);
         attraction10.put("mustsee", "false");
         attractions.add(attraction10);
-
+       /* 
         Map<String, Object> attraction11 = new HashMap<>();
         attraction11.put("name","Library of Andrianus");
         attraction11.put("location", "37.97569658869841, 23.726030396060338");
@@ -311,22 +311,28 @@ public class ListCreator {
         attraction33.put("category", 3);
         attraction33.put("mustsee", "false");
         attractions.add(attraction33);
-    
+    */
     }
     public static List<Map<String, Object>> getAttractions(){
         return attractions;
     }
 
     // Δημιουργία λίστας μόνο με συντεταγμένες
-    public List<String> getCoordinates() {  
+    public static List<String> getCoordinates() {
         List<String> coordinates = new ArrayList<>();
 
-        for (Map<String, Object> map : ListCreator.getAttractions()) {
+        // Βρόχος για να πάρουμε τις συντεταγμένες από κάθε αξιοθέατο
+        for (Map<String, Object> map : attractions) {
+            // Παίρνουμε τη συντεταγμένη από το πεδίο "location"
             String coordinate = (String) map.get("location");
-            coordinates.add(coordinate);
+            // Προσθέτουμε τη συντεταγμένη στη λίστα
+            if (coordinate != null) {
+                coordinates.add(coordinate);
+            }
         }
         return coordinates;
     }
+    
 
     public List<String> getAttractionNames() {
         List<String> names = new ArrayList<>();
@@ -355,7 +361,17 @@ public class ListCreator {
                 })
                 .collect(Collectors.toList());
     }
+    public static void main(String[] args) {
+        // Δημιουργία του αντικειμένου ListCreator
+        ListCreator listCreator = new ListCreator();
         
+        // Δημιουργία της λίστας με τα αξιοθέατα
+        listCreator.createList();
+        
+        // Εκτύπωση των συντεταγμένων
+        System.out.println(ListCreator.getCoordinates());
+    }
+
 }  
 
 

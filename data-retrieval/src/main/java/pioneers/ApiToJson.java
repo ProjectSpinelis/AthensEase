@@ -61,34 +61,34 @@ public class ApiToJson {
         URLCreator o = new URLCreator();
         o.generateUrl();
         System.out.println("URL: " + o.getUrl());
-
+    
         // Δημιουργία HttpClient
         HttpClient client = HttpClient.newHttpClient();
-
+    
         // Δημιουργία αιτήματος
         HttpRequest request = HttpRequest.newBuilder()
                 .uri(URI.create(o.getUrl()))
                 .GET()
                 .build();
-
+    
         // Λίστα για να αποθηκεύσουμε τα αποτελέσματα
         List<AttractionDistance> attractionDistances = new ArrayList<>();
-
+    
         try {
             // Αποστολή αιτήματος και λήψη απόκρισης
             HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
-
+    
             // Έλεγχος κωδικού κατάστασης
             if (response.statusCode() == 200) {
                 String jsonResponse = response.body();  // Το JSON σε μορφή String
                 System.out.println("Απάντηση JSON: " + jsonResponse);  // Εκτύπωση για έλεγχο
-
+    
                 // Δημιουργία Gson αντικειμένου
                 Gson gson = new Gson();
-
+    
                 // Μετατροπή JSON σε αντικείμενο ApiResponse
                 ApiResponse apiResponse = gson.fromJson(jsonResponse, ApiResponse.class);
-
+    
                 // Διαχείριση των δεδομένων της απόκρισης
                 if (apiResponse.rows != null && !apiResponse.rows.isEmpty()) {
                     for (int i = 0; i < apiResponse.origin_addresses.size(); i++) {
@@ -96,17 +96,17 @@ public class ApiToJson {
                         for (int j = 0; j < apiResponse.destination_addresses.size(); j++) {
                             String destination = apiResponse.destination_addresses.get(j);
                             ApiResponse.Row.Element element = apiResponse.rows.get(i).elements.get(j);
-
+    
                             String distance = element.distance != null ? element.distance.text : "N/A";
                             String duration = element.duration != null ? element.duration.text : "N/A";
                             String status = element.status != null ? element.status : "N/A";
-
+    
                             // Αποθήκευση των αποτελεσμάτων στη λίστα
                             AttractionDistance attractionDistance = new AttractionDistance(origin, destination, distance, duration, status);
                             attractionDistances.add(attractionDistance);
                         }
                     }
-
+    
                     // Εκτύπωση των αποτελεσμάτων
                     for (AttractionDistance ad : attractionDistances) {
                         System.out.println("Από: " + ad.origin);
@@ -116,6 +116,10 @@ public class ApiToJson {
                         System.out.println("Κατάσταση: " + ad.status);
                         System.out.println("------------");
                     }
+    
+                    // Save to file
+                    saveToFile(attractionDistances, "attractions_distances.json");
+    
                 } else {
                     System.out.println("Δεν βρέθηκαν αποστάσεις.");
                 }
@@ -130,10 +134,10 @@ public class ApiToJson {
         Gson gson = new Gson();
         try (FileWriter writer = new FileWriter(jsonfromapi)) {
             gson.toJson(attractionDistances, writer);  // Convert the list to JSON and save to the file
-           
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
+    
 }
 
