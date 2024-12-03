@@ -327,9 +327,18 @@ public class ListCreator {
             String coordinate = (String) map.get("location");
             coordinates.add(coordinate);
         }
-        return coordinates;
-        
-    
+        return coordinates; 
+    }
+
+    // Δημιουργία λίστας μόνο με ονόματα
+    public List<String> getName() {  
+        List<String> names = new ArrayList<>();
+
+        for (Map<String, Object> map : ListCreator.getAttractions()) {
+            String name = (String) map.get("name");
+            names.add(name);
+        }
+        return names; 
     }
 
     public static int value = 4;
