@@ -10,15 +10,37 @@ import java.util.Map;
 
 public class ProperListCreation {
 
-    public static void main(String[] args) throws Exception {
+    public static void main5(String[] args) throws Exception {
 
         // Χάρτης που αντιστοιχεί το κανονικό όνομα με την πλήρη διεύθυνση
         Map<String, String> attractionsMap = new HashMap<>();
-        attractionsMap.put("Ακρόπολη", "Anafiotika 11, Athina 105 58, Greece");
-        attractionsMap.put("Μετέωρα", "Epar.Od. Kalampaka 1, Trikala 421 00, Greece");
-        attractionsMap.put("Λευκός Πύργος", "Str. Tsirogianni 2, Thessaloniki 546 21, Greece");
-        attractionsMap.put("Παλάτι Κνωσού", "Metageni 15, Knosos 714 09, Greece");
-        attractionsMap.put("Δελφοί", "Θησαυρός των Αθηναίων, Delfi 330 54, Greece");
+attractionsMap.put("Acropolis Museum", "Dionysiou Areopagitou 15, Athina 117 42, Greece");
+attractionsMap.put("Acropolis", "Akropolē, Athina 105 57, Greece");
+attractionsMap.put("Parthenon", "Dionysiou Areopagitou 15, Athina 117 42, Greece");
+attractionsMap.put("Erecthion & Theater of Dionysus", "Odos Hvris Onomasia, Athina 105 57, Greece");
+attractionsMap.put("National Archaeological Museum", "28is Oktovriou 44, Athina 106 82, Greece");
+attractionsMap.put("Temple of Poseidon", "M22F+3R, Laurium 195 00, Greece");
+attractionsMap.put("Panathenaic Stadium (Kalimarmaro)", "Panathinaiko Stadio, Athina 116 36, Greece");
+attractionsMap.put("Byzantine and Christian Museum", "Βυζαντινο Μουσειο - Ρηγιλλης, Athina 106 75, Greece");
+attractionsMap.put("Temple of Olympian Zeus", "Akropolē, Athina 105 57, Greece");
+attractionsMap.put("Zappeion Megaro", "Leof. Vasilissis Sofias 894, Athina 106 76, Greece");
+attractionsMap.put("Archaeological Museum of Kerameikos", "Odos Hvris Onomasia, Athina 105 53, Greece");
+attractionsMap.put("Library of Andrianus", "Ermou 148, Athina 105 53, Greece");
+attractionsMap.put("Roman Agora of Athens", "Pl. Agiou Spiridonos 2, Athina 116 35, Greece");
+attractionsMap.put("Goulandris Museum of Modern Art", "Valaoritou 7, Athina 106 71, Greece");
+attractionsMap.put("Hellenic Air Force Museum", "Epaminonda 2, Athina 105 55, Greece");
+attractionsMap.put("Museum of Eleftherios Venizelos", "Odos Hvris Onomasia, Acharnes 136 72, Greece");
+attractionsMap.put("Museum of Folk Art and Tradition (Aggeliki Hatzimihalis)", "Aggelikis Chatzimichali 4, Athina 105 58, Greece");
+attractionsMap.put("National Sculpture Gallery - Alexandros Soutsos Museum", "Aggelikis Chatzimichali 4, Athina 105 58, Greece");
+attractionsMap.put("Benaki Museum of Islamic Art", "Areos 3, Athina 105 55, Greece");
+attractionsMap.put("National Gallery", "Odos Hvris Onomasia, Athina 115 27, Greece");
+attractionsMap.put("Benaki Museum - The Ghika Gallery", "Aggelikis Chatzimichali 4, Athina 105 58, Greece");
+attractionsMap.put("National Library", "Leof. Vasilissis Sofias 894, Athina 106 76, Greece");
+attractionsMap.put("Stavros Niarchos Foundation Cultural Center", "Stamouli, Spata Artemida 190 04, Greece");
+attractionsMap.put("Museum of Greek Folk Musical Instruments", "Ag. Asomaton 24, Athina 105 53, Greece");
+attractionsMap.put("Museum of Traditional Pottery", "Odos Hvris Onomasia, Athina 105 57, Greece");
+attractionsMap.put("Ilias Lalaounis Jewelry Museum", "Odos Hvris Onomasia, Athina 105 57, Greece");
+
 
         // Επιλογές χρηστών (οι περιοχές που ενδιαφέρουν τον χρήστη)
         List<String> userSelectedLocations = List.of("Ακρόπολη", "Μετέωρα", "Δελφοί");
@@ -27,7 +49,7 @@ public class ProperListCreation {
         List<AttractionDistance> filteredDistances = new ArrayList<>();
 
         // Ανάγνωση του μεγάλου JSON αρχείου με JsonReader
-        try (JsonReader reader = new JsonReader(new FileReader("JsonFromApi.json"))) {
+        try (JsonReader reader = new JsonReader(new FileReader("CombinedJson.json"))) {
             reader.beginArray(); // Υποθέτουμε ότι το αρχείο είναι λίστα αντικειμένων
             while (reader.hasNext()) {
                 // Διαβάζουμε το επόμενο αντικείμενο AttractionDistance

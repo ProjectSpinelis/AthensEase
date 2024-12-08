@@ -104,7 +104,7 @@ public class ListCreator {
         attraction10.put("category", 1);
         attraction10.put("mustsee", "false");
         attractions.add(attraction10);
-       /* 
+       
         Map<String, Object> attraction11 = new HashMap<>();
         attraction11.put("name","Library of Andrianus");
         attraction11.put("location", "37.97569658869841, 23.726030396060338");
@@ -239,7 +239,7 @@ public class ListCreator {
         attraction25.put("category", 2);
         attraction25.put("mustsee", "false");
         attractions.add(attraction25);
-
+/* 
         Map<String, Object> attraction26 = new HashMap<>();
         attraction26.put("name", "Anafiotika");
         attraction26.put("location", "37.97257597841888, 23.728123207437143");
@@ -334,12 +334,17 @@ public class ListCreator {
     }
     
 
-    public List<String> getAttractionNames() {
+    public static List<String> getNames() {
         List<String> names = new ArrayList<>();
-    
-        for (Map<String, Object> map : ListCreator.getAttractions()) {
+
+        // Βρόχος για να πάρουμε τις συντεταγμένες από κάθε αξιοθέατο
+        for (Map<String, Object> map : attractions) {
+            // Παίρνουμε τη συντεταγμένη από το πεδίο "location"
             String name = (String) map.get("name");
-            names.add(name);
+            // Προσθέτουμε τη συντεταγμένη στη λίστα
+            if (name != null) {
+                names.add(name);
+            }
         }
         return names;
     }
@@ -364,12 +369,13 @@ public class ListCreator {
     public static void main(String[] args) {
         // Δημιουργία του αντικειμένου ListCreator
         ListCreator listCreator = new ListCreator();
-        
+        listCreator.createList();
+        System.out.println(ListCreator.getNames());
         // Δημιουργία της λίστας με τα αξιοθέατα
         listCreator.createList();
         
         // Εκτύπωση των συντεταγμένων
-        System.out.println(ListCreator.getCoordinates());
+       
     }
 
 }  
