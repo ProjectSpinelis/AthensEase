@@ -1,0 +1,232 @@
+[ {
+  "name" : "Acropolis museum",
+  "location" : "Mousio Akropoleos, Dionysiou Areopagitou 15, Athina 117 42, Greece",
+  "price" : 15,
+  "visitTime" : 120,
+  "category" : 1,
+  "mustSee" : "true"
+}, {
+  "name" : "Acropolis, Parthenon, Erecthion & Theater of Dionysus",
+  "location" : "Anafiotika 11, Athina 105 58, Greece",
+  "price" : 15,
+  "visitTime" : 105,
+  "category" : 1,
+  "mustSee" : "true"
+}, {
+  "name" : "National Archeological Museum",
+  "location" : "Ethniko Archeologiko Mousio, 28is Oktovriou 44, Athina 106 82, Greece",
+  "price" : 9,
+  "visitTime" : 105,
+  "category" : 1,
+  "mustSee" : "true"
+}, {
+  "name" : "Temple of Poseidon",
+  "location" : "Sounion, Greece",
+  "price" : 7.5,
+  "visitTime" : 52.5,
+  "category" : 1,
+  "mustSee" : "false"
+}, {
+  "name" : "Panathenaic Σtadium(Kalimarmaro)",
+  "location" : "Panathinaiko Stadio, Athina 116 36, Greece",
+  "price" : 10,
+  "visitTime" : 52.5,
+  "category" : 1,
+  "mustSee" : "true"
+}, {
+  "name" : "Temple of Hephaestus",
+  "location" : "Stirieon 3, Athina 118 51, Greece",
+  "price" : 10,
+  "visitTime" : 75,
+  "category" : 1,
+  "mustSee" : "false"
+}, {
+  "name" : "Byzantine and Christian Museum",
+  "location" : "Βυζαντινο Μουσειο - Ρηγιλλης, Athina 106 75, Greece",
+  "price" : 9,
+  "visitTime" : 105,
+  "category" : 1,
+  "mustSee" : "false"
+}, {
+  "name" : "Temple of Olympian Zeus",
+  "location" : "Akropolē, Athina 105 57, Greece",
+  "price" : 6,
+  "visitTime" : 40,
+  "category" : 1,
+  "mustSee" : "false"
+}, {
+  "name" : "Zappeion Megaro",
+  "location" : "Leof. Vasilissis Olgas, Athina 105 57, Greece",
+  "price" : 0,
+  "visitTime" : 45,
+  "category" : 1,
+  "mustSee" : "false"
+}, {
+  "name" : "Archaeological Museum of Kerameikos",
+  "location" : "Ermou, Athina 105 53, Greece",
+  "price" : 6,
+  "visitTime" : 75,
+  "category" : 1,
+  "mustSee" : "false"
+}, {
+  "name" : "Library of Andrianus",
+  "location" : "Areos 3, τ, Athina 105 55, Greece",
+  "price" : 4.5,
+  "visitTime" : 45,
+  "category" : 1,
+  "mustSee" : "false"
+}, {
+  "name" : "Roman Agora of Athens",
+  "location" : "Polignotou 3, Athina 105 55, Greece",
+  "price" : 6,
+  "visitTime" : 30,
+  "category" : 1,
+  "mustSee" : "true"
+}, {
+  "name" : "Goulandris Museum of Modern Art",
+  "location" : "Eratosthenous 13, Athina 116 35, Greece",
+  "price" : 12,
+  "visitTime" : 105,
+  "category" : 2,
+  "mustSee" : "false"
+}, {
+  "name" : "Hellenic Air Force Museum",
+  "location" : "Odos Hvris Onomasia, Acharnes 136 72, Greece",
+  "price" : 0,
+  "visitTime" : 75,
+  "category" : 2,
+  "mustSee" : "false"
+}, {
+  "name" : "Museum of Eleftherios Venizelos",
+  "location" : "Christou Lada 2, Athina 105 61, Greece",
+  "price" : 0,
+  "visitTime" : 45,
+  "category" : 2,
+  "mustSee" : "false"
+}, {
+  "name" : "Museum of Folk Art and Tradition <<Aggeliki Hatzimihalis>>",
+  "location" : "Aggelikis Chatzimichali 6, Athina 105 58, Greece",
+  "price" : 0,
+  "visitTime" : 40,
+  "category" : 2,
+  "mustSee" : "false"
+}, {
+  "name" : "National Sculpture Gallery - Alexandros Soutsos Museum",
+  "location" : "Leof. Panagioti Kanellopoulou, Athina 115 25, Greece",
+  "price" : 7.5,
+  "visitTime" : 90,
+  "category" : 2,
+  "mustSee" : "false"
+}, {
+  "name" : "Benaki Museum of Islamic Art",
+  "location" : "Ag. Asomaton 22, Athina 105 53, Greece",
+  "price" : 6,
+  "visitTime" : 105,
+  "category" : 2,
+  "mustSee" : "false"
+}, {
+  "name" : "National Gallery",
+  "location" : "Leof. Vasileos Konstantinou 50, Athina 115 25, Greece",
+  "price" : 9,
+  "visitTime" : 180,
+  "category" : 2,
+  "mustSee" : "true"
+}, {
+  "name" : "Benaki Museum -The Ghika Gallery",
+  "location" : "Kriezotou 3, Athina 106 71, Greece",
+  "price" : 9,
+  "visitTime" : 90,
+  "category" : 2,
+  "mustSee" : "false"
+}, {
+  "name" : "National Library",
+  "location" : "Panepistimiou 32, Athina 106 79, Greece",
+  "price" : 0,
+  "visitTime" : 45,
+  "category" : 2,
+  "mustSee" : "false"
+}, {
+  "name" : "Stauros Niarchos Foundation Cultural Center",
+  "location" : "Leof. Andrea Siggrou 364, Kallithea 176 74, Greece",
+  "price" : 0,
+  "visitTime" : 75,
+  "category" : 2,
+  "mustSee" : "false"
+}, {
+  "name" : "Museum of Greek Folk Musical Instruments",
+  "location" : "Diogenous 1, Athina 105 56, Greece",
+  "price" : 5,
+  "visitTime" : 50,
+  "category" : 2,
+  "mustSee" : "false"
+}, {
+  "name" : "Museum of Traditional Pottery",
+  "location" : "Melidoni 4, Athina 105 53, Greece",
+  "price" : 4,
+  "visitTime" : 45,
+  "category" : 1,
+  "mustSee" : "false"
+}, {
+  "name" : "Ilias Lalaounis Jewelry Museum",
+  "location" : "Kallisperi 12, Athina 117 42, Greece",
+  "price" : 5,
+  "visitTime" : 75,
+  "category" : 2,
+  "mustSee" : "false"
+}, {
+  "name" : "Anafiotika",
+  "location" : "Stratonos 27, 10, Athina 105 58, Greece",
+  "price" : 0,
+  "visitTime" : 45,
+  "category" : 2,
+  "mustSee" : "true"
+}, {
+  "name" : "National Garden",
+  "location" : "Leof. Vasilisis Amalias 1, Athina 105 57, Greece",
+  "price" : 0,
+  "visitTime" : 40,
+  "category" : 3,
+  "mustSee" : "true"
+}, {
+  "name" : "Mount Lycabettus",
+  "location" : "Aristippou 1, Athina 106 76, Greece",
+  "price" : 0,
+  "visitTime" : 45,
+  "category" : 3,
+  "mustSee" : "true"
+}, {
+  "name" : "Filopappou Hill",
+  "location" : "Filis 215, 117 41, Athina 112 53, Greece",
+  "price" : 0,
+  "visitTime" : 75,
+  "category" : 3,
+  "mustSee" : "false"
+}, {
+  "name" : "Plaka",
+  "location" : "Adrianou 99, Athina 105 58, Greece",
+  "price" : 0,
+  "visitTime" : 75,
+  "category" : 3,
+  "mustSee" : "true"
+}, {
+  "name" : "Change of The Guard Ceremony",
+  "location" : "Leof. Vasilisis Amalias 133, Athina 105 57, Greece",
+  "price" : 0,
+  "visitTime" : 15,
+  "category" : 3,
+  "mustSee" : "false"
+}, {
+  "name" : "Syntagma Square",
+  "location" : "Othonos 69, Athina 105 63, Greece",
+  "price" : 0,
+  "visitTime" : 15,
+  "category" : 3,
+  "mustSee" : "false"
+}, {
+  "name" : "Holy Monastery of Kaisariani",
+  "location" : "XQ6X+9C, Kaisariani, Greece",
+  "price" : 0,
+  "visitTime" : 45,
+  "category" : 3,
+  "mustSee" : "false"
+} ]
