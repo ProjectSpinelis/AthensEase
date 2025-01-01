@@ -51,9 +51,10 @@ public class Sight {
     public void setLocation(String location) {
         this.location = location;
     }
-    public double getPrice() {
-        return price;
+    public int getPrice() {
+        return (int) price;
     }
+
     public void setPrice(double price) {
         this.price = price;
     }

@@ -21,12 +21,14 @@ public class RoutePlan {
     @PlanningScore
     private HardSoftScore score;
 
+    private double budget;
     public RoutePlan() {
         
     }
 
-    public RoutePlan(List<Sight> sightsList) {
+    public RoutePlan(List<Sight> sightsList, double budget) {
         this.sightsList = sightsList;
+        this.budget = budget;
     }
 
     // Getters και Setters
@@ -42,6 +44,14 @@ public class RoutePlan {
 
     public void setSightsList(List<Sight> sightsList) {
         this.sightsList = sightsList;
+    }
+
+    public double getBudget() {
+        return budget;
+    }
+
+    public void setBudget(double budget) {
+        this.budget = budget;
     }
 
     public HardSoftScore getScore() {

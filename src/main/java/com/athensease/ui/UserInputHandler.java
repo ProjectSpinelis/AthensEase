@@ -166,4 +166,27 @@ public class UserInputHandler {
         }
         return choices;
     }
+    public boolean chooseObjective() {
+        System.out.println("Choose your objective:");
+        System.out.println("1. Minimize total travel distance");
+        System.out.println("2. Minimize total duration time");
+        System.out.println("Enter 1 or 2:");
+        int choice = 0;
+        while (true) {
+            try {
+                choice = s.nextInt();
+                s.nextLine(); // Clear buffer
+                if (choice == 1) {
+                    return true;
+                } else if (choice == 2) {
+                    return false;
+                } else {
+                    System.err.println("Invalid input. Please enter 1 or 2.");
+                }
+            } catch (InputMismatchException e) {
+                System.err.println("Invalid input. Please enter an integer.");
+                s.nextLine(); // Clear buffer
+            }
+        }
+    }
 }
