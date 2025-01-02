@@ -114,8 +114,23 @@ public class SightsFileHandler {
             // Iterate through the list to find a matching origin and destination
             for (Map<String, String> entry : durations) {
                 if (entry.get("origin").equals(origin) && entry.get("destination").equals(destination)) {
-                    String durationStr = entry.get("duration").split(" ")[0]; // Extract numeric value
-                    return Double.parseDouble(durationStr); // Convert to double
+                    // String durationStr = entry.get("duration").split(" ")[0]; // Extract numeric value
+
+                    // Split the duration into parts and calculate the total duration in minutes
+                    double totalMinutes = 0;
+                    String[] parts = entry.get("duration").split(" ");
+                    for (int i = 0; i < parts.length; i++) {
+                        if (parts[i].equalsIgnoreCase("hour") || parts[i].equalsIgnoreCase("hours")) {
+                            // Convert hours to minutes
+                            double hours = Double.parseDouble(parts[i - 1]);
+                            totalMinutes += hours * 60;
+                        } else if (parts[i].equalsIgnoreCase("min") || parts[i].equalsIgnoreCase("mins")) {
+                            // Add minutes
+                            double minutes = Double.parseDouble(parts[i - 1]);
+                            totalMinutes += minutes;
+                        }
+                    }
+                    return totalMinutes;
                 }
             }
         } catch (IOException e) {
