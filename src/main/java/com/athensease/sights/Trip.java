@@ -8,6 +8,7 @@ import java.util.stream.Collectors;
 
 import org.optaplanner.core.api.score.buildin.hardsoft.HardSoftScore;
 
+import com.athensease.optimization.TrailHeadInclusion;
 import com.athensease.dataretrieval.ApiHandler;
 
 public class Trip {
@@ -176,7 +177,7 @@ public class Trip {
         double totalTravelDuration = 0;
         double ticketsCost = 0;
 
-        for (int i = 0; i < sortedSights.size(); i++) {
+        for (int i = 0; i < (sortedSights.size() - TrailHeadInclusion.getNightsAtHotel()); i++) {
             Sight currentSight = sortedSights.get(i);
             ticketsCost += currentSight.getPrice();
             if (currentSight.getVisitOrder() == 1) {
@@ -186,23 +187,36 @@ public class Trip {
             }
             System.out.println(currentSight);
     
-            if (i < sortedSights.size() - 1) {  // If there is a next sight
-                Sight nextSight = sortedSights.get(i + 1);
-                double distance = currentSight.calculateDistanceToSight(nextSight);
-                totalDistance += distance;
-                totalTravelDuration += currentSight.calculateDurationToSight(nextSight);
-                System.out.println("  Distance to next sight: " + distance + " km");
-            } else {
+            if (i < (sortedSights.size() - TrailHeadInclusion.getNightsAtHotel() - 1)) {  // If there is a next sight
+                if (currentSight.getName() != "Hotel") { // If the current sight is not hotel
+                    if (sortedSights.get(i + 1).getName() != "Hotel") { // If the next sight is not hotel
+                        Sight nextSight = sortedSights.get(i + 1);
+                        double distance = currentSight.calculateDistanceToSight(nextSight);
+                        totalDistance += distance;
+                        totalTravelDuration += currentSight.calculateDurationToSight(nextSight);
+                        System.out.println("  Distance to next sight: " + distance + " km");
+                    } else { // If the next sight is hotel
+                        System.out.println("  Distance back to hotel: " + currentSight.getDistanceToStartingPoint() + " km");
+                        totalDistance += currentSight.getDistanceToStartingPoint();
+                        totalTravelDuration += currentSight.getDurationToStartingPoint();
+                    }
+                } else { // If the current sight is hotel
+                    Sight nextSight = sortedSights.get(i + 1);
+                    System.out.println("  Distance to next sight: " + nextSight.getDistanceFromStartingPoint() + " km");
+                    totalDistance += nextSight.getDistanceFromStartingPoint();
+                    totalTravelDuration += nextSight.getDurationFromStartingPoint();
+                }
+            } else { // If the current sight is the last sight
                 System.out.println("Distance back to starting point: " + currentSight.getDistanceToStartingPoint() + " km");
-                totalDistance += currentSight.getDistanceToStartingPoint();
-                totalTravelDuration += currentSight.getDurationToStartingPoint();
+                totalDistance += currentSight.getDistanceFromStartingPoint();
+                totalTravelDuration += currentSight.getDurationFromStartingPoint();
             }
 
         }
         this.setTotalDistanceTraveled(totalDistance);
         this.setTicketsCost(ticketsCost);
         this.setTotalTravelDuration(totalTravelDuration);
-        System.out.println("Total distance traveled: " + this.getTotalDistanceTraveled() + " km");
+        System.out.println("\nTotal distance traveled: " + this.getTotalDistanceTraveled() + " km");
         System.out.println("Total duration spent on trasportation: " + this.getTotalTravelDuration() + " minutes");
         System.out.println("Total duration spent on sightseeing: " + this.getMinVisitTime() + " minutes");
         System.out.println("Tickets cost: " + this.getTicketsCost() + " euro");

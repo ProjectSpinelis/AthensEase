@@ -21,7 +21,7 @@ public class RoutePlanConstraintProviderForDuration implements ConstraintProvide
 
     private Constraint minimizeTotalDuration(ConstraintFactory constraintFactory) {
         return constraintFactory.forEachUniquePair(Sight.class)
-    
+            
                 .filter((sight1, sight2) -> Math.abs(sight1.getVisitOrder() - sight2.getVisitOrder()) == 1)
                 .penalize(HardSoftScore.ONE_SOFT, (sight1, sight2) -> {
                     // Ensure sight1 is always the first sight in the pair (smallest visitOrder)
@@ -46,12 +46,12 @@ public class RoutePlanConstraintProviderForDuration implements ConstraintProvide
                     return (int) totalDuration;
                 })
                 .asConstraint("Minimize total duration time");
-        }
+    }
     
-        private Constraint uniqueVisitOrders(ConstraintFactory constraintFactory) {
-            return constraintFactory.forEachUniquePair(Sight.class)  // Iterate over all unique pairs of sights
-                    .filter((sight1, sight2) -> sight1.getVisitOrder() == sight2.getVisitOrder())  // Check if visitOrder is the same
-                    .penalize(HardSoftScore.ONE_HARD, (sight1, sight2) -> 1)  // Apply a hard penalty when visitOrders are the same
-                    .asConstraint("Unique visitOrder for all sights");
-        }
+    private Constraint uniqueVisitOrders(ConstraintFactory constraintFactory) {
+        return constraintFactory.forEachUniquePair(Sight.class)  // Iterate over all unique pairs of sights
+                .filter((sight1, sight2) -> sight1.getVisitOrder() == sight2.getVisitOrder())  // Check if visitOrder is the same
+                .penalize(HardSoftScore.ONE_HARD, (sight1, sight2) -> 1)  // Apply a hard penalty when visitOrders are the same
+                .asConstraint("Unique visitOrder for all sights");
+    }
 }

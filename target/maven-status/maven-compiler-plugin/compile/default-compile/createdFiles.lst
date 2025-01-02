@@ -1,4 +1,5 @@
 com\athensease\optimization\domain\RoutePlan.class
+com\athensease\optimization\solver\RoutePlanConstraintProviderForDuration.class
 com\athensease\dataretrieval\ApiHandler.class
 com\athensease\dataretrieval\JsonFormatter.class
 com\athensease\ui\TripPlanner.class
@@ -8,6 +9,7 @@ com\athensease\sights\SightsFileHandler.class
 com\athensease\dataretrieval\JsonFormatter$AttractionDistance.class
 com\athensease\dataretrieval\JsonFormatter$ApiResponse$Row$Element.class
 com\athensease\dataretrieval\Main.class
+com\athensease\optimization\TrailHeadInclusion.class
 com\athensease\dataretrieval\JsonFormatter$ApiResponse$Row.class
 com\athensease\sights\SightsFileHandler$3.class
 com\athensease\ui\UserInputHandler.class

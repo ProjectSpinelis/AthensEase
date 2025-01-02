@@ -2,6 +2,7 @@ package com.athensease.ui;
 
 import java.util.List;
 
+import com.athensease.optimization.TrailHeadInclusion;
 import com.athensease.optimization.Optimizer;
 import com.athensease.sights.Sight;
 import com.athensease.sights.Trip;
@@ -39,6 +40,7 @@ public class TripPlanner {
                 }
 
                 Optimizer.optimizeTrip(trip, objective);
+                TrailHeadInclusion.addOneTraildHead(trip, trip.getOptimizedSights());
                 trip.printTrip();
             }
         }

@@ -78,7 +78,11 @@ public class Sight {
     }
 
     public int getVisitOrder() {
-        return visitOrder;
+        if (visitOrder == null) {
+            return 0;
+        } else {
+            return visitOrder;
+        }
     }
 
     public void setVisitOrder(int visitOrder) {
@@ -145,10 +149,14 @@ public class Sight {
 
     @Override
     public String toString() {
-    return "Sight Information:\n" +
-            "Name: " + name + "\n" +
-            "Visit Order: " + visitOrder + "\n" +
-            "Price: " + price + "\n" +
-            "Visit Time: " + visitTime + "\n\n";
+        if(this.name.equals("Hotel")) {
+            return "\nHotel\n";
+        } else {
+            return "Sight Information:\n" +
+                    "Name: " + name + "\n" +
+                    "Visit Order: " + visitOrder + "\n" +
+                    "Price: " + price + "\n" +
+                    "Visit Time: " + visitTime + "\n\n";
+        }
     }
 }
