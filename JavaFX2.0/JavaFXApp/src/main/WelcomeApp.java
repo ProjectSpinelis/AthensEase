@@ -8,13 +8,15 @@ import javafx.stage.Stage;
 import javafx.scene.control.Label;
 
 public class WelcomeApp extends Application {
+    // Πίνακας με τις κατηγορίες που μπορεί να επιλέξει ο χρήστης
     boolean[] selectedCategories = {false, false, false};
+    // Αντικείμενο για την ανάγνωση των αξιοθέατων από το αρχείο
     SightsFileHandler sightsHanlder = new SightsFileHandler();
-    
+
     @Override
     public void start(Stage primaryStage) {
         // Δημιουργία του κουμπιού
-        MyButton startButton = new MyButton("Let's START :)");
+        MyButton startButton = new MyButton("Let's START :)"); // Χρήση του custom κουμπιού
 
 
         // Δράση όταν πατηθεί το κουμπί

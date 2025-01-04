@@ -20,37 +20,40 @@ import javafx.scene.layout.VBox;
 public class SightScene extends Scene {
     public SightScene(BorderPane root) {
         super(root, 600, 600);
-
+        //  δημιουργια του vbox και του scrollPane
         VBox vbox = new VBox(10);
         ScrollPane scrollPane = new ScrollPane(vbox);
         scrollPane.setFitToHeight(true);
         root.setCenter(scrollPane);
         root.setPadding(new Insets(15));
 
-        int i;
+        // Για κάθε sight 
         for (Sight sight : SightsFileHandler.getSights()) {
             boolean selectedCat = selectedCategories[Integer.getInteger(sight.getCategory()) - 1];
             if (!sight.isMustSee() && !selectedCat) {
                 continue;
             }
             final CheckBox checkbox = new CheckBox(sight.getName());
+            // Ορισμός του listener για το checkbox
             checkbox.selectedProperty().addListener(
                     (ObservableValue<? extends Boolean> ov, Boolean old_val, Boolean new_val) -> {
                         sight.setIsSelected(new_val);
                     });
             Label priceLabel = new Label("Price: " + sight.getPrice());
 
-            Hyperlink link = new Hyperlink("www.tripadvisor.com");
-            link.setText("trip advisor" + Integer.toString(i));
+            Hyperlink link = new Hyperlink(sight.getLink());
+            link.setText("trip advisor");
+            //ορισμος του event handler για το link
             link.setOnAction(e -> {
                 if (Desktop.isDesktopSupported()) {
                     try {
-                        Desktop.getDesktop().browse(new URI("http://www.tripadvisor.com"));
+                        Desktop.getDesktop().browse(new URI(sight.getLink()));
                     } catch (IOException | URISyntaxException ex) {
                         ex.printStackTrace();
                     }
                 }
             });
+            //καθε sight ειναι ενα HBox
             HBox hbox = new HBox(checkbox, priceLabel, link);
             vbox.getChildren().add(hbox);
         }
@@ -64,7 +67,7 @@ public class SightScene extends Scene {
         });
         MyButton nextButton = new MyButton("Next");
         nextButton.setOnAction(e -> {
-            System.out.println("Next button pressed");
+           // ΠΡΕΠΕΙ ΝΑ ΠΑΕΙ ΣΤΗΝ ΕΠΟΜΕΝΗ ΣΕΛΙΔΑ
         });
 
         MyButton selectAll = new MyButton("Select All");

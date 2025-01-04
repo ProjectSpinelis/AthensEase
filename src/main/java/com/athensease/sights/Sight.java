@@ -15,6 +15,7 @@ public class Sight {
     private int visitTime;
     private String category;
     private boolean mustSee;
+    private String link;
 
     @PlanningVariable
     private Integer visitOrder;
@@ -26,13 +27,14 @@ public class Sight {
 
     private static int maxVisitOrder = 0;
 
-    public Sight(String name, String location, double price, int visitTime, String category, boolean mustSee) {
+    public Sight(String name, String location, double price, int visitTime, String category, boolean mustSee, String link) {
         this.name = name;
         this. location = location;
         this.price = price;
         this.visitTime = visitTime;
         this.category = category;
         this.mustSee = mustSee;
+        this.link = link;
     }
 
     public Sight() {
@@ -74,6 +76,12 @@ public class Sight {
     }
     public void setMustSee(boolean mustSee) {
         this.mustSee = mustSee;
+    }
+    public String getLink() {
+        return link;
+    }
+    public void setLink(String link) {
+        this.link = link;
     }
 
     public int getVisitOrder() {

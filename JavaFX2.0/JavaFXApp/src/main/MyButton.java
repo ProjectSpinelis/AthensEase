@@ -1,5 +1,6 @@
 import java.awt.Button;
 
+// overrides button class to create custom button( following the design of the app)
 public class MyButton extends Button {
     public MyButton(String text) {
         super(text);
