@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>UI_Screen4_2 Documentation</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+        }
+        .container {
+            max-width: 800px;
+            margin: 20px auto;
+            background: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+        h1, h2, h3 {
+            color: #333;
+        }
+        code {
+            background: #f9f9f9;
+            padding: 2px 4px;
+            border-radius: 4px;
+            font-size: 0.95em;
+        }
+        pre {
+            background: #f9f9f9;
+            padding: 10px;
+            border-radius: 4px;
+            overflow-x: auto;
+        }
+        .section {
+            margin-bottom: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Class Documentation: UI_Screen4_2</h1>
+        <p>The <code>UI_Screen4_2</code> class is a JavaFX screen where users define starting and finish points for the selected change days in their journey.</p>
+
+        <div class="section">
+            <h2>Class Overview</h2>
+            <p>This screen provides functionality for editing starting and finish points for each day the user has chosen to change their trailhead. It uses <code>ObservableList</code> to manage the dynamic data for the starting and finish points.</p>
+        </div>
+
+        <div class="section">
+            <h2>Fields</h2>
+            <ul>
+                <li><code>ObservableList&lt;Integer&gt; changeDays</code>: The days when the trailhead changes, passed from the previous screen.</li>
+                <li><code>ObservableList&lt;String&gt; startingPoints</code>: Stores starting points for each change day.</li>
+                <li><code>ObservableList&lt;String&gt; finishPoints</code>: Stores finish points for each change day.</li>
+                <li><code>boolean isBudgetYesSelected</code>: Indicates whether the user is traveling on a budget.</li>
+            </ul>
+        </div>
+
+        <div class="section">
+            <h2>Constructor</h2>
+            <p>Initializes the fields with data passed from the previous screen and ensures <code>startingPoints</code> and <code>finishPoints</code> have entries matching the size of <code>changeDays</code>.</p>
+            <pre><code>public UI_Screen4_2(ObservableList&lt;Integer&gt; changeDays, boolean isBudgetYesSelected)</code></pre>
+        </div>
+
+        <div class="section">
+            <h2>Methods</h2>
+            <h3><code>start(Stage primaryStage)</code></h3>
+            <p>The main entry point for the screen. Sets up the UI components and handles the following functionality:</p>
+            <ul>
+                <li>Displays a table of change days.</li>
+                <li>Allows users to input starting and finish points for each change day.</li>
+                <li>Ensures finish points default to the corresponding starting point if left empty.</li>
+                <li>Transitions to the next screen or completes the process based on the budget preference.</li>
+            </ul>
+            <pre><code>public void start(Stage primaryStage)</code></pre>
+        </div>
+
+        <div class="section">
+            <h2>User Interaction</h2>
+            <ul>
+                <li>The user enters starting and finish points in text fields aligned with each change day.</li>
+                <li>Leaving a finish point empty automatically assigns the corresponding starting point.</li>
+                <li>Clicking <strong>Continue</strong> triggers the following actions:
+                    <ul>
+                        <li>Missing finish points are replaced with starting points.</li>
+                        <li>If <code>isBudgetYesSelected</code> is true, the screen transitions to <code>UI_Screen5</code>.</li>
+                        <li>If <code>isBudgetYesSelected</code> is false, a success message is displayed, and the application exits.</li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+
+        <div class="section">
+            <h2>Validation</h2>
+            <p>The following validations are implemented:</p>
+            <ul>
+                <li>Finish points default to starting points if left empty.</li>
+                <li>All lists (<code>changeDays</code>, <code>startingPoints</code>, and <code>finishPoints</code>) maintain synchronized lengths.</li>
+            </ul>
+        </div>
+
+        <div class="section">
+            <h2>UI Layout</h2>
+            <p>The user interface uses the following JavaFX components:</p>
+            <ul>
+                <li><strong>TableView:</strong> Displays the change days.</li>
+                <li><strong>VBox:</strong> Organizes text fields for starting and finish points.</li>
+                <li><strong>Button:</strong> Triggers the transition to the next screen or completion of the process.</li>
+                <li><strong>HBox:</strong> Aligns the table and text fields horizontally.</li>
+            </ul>
+        </div>
+
+        <div class="section">
+            <h2>Navigation Logic</h2>
+            <ul>
+                <li>On <strong>Continue</strong>, data is finalized, and the following occurs:
+                    <ul>
+                        <li>If traveling on a budget (<code>isBudgetYesSelected</code>), proceeds to <code>UI_Screen5</code>.</li>
+                        <li>Otherwise, displays a success message and closes the application.</li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+
+        <div class="section">
+            <h2>Debugging Information</h2>
+            <p>The screen prints the following debugging information to the console:</p>
+            <ul>
+                <li>Change days list.</li>
+                <li>Starting points and finish points lists upon pressing <strong>Continue</strong>.</li>
+            </ul>
+        </div>
+    </div>
+</body>
+</html>

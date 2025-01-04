@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>UI_Screen2 Documentation</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+        }
+        .container {
+            max-width: 800px;
+            margin: 20px auto;
+            background: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+        h1, h2, h3 {
+            color: #333;
+        }
+        code {
+            background: #f9f9f9;
+            padding: 2px 4px;
+            border-radius: 4px;
+            font-size: 0.95em;
+        }
+        pre {
+            background: #f9f9f9;
+            padding: 10px;
+            border-radius: 4px;
+            overflow-x: auto;
+        }
+        .section {
+            margin-bottom: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Class Documentation: UI_Screen2</h1>
+        <p>This document provides an overview of the <code>UI_Screen2</code> JavaFX class, which represents the second screen in the trip questionnaire application.</p>
+        
+        <div class="section">
+            <h2>Class Overview</h2>
+            <p><code>UI_Screen2</code> is a JavaFX application class that collects user input for trip-related information, including:</p>
+            <ul>
+                <li>The number of days the user will spend in Athens.</li>
+                <li>Whether the trip involves one or multiple trailheads.</li>
+                <li>Whether the user is traveling on a budget.</li>
+            </ul>
+            <p>The class transitions to subsequent screens based on user input.</p>
+        </div>
+
+        <div class="section">
+            <h2>Fields</h2>
+            <ul>
+                <li><code>int duration</code>: Stores the number of days the user will spend in Athens. Default value is <code>-1</code> to indicate invalid input.</li>
+                <li><code>Boolean isOneTrailheadSelected</code>: Tracks the user's selection for the trailhead question. Initially <code>null</code>.</li>
+                <li><code>Boolean isBudgetYesSelected</code>: Tracks the user's selection for the budget question. Initially <code>null</code>.</li>
+            </ul>
+        </div>
+
+        <div class="section">
+            <h2>Methods</h2>
+            <h3><code>start(Stage primaryStage)</code></h3>
+            <p>The main entry point for the JavaFX application. Sets up the user interface and handles input validation and navigation logic.</p>
+            <p><strong>Key Responsibilities:</strong></p>
+            <ul>
+                <li>Displays three questions to the user, each with specific input types (text field or buttons).</li>
+                <li>Validates input when the <strong>Continue</strong> button is clicked.</li>
+                <li>Transitions to either <code>UI_Screen3</code> or <code>UI_Screen4_1</code> based on the user's responses.</li>
+            </ul>
+            <pre><code>public void start(Stage primaryStage)</code></pre>
+
+            <h3><code>public static void main(String[] args)</code></h3>
+            <p>Launches the JavaFX application.</p>
+            <pre><code>public static void main(String[] args)</code></pre>
+        </div>
+
+        <div class="section">
+            <h2>User Interaction</h2>
+            <ul>
+                <li>Question 1: Text field input for the number of days in Athens. Input is validated to ensure it is an integer.</li>
+                <li>Question 2: Two buttons (<strong>One</strong> or <strong>Many</strong>) for selecting the number of trailheads.</li>
+                <li>Question 3: Two buttons (<strong>Yes</strong> or <strong>No</strong>) for selecting whether the user is traveling on a budget.</li>
+                <li>The <strong>Continue</strong> button validates all inputs before transitioning to the next screen.</li>
+            </ul>
+        </div>
+
+        <div class="section">
+            <h2>Navigation Logic</h2>
+            <ul>
+                <li>If <code>isOneTrailheadSelected == true</code>, transitions to <code>UI_Screen3</code>.</li>
+                <li>If <code>isOneTrailheadSelected == false</code>, transitions to <code>UI_Screen4_1</code>, passing the <code>duration</code> and <code>isBudgetYesSelected</code> values.</li>
+                <li>Displays validation messages if any required input is missing.</li>
+            </ul>
+        </div>
+
+        <div class="section">
+            <h2>Validation</h2>
+            <p>The following validations are performed when the <strong>Continue</strong> button is clicked:</p>
+            <ul>
+                <li><code>duration</code>: Must be a valid integer.</li>
+                <li><code>isOneTrailheadSelected</code>: Cannot be <code>null</code>.</li>
+                <li><code>isBudgetYesSelected</code>: Cannot be <code>null</code>.</li>
+            </ul>
+            <p>If any validation fails, the program displays an appropriate message in the console and does not proceed to the next screen.</p>
+        </div>
+    </div>
+</body>
+</html>

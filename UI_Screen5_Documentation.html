@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>UI_Screen5 Documentation</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+        }
+        .container {
+            max-width: 800px;
+            margin: 20px auto;
+            background: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+        h1, h2, h3 {
+            color: #333;
+        }
+        code {
+            background: #f9f9f9;
+            padding: 2px 4px;
+            border-radius: 4px;
+            font-size: 0.95em;
+        }
+        pre {
+            background: #f9f9f9;
+            padding: 10px;
+            border-radius: 4px;
+            overflow-x: auto;
+        }
+        .section {
+            margin-bottom: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Class Documentation: UI_Screen5</h1>
+        <p>The <code>UI_Screen5</code> class is a JavaFX screen where users input their budget and either proceed to the next step or complete the process.</p>
+
+        <div class="section">
+            <h2>Class Overview</h2>
+            <p>This screen allows the user to provide a budget in euros. It validates the input, displays feedback, and offers a continuation button to proceed or complete the process.</p>
+        </div>
+
+        <div class="section">
+            <h2>Fields</h2>
+            <ul>
+                <li><code>boolean isBudgetYesSelected</code>: Indicates if the user selected "Yes" to traveling on a budget in previous steps.</li>
+                <li><code>int budget</code>: Stores the user's entered budget amount after validation.</li>
+            </ul>
+        </div>
+
+        <div class="section">
+            <h2>Constructor</h2>
+            <p>Initializes the screen with information about the budget preference.</p>
+            <pre><code>public UI_Screen5(boolean isBudgetYesSelected)</code></pre>
+        </div>
+
+        <div class="section">
+            <h2>Methods</h2>
+            <h3><code>start(Stage primaryStage)</code></h3>
+            <p>The main entry point for the screen. Sets up the UI components and handles the following functionality:</p>
+            <ul>
+                <li>Prompts the user to enter a budget amount.</li>
+                <li>Validates that the entered amount is a valid integer.</li>
+                <li>Displays feedback on whether the input is valid or invalid.</li>
+                <li>Provides a "Continue" button for the user to proceed or complete the process.</li>
+            </ul>
+            <pre><code>public void start(Stage primaryStage)</code></pre>
+        </div>
+
+        <div class="section">
+            <h2>User Interaction</h2>
+            <ul>
+                <li>The user enters a budget amount in the text field.</li>
+                <li>If the input is valid, a green feedback message confirms the budget.</li>
+                <li>If the input is invalid, a red feedback message prompts the user to enter a valid integer.</li>
+                <li>Pressing the <strong>Continue</strong> button triggers the following actions:
+                    <ul>
+                        <li>If <code>isBudgetYesSelected</code> is true, the screen closes, indicating a transition to the next step (not implemented in this class).</li>
+                        <li>If <code>isBudgetYesSelected</code> is false, a success message is displayed, and the application exits.</li>
+                    </ul>
+                </li>
+                <li>The "Enter" key is linked to the submit button for convenience.</li>
+            </ul>
+        </div>
+
+        <div class="section">
+            <h2>Validation</h2>
+            <p>The following validations are implemented:</p>
+            <ul>
+                <li>The budget input must be a valid integer.</li>
+                <li>Feedback is displayed immediately after the user submits the input.</li>
+            </ul>
+        </div>
+
+        <div class="section">
+            <h2>UI Layout</h2>
+            <p>The user interface uses the following JavaFX components:</p>
+            <ul>
+                <li><strong>Label:</strong> Displays the question prompt and feedback messages.</li>
+                <li><strong>TextField:</strong> Allows the user to input their budget.</li>
+                <li><strong>Button:</strong> Used for submitting the budget and continuing to the next step.</li>
+                <li><strong>VBox:</strong> Organizes the components vertically with spacing.</li>
+                <li><strong>HBox:</strong> Aligns the Continue button at the bottom-right.</li>
+            </ul>
+        </div>
+
+        <div class="section">
+            <h2>Navigation Logic</h2>
+            <ul>
+                <li>On <strong>Submit</strong>, validates the budget and updates the feedback message.</li>
+                <li>On <strong>Continue</strong>, the following occurs:
+                    <ul>
+                        <li>If traveling on a budget (<code>isBudgetYesSelected</code>), the screen transitions to the next step.</li>
+                        <li>Otherwise, a success message is displayed, and the application exits.</li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+
+        <div class="section">
+            <h2>Debugging Information</h2>
+            <p>The screen prints the following debugging information to the console:</p>
+            <ul>
+                <li>The entered budget amount upon successful validation.</li>
+            </ul>
+        </div>
+    </div>
+</body>
+</html>

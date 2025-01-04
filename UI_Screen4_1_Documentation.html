@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>UI_Screen4_1 Documentation</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+        }
+        .container {
+            max-width: 800px;
+            margin: 20px auto;
+            background: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+        h1, h2, h3 {
+            color: #333;
+        }
+        code {
+            background: #f9f9f9;
+            padding: 2px 4px;
+            border-radius: 4px;
+            font-size: 0.95em;
+        }
+        pre {
+            background: #f9f9f9;
+            padding: 10px;
+            border-radius: 4px;
+            overflow-x: auto;
+        }
+        .section {
+            margin-bottom: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Class Documentation: UI_Screen4_1</h1>
+        <p>The <code>UI_Screen4_1</code> class is a JavaFX screen that allows the user to specify the days when they will change their trailhead during their trip.</p>
+
+        <div class="section">
+            <h2>Class Overview</h2>
+            <p>This screen prompts the user to input days where the starting point changes during a multi-day trip. It ensures that the first day is always included and validates user input for correctness.</p>
+        </div>
+
+        <div class="section">
+            <h2>Fields</h2>
+            <ul>
+                <li><code>int duration</code>: Total number of days in the trip, passed from a previous screen.</li>
+                <li><code>List&lt;Integer&gt; changeDays</code>: A list to store days of trailhead changes, starting with day 1.</li>
+                <li><code>boolean isBudgetYesSelected</code>: Indicates whether the user is traveling on a budget.</li>
+            </ul>
+        </div>
+
+        <div class="section">
+            <h2>Constructor</h2>
+            <p>The constructor initializes the <code>duration</code> and <code>isBudgetYesSelected</code> fields, passing data from the previous screen.</p>
+            <pre><code>public UI_Screen4_1(int duration, boolean isBudgetYesSelected)</code></pre>
+        </div>
+
+        <div class="section">
+            <h2>Methods</h2>
+            <h3><code>start(Stage primaryStage)</code></h3>
+            <p>The main entry point for the screen. Sets up the user interface and handles the following functionality:</p>
+            <ul>
+                <li>Displays the duration of the trip.</li>
+                <li>Prompts the user to input days for trailhead changes using a comma-separated text field.</li>
+                <li>Validates input to ensure all days are within valid range and not duplicated.</li>
+                <li>Transitions to <code>UI_Screen4_2</code> with the list of change days.</li>
+            </ul>
+            <pre><code>public void start(Stage primaryStage)</code></pre>
+        </div>
+
+        <div class="section">
+            <h2>User Interaction</h2>
+            <ul>
+                <li>The user enters days in a comma-separated format in the text field (e.g., "2, 4").</li>
+                <li>The input is validated, ensuring:
+                    <ul>
+                        <li>All days are integers.</li>
+                        <li>Days are within the range of <code>2</code> to <code>duration</code>.</li>
+                        <li>Day 1 is always included.</li>
+                    </ul>
+                </li>
+                <li>Clicking <strong>Submit</strong> displays the list of days in the console.</li>
+                <li>Clicking <strong>Continue</strong> transitions to <code>UI_Screen4_2</code>, passing the validated list of change days and the budget preference.</li>
+            </ul>
+        </div>
+
+        <div class="section">
+            <h2>Validation</h2>
+            <p>Validation logic ensures that:</p>
+            <ul>
+                <li>Input is parsed into integers.</li>
+                <li>Only days within the valid range (<code>2</code> to <code>duration</code>) are accepted.</li>
+                <li>Duplicates are excluded.</li>
+                <li>If validation fails, the list resets to contain only day 1.</li>
+            </ul>
+        </div>
+
+        <div class="section">
+            <h2>Navigation Logic</h2>
+            <ul>
+                <li>On <strong>Submit</strong>: Prints the list of days and the total number of trailhead changes.</li>
+                <li>On <strong>Continue</strong>: Transitions to <code>UI_Screen4_2</code>, passing:
+                    <ul>
+                        <li>The list of change days (always including day 1).</li>
+                        <li>The budget preference (<code>isBudgetYesSelected</code>).</li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+
+        <div class="section">
+            <h2>UI Layout</h2>
+            <p>The user interface is designed using the following JavaFX components:</p>
+            <ul>
+                <li><strong>VBox:</strong> Contains labels for instructions and the text field for input.</li>
+                <li><strong>BorderPane:</strong> Organizes the layout with:
+                    <ul>
+                        <li>Center: The main content (instructions, input field, and submit button).</li>
+                        <li>Bottom: A <strong>Continue</strong> button aligned to the bottom-right.</li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+    </div>
+</body>
+</html>

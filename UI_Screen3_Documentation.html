@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>UI_Screen3 Documentation</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+        }
+        .container {
+            max-width: 800px;
+            margin: 20px auto;
+            background: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+        h1, h2, h3 {
+            color: #333;
+        }
+        code {
+            background: #f9f9f9;
+            padding: 2px 4px;
+            border-radius: 4px;
+            font-size: 0.95em;
+        }
+        pre {
+            background: #f9f9f9;
+            padding: 10px;
+            border-radius: 4px;
+            overflow-x: auto;
+        }
+        .section {
+            margin-bottom: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Class Documentation: UI_Screen3</h1>
+        <p>This document provides an overview of the <code>UI_Screen3</code> JavaFX class, which represents the third screen in the trip questionnaire application.</p>
+        
+        <div class="section">
+            <h2>Class Overview</h2>
+            <p><code>UI_Screen3</code> is a JavaFX application class that prompts the user to input their trailhead information and determines the next step in the application based on whether the user is traveling on a budget.</p>
+        </div>
+
+        <div class="section">
+            <h2>Fields</h2>
+            <ul>
+                <li><code>String trailhead</code>: Stores the user-entered trailhead information.</li>
+                <li><code>boolean isBudgetYesSelected</code>: Indicates whether the user is traveling on a budget. This value is passed from the previous screen.</li>
+            </ul>
+        </div>
+
+        <div class="section">
+            <h2>Methods</h2>
+            <h3><code>setIsYesBudget(boolean isBudgetYesSelected)</code></h3>
+            <p>Setter method to initialize the <code>isBudgetYesSelected</code> field with the user's budget preference passed from the previous screen.</p>
+            <pre><code>public void setIsYesBudget(boolean isBudgetYesSelected)</code></pre>
+
+            <h3><code>start(Stage primaryStage)</code></h3>
+            <p>The main entry point for the JavaFX application. Sets up the user interface and handles user input, validation, and navigation logic.</p>
+            <p><strong>Key Responsibilities:</strong></p>
+            <ul>
+                <li>Prompts the user to input their trailhead using a text field.</li>
+                <li>Handles input validation when the <strong>Submit</strong> button is clicked.</li>
+                <li>Provides a <strong>Continue</strong> button that determines the next screen based on the user's budget preference.</li>
+            </ul>
+            <pre><code>public void start(Stage primaryStage)</code></pre>
+        </div>
+
+        <div class="section">
+            <h2>User Interaction</h2>
+            <ul>
+                <li>The user enters their trailhead in the text field and clicks <strong>Submit</strong>. Input is displayed in the console for verification.</li>
+                <li>The <strong>Continue</strong> button navigates the user to the next screen based on the <code>isBudgetYesSelected</code> value:
+                    <ul>
+                        <li>If <code>true</code>, transitions to <code>UI_Screen5</code>.</li>
+                        <li>If <code>false</code>, displays a completion message using an alert dialog and closes the application.</li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+
+        <div class="section">
+            <h2>Validation</h2>
+            <p>Input validation is performed when the <strong>Submit</strong> button is clicked:</p>
+            <ul>
+                <li>The <code>trailhead</code> input must not be empty or <code>null</code>.</li>
+                <li>If validation fails, a message is displayed in the console, and the program does not proceed.</li>
+            </ul>
+        </div>
+
+        <div class="section">
+            <h2>Navigation Logic</h2>
+            <ul>
+                <li>If <code>isBudgetYesSelected == true</code>, creates an instance of <code>UI_Screen5</code> and passes the budget preference.</li>
+                <li>If <code>isBudgetYesSelected == false</code>, displays a completion alert dialog and closes the application window.</li>
+            </ul>
+        </div>
+
+        <div class="section">
+            <h2>UI Layout</h2>
+            <p>The user interface consists of the following components:</p>
+            <ul>
+                <li><strong>Top Section:</strong> Contains a title, text field for trailhead input, and a <strong>Submit</strong> button.</li>
+                <li><strong>Bottom Section:</strong> Contains a <strong>Continue</strong> button positioned at the bottom-right of the screen.</li>
+            </ul>
+            <p>The layout uses a <code>BorderPane</code> for clear separation of sections.</p>
+        </div>
+    </div>
+</body>
+</html>
