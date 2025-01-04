@@ -1,6 +1,9 @@
 import java.io.IOException;
 import java.net.URI;
 import java.net.URISyntaxException;
+
+import com.athensease.sights.Sight;
+
 import java.awt.Desktop;
 import javafx.beans.value.ObservableValue;
 import javafx.geometry.Insets;
@@ -16,22 +19,30 @@ import javafx.scene.layout.VBox;
 
 public class SightScene extends Scene {
     public SightScene(BorderPane root) {
-        super(root, 400, 400);
+        super(root, 600, 600);
 
         VBox vbox = new VBox(10);
         ScrollPane scrollPane = new ScrollPane(vbox);
         scrollPane.setFitToHeight(true);
         root.setCenter(scrollPane);
         root.setPadding(new Insets(15));
-        Label messageLabel = new Label("test Label");
 
         int i;
+        for (Sight sight : SightsFileHandler.getSights()) {
+            boolean selectedCat = selectedCategories[Integer.getInteger(sight.getCategory()) - 1];
+            if (!sight.isMustSee() && !selectedCat) {
+                continue;
+            }
+            final CheckBox checkbox = new CheckBox(sight.getName());
+            checkbox.selectedProperty().addListener(
+                    (ObservableValue<? extends Boolean> ov, Boolean old_val, Boolean new_val) -> {
+                        sight.setIsSelected(new_val);
+                    });
+            Label priceLabel = new Label("Price: " + sight.getPrice());
 
-        for (i = 0; i < 32; i++) {
-            final CheckBox tmp = new CheckBox("test" + Integer.toString(i));
-            Hyperlink tmpLink = new Hyperlink("www.tripadvisor.com");
-            tmpLink.setText("trip advisor" + Integer.toString(i));
-            tmpLink.setOnAction(e -> {
+            Hyperlink link = new Hyperlink("www.tripadvisor.com");
+            link.setText("trip advisor" + Integer.toString(i));
+            link.setOnAction(e -> {
                 if (Desktop.isDesktopSupported()) {
                     try {
                         Desktop.getDesktop().browse(new URI("http://www.tripadvisor.com"));
@@ -40,33 +51,31 @@ public class SightScene extends Scene {
                     }
                 }
             });
-
-            tmp.selectedProperty().addListener(
-                    (ObservableValue<? extends Boolean> ov, Boolean old_val, Boolean new_val) -> {
-                        if (new_val) {
-                            messageLabel.setText("pressed" + tmp.getText());
-                        } else {
-                            messageLabel.setText("released" + tmp.getText());
-                        }
-                    });
-            HBox hbox = new HBox(tmp, tmpLink);
+            HBox hbox = new HBox(checkbox, priceLabel, link);
             vbox.getChildren().add(hbox);
         }
-        Button clearAll = new Button("Clear All");
+
+        MyButton clearAll = new MyButton("Clear All");
         clearAll.setOnAction(e -> {
             vbox.getChildren().forEach(node -> {
                 CheckBox cb = (CheckBox) ((HBox) node).getChildren().get(0);
                 cb.setSelected(false);
             });
         });
-        Button selectAll = new Button("Select All");
+        MyButton nextButton = new MyButton("Next");
+        nextButton.setOnAction(e -> {
+            System.out.println("Next button pressed");
+        });
+
+        MyButton selectAll = new MyButton("Select All");
         selectAll.setOnAction(e -> {
             vbox.getChildren().forEach(node -> {
                 CheckBox cb = (CheckBox) ((HBox) node).getChildren().get(0);
                 cb.setSelected(true);
             });
         });
-        HBox lastHbox = new HBox(clearAll, messageLabel,selectAll);
+        HBox lastHbox = new HBox(20);
+        lastHbox.getChildren().addAll(clearAll, selectAll, nextButton);
         vbox.getChildren().add(lastHbox);
     }
 }

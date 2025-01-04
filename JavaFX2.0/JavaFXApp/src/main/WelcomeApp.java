@@ -8,21 +8,15 @@ import javafx.stage.Stage;
 import javafx.scene.control.Label;
 
 public class WelcomeApp extends Application {
-
+    boolean[] selectedCategories = {false, false, false};
+    SightsFileHandler sightsHanlder = new SightsFileHandler();
+    
     @Override
     public void start(Stage primaryStage) {
         // Δημιουργία του κουμπιού
-        Button startButton = new Button("Let's START :)");
+        MyButton startButton = new MyButton("Let's START :)");
 
-        // Ρύθμιση στυλ για το κουμπί
-        startButton.setStyle("-fx-font-size: 20px; -fx-background-color: rgb(238, 10, 10); -fx-text-fill: white;");
-        startButton.setPrefWidth(200);   // Ρύθμιση πλάτους 200px
-        startButton.setPrefHeight(50);   // Ρύθμιση ύψους 50px
 
-        // Αλλαγή χρώματος κατά την αλληλεπίδραση με το ποντίκι
-        startButton.setOnMouseEntered(e -> startButton.setStyle("-fx-background-color: rgb(10, 40, 238); -fx-text-fill: black;"));
-        startButton.setOnMouseExited(e -> startButton.setStyle("-fx-font-size: 20px; -fx-background-color: rgb(238, 10, 10); -fx-text-fill: white;"));
-        
         // Δράση όταν πατηθεί το κουμπί
         startButton.setOnAction(e -> {
             System.out.println("The Button was pressed"); // Δείγμα λειτουργίας
