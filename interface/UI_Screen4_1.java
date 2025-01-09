@@ -1,4 +1,13 @@
-import javafx.application.Application;
+/*
+ * This class represents the fourth-one screen (4.1) in the UI flow for the trip questionnaire.
+ * It allows users to specify the days during their trip when they will change their trailhead.
+ * Key functionalities include:
+ * 1. Displaying the total duration of the trip and instructions for input.
+ * 2. Validating and updating the list of days for trailhead changes.
+ * 3. Transitioning to the next screen (4.2) with the collected data.
+ */
+
+import javafx.collections.FXCollections;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
@@ -13,36 +22,55 @@ import javafx.stage.Stage;
 import java.util.ArrayList;
 import java.util.List;
 
-public class UI_Screen4_1 extends Application {
+public class UI_Screen4_1 {
 
-    private int duration = 5; // Example value, replace with actual value from UI_Screen2
-    private List<Integer> changeDays = new ArrayList<>();
+    private int duration; // Total duration of the trip (from Screen 2)
+    private List<Integer> changeDays = new ArrayList<>(); //Days of trailhead changes
+    private boolean isBudgetYesSelected; // Indicates if the user is travelling on a budget
 
-    @Override
+    /*
+     * Constructor to initialize the screen with trip duration and budget preference.
+     * 
+     * @param duration The total number of days in the trip.
+     * @param isBudgetYesSelected A boolean indicating if the user is traveling on a budget.
+     */
+
+    public UI_Screen4_1(int duration, boolean isBudgetYesSelected) {
+        this.duration = duration;
+        this.isBudgetYesSelected = isBudgetYesSelected;
+    }
+
+    /*
+     * Starts the UI for Screen 4.1, displaying the input field for trailhead change days.
+     * 
+     * @param primaryStage The primary stage for displaying the UI.
+     */
+
     public void start(Stage primaryStage) {
         // Ensure day 1 is always included
-        changeDays.add(1); // Αρχικοποίηση με την ημέρα 1
+        changeDays.add(1); // Initial inclusion of day 1
 
         // Create a VBox layout for content
         VBox contentVBox = new VBox(15);
         contentVBox.setStyle("-fx-padding: 20;");
 
-        // Title for 4.1
+        // Title displaying the duration of the trip
         Label durationLabel = new Label("Your holiday is going to last " + duration + " days.");
         durationLabel.setStyle("-fx-font-size: 16px; -fx-font-weight: bold;");
 
-        // Instructions
+        // Instructions for entering trailhead change days
         Label instructionLabel = new Label(
                 "On which of those days will you change your starting point?\n" +
-                "We have already included day 1 for you, please continue with the rest."
+                        "We have already included day 1 for you, please continue with the rest.\n" +
+                            "Integers divided by comma (,) are expected."
         );
 
-        // Input field for changeDays
+        // Input field for change days
         TextField changeDaysInput = new TextField();
         changeDaysInput.setPromptText("Enter days (e.g., 2, 4)");
         changeDaysInput.textProperty().addListener((observable, oldValue, newValue) -> {
             try {
-                // Parse input and add to the list
+                // Parse input and add valid days to the list
                 String[] inputs = newValue.split(",");
                 List<Integer> userDays = new ArrayList<>();
                 for (String input : inputs) {
@@ -52,36 +80,49 @@ public class UI_Screen4_1 extends Application {
                     }
                 }
 
-                // Clear the list and ensure day 1 is always present
+                // Clear the list and ensure day 1 is always included
                 changeDays.clear();
                 changeDays.add(1); // Always include day 1
-                changeDays.addAll(userDays); // Add user input days
+                changeDays.addAll(userDays); // Add user-input days
             } catch (NumberFormatException e) {
-                // Handle invalid input by resetting to only day 1
+                // Reset to default list with only day 1 on invalid input
                 changeDays.clear();
                 changeDays.add(1);
             }
         });
 
-        // Button to submit changes
+        // Submit button to validate and display entered days
         Button submitButton = new Button("Submit");
         submitButton.setOnAction(e -> {
             int totalChanges = changeDays.size(); // Include Day 1 (already added)
-            System.out.println("Days entered: " + changeDays); // Print the list with Day 1 included
+            System.out.println("Days entered: " + changeDays); // Print the entered days, plus day 1
             System.out.println("Total trailhead changes: " + totalChanges);
         });
 
         // Add elements to layout
         contentVBox.getChildren().addAll(durationLabel, instructionLabel, changeDaysInput, submitButton);
 
-        // Create Continue button
+        // Continue button to move to the next screen
         Button continueButton = new Button("Continue");
         continueButton.setStyle("-fx-font-size: 14px; -fx-font-weight: bold;");
         continueButton.setOnAction(e -> {
-            // Transition to Screen 4.2
-            new UI_Screen4_2().start(new Stage());
-            primaryStage.close();
-        });
+            if (changeDays.isEmpty()) {
+                changeDays.add(1); // Ensure day 1 is always included
+            }
+        
+            // Debugging: Transition to Screen 4.2 with collected data
+            System.out.println("Transitioning to Screen 4.2 with changeDays: " + changeDays);
+        
+            // Transition to Screen 4.2 with the changeDays list and isBudgetYesSelected
+            try {
+                UI_Screen4_2 screen4_2 = new UI_Screen4_2(FXCollections.observableArrayList(changeDays), isBudgetYesSelected);
+                screen4_2.start(new Stage());
+                primaryStage.close(); // Close the current stage
+            } catch (Exception ex) {
+                ex.printStackTrace();
+            }
+        });        
+        
 
         // Layout to position the Continue button at the bottom-right
         StackPane continuePane = new StackPane(continueButton);
@@ -98,9 +139,5 @@ public class UI_Screen4_1 extends Application {
         primaryStage.setScene(scene);
         primaryStage.setTitle("Trailhead Changes (4.1)");
         primaryStage.show();
-    }
-
-    public static void main(String[] args) {
-        launch(args);
     }
 }

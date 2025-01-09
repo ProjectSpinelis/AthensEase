@@ -1,3 +1,12 @@
+/*
+ * This class represents the second screen in the UI flow for the trip questionnaire.
+ * It gathers the following user inputs:
+ * 1. The duration of the trip in Athens (integer input).
+ * 2. The number of trailheads (one or many) the user plans to have.
+ * 3. Whether the user is traveling on a budget (yes or no).
+ * Based on these inputs, it navigates to the next appropriate screen in the application.
+ */
+
 import javafx.application.Application;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
@@ -12,12 +21,14 @@ import javafx.stage.Stage;
 
 public class UI_Screen2 extends Application {
 
-    private int duration; // Variable to store the integer input
-    private boolean isOneTrailheadSelected = false; // Tracks selection for Question 2
-    private boolean isBudgetYesSelected = false;   // Tracks selection for Question 3
+    private int duration = -1; // Default value to track invalid input
+    private Boolean isOneTrailheadSelected = null; // Tracks selection for Question 2
+    private Boolean isBudgetYesSelected = null;   // Tracks selection for Question 3
 
     @Override
     public void start(Stage primaryStage) {
+        // Initializes the main UI layout and elements.
+
         // Create a VBox layout for content
         VBox contentVBox = new VBox(15); // 15px spacing between elements
         contentVBox.setPadding(new Insets(20, 20, 20, 40)); // Add left padding to move content to the right
@@ -31,21 +42,7 @@ public class UI_Screen2 extends Application {
         TextField durationInput = new TextField();
         durationInput.setPromptText("Enter a number");
 
-        // Submit action for Question 1
-        Runnable submitDurationAction = () -> {
-            String input = durationInput.getText().trim();
-            try {
-                duration = Integer.parseInt(input);
-                System.out.println("Number of days in Athens: " + duration);
-            } catch (NumberFormatException e) {
-                System.out.println("Invalid input! Please enter a valid number.");
-            }
-        };
-
-        // Attach the action to Enter key press
-        durationInput.setOnAction(e -> submitDurationAction.run());
-
-        // Question 2: Button choices
+        // Question 2: Button choices for selecting trailheads
         Label question2 = new Label("2. How many trailheads are you going to have? (tip: count your starting points).");
         Button oneTrailButton = new Button("One");
         Button manyTrailsButton = new Button("Many");
@@ -60,7 +57,7 @@ public class UI_Screen2 extends Application {
             isOneTrailheadSelected = false;
         });
 
-        // Question 3: Button choices
+        // Question 3: Button choices for budget selection
         Label question3 = new Label("3. Are you travelling on a budget?");
         Button budgetYesButton = new Button("Yes");
         Button budgetNoButton = new Button("No");
@@ -75,41 +72,42 @@ public class UI_Screen2 extends Application {
             isBudgetYesSelected = false;
         });
 
-        // Continue button (placed later in the layout)
+        // Continue button (placed later in the layout) to validate input and navigate to the next screen
         Button continueButton = new Button("Continue");
         continueButton.setStyle("-fx-font-size: 14px; -fx-font-weight: bold;");
+
         continueButton.setOnAction(e -> {
-            // Validate if duration has been entered
-            if (durationInput.getText().trim().isEmpty()) {
-                System.out.println("Please enter the number of days.");
+            // Validates the input and determines the next screen to display.
+            try {
+                duration = Integer.parseInt(durationInput.getText().trim());
+            } catch (NumberFormatException ex) {
+                System.out.println("Invalid input! Please enter a valid number.");
                 return;
             }
-            submitDurationAction.run(); // Ensure duration is set
-
-            // Check that user has selected an option for trailheads and budget
-            if (!oneTrailButton.isFocused() && !manyTrailsButton.isFocused()) {
+        
+            if (isOneTrailheadSelected == null) {
                 System.out.println("Please select an option for trailheads.");
                 return;
             }
-            if (!budgetYesButton.isFocused() && !budgetNoButton.isFocused()) {
+        
+            if (isBudgetYesSelected == null) {
                 System.out.println("Please select an option for budget.");
                 return;
             }
-
-            // Logic for transitioning based on selections
+        
+            // Navigate to the next screen based on user input
             if (isOneTrailheadSelected) {
-                System.out.println("Proceeding to Screen 3 (One Trailhead Screen)...");
-                // Transition to Screen 3
+                System.out.println("Proceeding to Screen 3...");
                 UI_Screen3 nextScreen = new UI_Screen3();
+                nextScreen.setIsYesBudget(isBudgetYesSelected); // Μεταφορά δεδομένων
                 try {
-                    nextScreen.start(primaryStage);
+                    nextScreen.start(primaryStage); // Χρήση του ίδιου stage
                 } catch (Exception ex) {
                     ex.printStackTrace();
                 }
             } else {
-                System.out.println("Proceeding to Screen 4.1 (Many Trailheads Screen)...");
-                // Transition to Screen 4.1
-                UI_Screen4_1 nextScreen = new UI_Screen4_1();
+                System.out.println("Proceeding to Screen 4.1...");
+                UI_Screen4_1 nextScreen = new UI_Screen4_1(duration, isBudgetYesSelected);
                 try {
                     nextScreen.start(primaryStage);
                 } catch (Exception ex) {
@@ -117,6 +115,8 @@ public class UI_Screen2 extends Application {
                 }
             }
         });
+        
+        
 
         // Add all components to the VBox
         contentVBox.getChildren().addAll(
@@ -139,11 +139,11 @@ public class UI_Screen2 extends Application {
         root.setBottom(continuePane);
 
         // Create and set the scene
-        Scene scene = new Scene(root, 700, 450); // Increased height to 600px
+        Scene scene = new Scene(root, 700, 450); // Increased height to 450px
         primaryStage.setScene(scene);
         primaryStage.setTitle("Trip Questionnaire");
         primaryStage.show();
-    }
+    } 
 
     public static void main(String[] args) {
         launch(args);
