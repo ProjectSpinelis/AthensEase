@@ -1,82 +1,106 @@
 package com.athensease.dataretrieval;
 
-import java.io.IOException;
-import java.net.URLEncoder;
-import java.nio.charset.StandardCharsets;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+
+import java.util.ArrayList;
 import java.util.List;
+import java.io.FileWriter;   
+import java.io.IOException; 
+ 
 
-import org.json.JSONArray;
-import org.json.JSONObject;
+public class JsonFormatter {
 
-import okhttp3.OkHttpClient;
-import okhttp3.Request;
-import okhttp3.Response;
+    // Δημιουργία κλάσης για τα αποτελέσματα αποστάσεων και διάρκειας
+    static class AttractionDistance {
+        String origin;
+        String destination;
+        String distance;
+        String duration;
+        String status;
 
-
-public class ApiHandler {
-    
-    private List<String> originsList;
-    private List<String> destinationsList;
-
-
-    public ApiHandler(List<String> originsList, List<String> destinationsList) {
-        this.originsList = originsList;
-        this.destinationsList = destinationsList;
-    }
-
-    public String createURL() {
-        // Create the origin and destination strings
-        String origins = String.join("|", originsList);
-        String destinations = String.join("|", destinationsList);
-
-        // Encoding the coordinates to be URL-safe
-        origins = URLEncoder.encode(origins, StandardCharsets.UTF_8);
-        destinations = URLEncoder.encode(destinations, StandardCharsets.UTF_8);
-
-        // Create the URL for the Google Maps Distance Matrix API
-        return "https://maps.googleapis.com/maps/api/distancematrix/json?origins=" + origins +
-            "&destinations=" + destinations +
-            "&key=AIzaSyDzZ6MAs-g0-afqLsZrkYMm_DkmHjvjxO4";
-    }
-    
-    public String getResponse(String url) throws IOException {
-        OkHttpClient client = new OkHttpClient();
-
-        Request request = new Request.Builder()
-                .url(url)
-                .build();
-
-        try (Response response = client.newCall(request).execute()) {
-            if (!response.isSuccessful()) {
-                throw new IOException("Unexpected code " + response);
-            }
-
-            return response.body().string();
+        AttractionDistance(String origin, String destination, String distance, String duration, String status) {
+            this.origin = origin;
+            this.destination = destination;
+            this.distance = distance;
+            this.duration = duration;
+            this.status = status;
         }
     }
 
-    public double extractField(String jsonResponse, String field) {
-        try {
-            // Parse the JSON response
-            JSONObject json = new JSONObject(jsonResponse);
-            JSONArray rows = json.getJSONArray("rows");
-            JSONObject elements = rows.getJSONObject(0).getJSONArray("elements").getJSONObject(0);
-    
-            // Check the status of the response
-            if (!elements.getString("status").equals("OK")) {
-                throw new IllegalArgumentException("API response status: " + elements.getString("status"));
+    // Δημιουργία κλάσης για το JSON
+    static class ApiResponse {
+        List<String> destination_addresses;  // Λίστα διευθύνσεων προορισμών
+        List<String> origin_addresses;  // Λίστα διευθύνσεων αρχικών σημείων
+        List<Row> rows;  // Λίστα με τα αποτελέσματα
+
+        static class Row {
+            List<Element> elements;  // Λίστα από στοιχεία με αποστάσεις και διάρκειες
+
+            static class Element {
+                Distance distance;  // Απόσταση
+                Duration duration;  // Διάρκεια
+                String status;  // Κατάσταση
+
+                static class Distance {
+                    String text;  // Απόσταση σε κείμενο (π.χ., "347 χλμ")
+                    int value;  // Απόσταση σε μέτρα
+                }
+
+                static class Duration {
+                    String text;  // Χρόνος σε κείμενο (π.χ., "9 ώρες 34 λεπτά")
+                    int value;  // Χρόνος σε δευτερόλεπτα
+                }
             }
-    
-            // Extract the requested field (either "distance" or "duration")
-            JSONObject fieldObject = elements.getJSONObject(field);
-            String fieldText = fieldObject.getString("text");
-    
-            // Remove units (e.g., "km" or "m") and commas, then convert to double
-            String numericPart = fieldText.split(" ")[0].replace(",", "");
-            return Double.parseDouble(numericPart);
-        } catch (Exception e) {
-            throw new RuntimeException("Failed to extract " + field + " from response", e);
         }
     }
+
+    // This is the important method!
+    public static void formatJson(String jsonResponse) {
     
+        // Λίστα για να αποθηκεύσουμε τα αποτελέσματα
+        List<AttractionDistance> attractionDistances = new ArrayList<>();
+        System.out.println("Απάντηση JSON: " + jsonResponse);  // Εκτύπωση για έλεγχο
+    
+        // Δημιουργία Gson αντικειμένου
+        Gson gson = new Gson();
+    
+        // Μετατροπή JSON σε αντικείμενο ApiResponse
+        ApiResponse apiResponse = gson.fromJson(jsonResponse, ApiResponse.class);
+    
+        // Διαχείριση των δεδομένων της απόκρισης
+        if (apiResponse.rows != null && !apiResponse.rows.isEmpty()) {
+            for (int i = 0; i < apiResponse.origin_addresses.size(); i++) {
+                String origin = apiResponse.origin_addresses.get(i);
+                for (int j = 0; j < apiResponse.destination_addresses.size(); j++) {
+                    String destination = apiResponse.destination_addresses.get(j);
+                    ApiResponse.Row.Element element = apiResponse.rows.get(i).elements.get(j);
+    
+                    String distance = element.distance != null ? element.distance.text : "N/A";
+                    String duration = element.duration != null ? element.duration.text : "N/A";
+                    String status = element.status != null ? element.status : "N/A";
+    
+                    // Αποθήκευση των αποτελεσμάτων στη λίστα
+                    AttractionDistance attractionDistance = new AttractionDistance(origin, destination, distance, duration, status);
+                    attractionDistances.add(attractionDistance);
+                }
+            }
+
+            // Save to file
+            saveToFile(attractionDistances, "data/distances.json");
+    
+        } else {
+            System.out.println("Δεν βρέθηκαν αποστάσεις.");
+        }
+    }
+
+    public static void saveToFile(List<AttractionDistance> attractionDistances, String jsonfromapi) {
+        Gson gson = new GsonBuilder().setPrettyPrinting().create();  // Enable pretty printing
+        try (FileWriter writer = new FileWriter(jsonfromapi, true)) {
+            gson.toJson(attractionDistances, writer);
+            writer.write(System.lineSeparator());  // Convert the list to formatted JSON and save to the file
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
 }

@@ -16,5 +16,6 @@ com\athensease\sights\Sight.class
 com\athensease\optimization\Optimizer.class
 com\athensease\sights\SightsFileHandler$2.class
 com\athensease\sights\Trip.class
+com\athensease\ui\TripDisplayUI.class
 com\athensease\dataretrieval\JsonFormatter$ApiResponse$Row$Element$Duration.class
 com\athensease\dataretrieval\JsonFormatter$ApiResponse.class

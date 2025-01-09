@@ -1,0 +1,1 @@
+packageSearchIndex = [{"l":"All Packages","u":"allpackages-index.html"},{"l":"com.athensease.dataretrieval"},{"l":"com.athensease.optimization"},{"l":"com.athensease.optimization.domain"},{"l":"com.athensease.optimization.solver"},{"l":"com.athensease.sights"},{"l":"com.athensease.ui"}];updateSearchResults();

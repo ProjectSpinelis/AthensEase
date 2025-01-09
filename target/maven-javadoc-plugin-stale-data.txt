@@ -1,0 +1,123 @@
+@options
+@argfile
+-classpath
+'C:/Users/User/.m2/repository/org/optaplanner/optaplanner-core/9.44.0.Final/optaplanner-core-9.44.0.Final.jar;C:/Users/User/.m2/repository/org/optaplanner/optaplanner-core-impl/9.44.0.Final/optaplanner-core-impl-9.44.0.Final.jar;C:/Users/User/.m2/repository/org/apache/commons/commons-math3/3.6.1/commons-math3-3.6.1.jar;C:/Users/User/.m2/repository/org/slf4j/slf4j-api/2.0.6/slf4j-api-2.0.6.jar;C:/Users/User/.m2/repository/io/micrometer/micrometer-core/1.10.5/micrometer-core-1.10.5.jar;C:/Users/User/.m2/repository/io/micrometer/micrometer-commons/1.10.5/micrometer-commons-1.10.5.jar;C:/Users/User/.m2/repository/io/micrometer/micrometer-observation/1.10.5/micrometer-observation-1.10.5.jar;C:/Users/User/.m2/repository/jakarta/xml/bind/jakarta.xml.bind-api/4.0.0/jakarta.xml.bind-api-4.0.0.jar;C:/Users/User/.m2/repository/jakarta/activation/jakarta.activation-api/2.1.0/jakarta.activation-api-2.1.0.jar;C:/Users/User/.m2/repository/org/optaplanner/optaplanner-constraint-streams-drools/9.44.0.Final/optaplanner-constraint-streams-drools-9.44.0.Final.jar;C:/Users/User/.m2/repository/org/optaplanner/optaplanner-constraint-streams-common/9.44.0.Final/optaplanner-constraint-streams-common-9.44.0.Final.jar;C:/Users/User/.m2/repository/org/drools/drools-engine/8.44.0.Final/drools-engine-8.44.0.Final.jar;C:/Users/User/.m2/repository/org/kie/kie-api/8.44.0.Final/kie-api-8.44.0.Final.jar;C:/Users/User/.m2/repository/org/kie/kie-internal/8.44.0.Final/kie-internal-8.44.0.Final.jar;C:/Users/User/.m2/repository/org/drools/drools-core/8.44.0.Final/drools-core-8.44.0.Final.jar;C:/Users/User/.m2/repository/org/kie/kie-util-xml/8.44.0.Final/kie-util-xml-8.44.0.Final.jar;C:/Users/User/.m2/repository/org/drools/drools-wiring-api/8.44.0.Final/drools-wiring-api-8.44.0.Final.jar;C:/Users/User/.m2/repository/org/drools/drools-base/8.44.0.Final/drools-base-8.44.0.Final.jar;C:/Users/User/.m2/repository/org/drools/drools-wiring-static/8.44.0.Final/drools-wiring-static-8.44.0.Final.jar;C:/Users/User/.m2/repository/org/drools/drools-io/8.44.0.Final/drools-io-8.44.0.Final.jar;C:/Users/User/.m2/repository/commons-codec/commons-codec/1.15/commons-codec-1.15.jar;C:/Users/User/.m2/repository/org/drools/drools-wiring-dynamic/8.44.0.Final/drools-wiring-dynamic-8.44.0.Final.jar;C:/Users/User/.m2/repository/org/drools/drools-kiesession/8.44.0.Final/drools-kiesession-8.44.0.Final.jar;C:/Users/User/.m2/repository/org/drools/drools-tms/8.44.0.Final/drools-tms-8.44.0.Final.jar;C:/Users/User/.m2/repository/org/drools/drools-compiler/8.44.0.Final/drools-compiler-8.44.0.Final.jar;C:/Users/User/.m2/repository/org/drools/drools-drl-parser/8.44.0.Final/drools-drl-parser-8.44.0.Final.jar;C:/Users/User/.m2/repository/org/drools/drools-drl-extensions/8.44.0.Final/drools-drl-extensions-8.44.0.Final.jar;C:/Users/User/.m2/repository/org/drools/drools-drl-ast/8.44.0.Final/drools-drl-ast-8.44.0.Final.jar;C:/Users/User/.m2/repository/org/kie/kie-memory-compiler/8.44.0.Final/kie-memory-compiler-8.44.0.Final.jar;C:/Users/User/.m2/repository/org/drools/drools-ecj/8.44.0.Final/drools-ecj-8.44.0.Final.jar;C:/Users/User/.m2/repository/org/eclipse/jdt/ecj/3.33.0/ecj-3.33.0.jar;C:/Users/User/.m2/repository/org/kie/kie-util-maven-support/8.44.0.Final/kie-util-maven-support-8.44.0.Final.jar;C:/Users/User/.m2/repository/org/antlr/antlr-runtime/3.5.2/antlr-runtime-3.5.2.jar;C:/Users/User/.m2/repository/org/drools/drools-model-compiler/8.44.0.Final/drools-model-compiler-8.44.0.Final.jar;C:/Users/User/.m2/repository/org/drools/drools-canonical-model/8.44.0.Final/drools-canonical-model-8.44.0.Final.jar;C:/Users/User/.m2/repository/org/drools/drools-model-codegen/8.44.0.Final/drools-model-codegen-8.44.0.Final.jar;C:/Users/User/.m2/repository/org/drools/drools-util/8.44.0.Final/drools-util-8.44.0.Final.jar;C:/Users/User/.m2/repository/org/drools/drools-codegen-common/8.44.0.Final/drools-codegen-common-8.44.0.Final.jar;C:/Users/User/.m2/repository/com/github/javaparser/javaparser-core/3.24.2/javaparser-core-3.24.2.jar;C:/Users/User/.m2/repository/org/drools/drools-mvel-parser/8.44.0.Final/drools-mvel-parser-8.44.0.Final.jar;C:/Users/User/.m2/repository/org/drools/drools-mvel-compiler/8.44.0.Final/drools-mvel-compiler-8.44.0.Final.jar;C:/Users/User/.m2/repository/org/drools/drools-commands/8.44.0.Final/drools-commands-8.44.0.Final.jar;C:/Users/User/.m2/repository/org/drools/drools-alphanetwork-compiler/8.44.0.Final/drools-alphanetwork-compiler-8.44.0.Final.jar;C:/Users/User/.m2/repository/org/optaplanner/optaplanner-constraint-drl/9.44.0.Final/optaplanner-constraint-drl-9.44.0.Final.jar;C:/Users/User/.m2/repository/org/optaplanner/optaplanner-constraint-streams-bavet/9.44.0.Final/optaplanner-constraint-streams-bavet-9.44.0.Final.jar;C:/Users/User/.m2/repository/org/openjfx/javafx-controls/20/javafx-controls-20.jar;C:/Users/User/.m2/repository/org/openjfx/javafx-controls/20/javafx-controls-20-win.jar;C:/Users/User/.m2/repository/org/openjfx/javafx-graphics/20/javafx-graphics-20.jar;C:/Users/User/.m2/repository/org/openjfx/javafx-graphics/20/javafx-graphics-20-win.jar;C:/Users/User/.m2/repository/org/openjfx/javafx-base/20/javafx-base-20.jar;C:/Users/User/.m2/repository/org/openjfx/javafx-base/20/javafx-base-20-win.jar;C:/Users/User/.m2/repository/com/fasterxml/jackson/core/jackson-databind/2.15.2/jackson-databind-2.15.2.jar;C:/Users/User/.m2/repository/com/fasterxml/jackson/core/jackson-annotations/2.15.2/jackson-annotations-2.15.2.jar;C:/Users/User/.m2/repository/com/fasterxml/jackson/core/jackson-core/2.15.2/jackson-core-2.15.2.jar;C:/Users/User/.m2/repository/org/json/json/20210307/json-20210307.jar;C:/Users/User/.m2/repository/com/squareup/okhttp3/okhttp/4.11.0/okhttp-4.11.0.jar;C:/Users/User/.m2/repository/com/squareup/okio/okio/3.2.0/okio-3.2.0.jar;C:/Users/User/.m2/repository/com/squareup/okio/okio-jvm/3.2.0/okio-jvm-3.2.0.jar;C:/Users/User/.m2/repository/org/jetbrains/kotlin/kotlin-stdlib/1.6.20/kotlin-stdlib-1.6.20.jar;C:/Users/User/.m2/repository/org/jetbrains/kotlin/kotlin-stdlib-common/1.6.20/kotlin-stdlib-common-1.6.20.jar;C:/Users/User/.m2/repository/org/jetbrains/annotations/13.0/annotations-13.0.jar;C:/Users/User/.m2/repository/org/jetbrains/kotlin/kotlin-stdlib-jdk8/1.6.20/kotlin-stdlib-jdk8-1.6.20.jar;C:/Users/User/.m2/repository/org/jetbrains/kotlin/kotlin-stdlib-jdk7/1.6.20/kotlin-stdlib-jdk7-1.6.20.jar;C:/Users/User/.m2/repository/com/google/code/gson/gson/2.10.1/gson-2.10.1.jar'
+-encoding
+'UTF-8'
+-protected
+-source
+'17'
+-sourcepath
+'C:/Users/User/java2/Github/AthensEase/src/main/java'
+-author
+-bottom
+'Copyright &#169; 2025. All rights reserved.'
+-charset
+'UTF-8'
+-d
+'C:/Users/User/java2/Github/AthensEase/target/site/apidocs'
+-docencoding
+'UTF-8'
+-doctitle
+'athensease 1.0-SNAPSHOT API'
+-use
+-version
+-windowtitle
+'athensease 1.0-SNAPSHOT API'
+'C:/Users/User/java2/Github/AthensEase/src/main/java/com/athensease/dataretrieval/ApiHandler.java'
+'C:/Users/User/java2/Github/AthensEase/src/main/java/com/athensease/dataretrieval/JsonFormatter.java'
+'C:/Users/User/java2/Github/AthensEase/src/main/java/com/athensease/dataretrieval/Main.java'
+'C:/Users/User/java2/Github/AthensEase/src/main/java/com/athensease/optimization/domain/RoutePlan.java'
+'C:/Users/User/java2/Github/AthensEase/src/main/java/com/athensease/optimization/Optimizer.java'
+'C:/Users/User/java2/Github/AthensEase/src/main/java/com/athensease/optimization/solver/RoutePlanConstraintProvider.java'
+'C:/Users/User/java2/Github/AthensEase/src/main/java/com/athensease/sights/Sight.java'
+'C:/Users/User/java2/Github/AthensEase/src/main/java/com/athensease/sights/SightsFileHandler.java'
+'C:/Users/User/java2/Github/AthensEase/src/main/java/com/athensease/sights/Trip.java'
+'C:/Users/User/java2/Github/AthensEase/src/main/java/com/athensease/ui/TripDisplayUI.java'
+'C:/Users/User/java2/Github/AthensEase/src/main/java/com/athensease/ui/TripPlanner.java'
+'C:/Users/User/java2/Github/AthensEase/src/main/java/com/athensease/ui/UserInputHandler.java'
+C:\Users\User\.m2\repository\org\optaplanner\optaplanner-core\9.44.0.Final\optaplanner-core-9.44.0.Final.jar = 1733846739302
+C:\Users\User\.m2\repository\org\optaplanner\optaplanner-core-impl\9.44.0.Final\optaplanner-core-impl-9.44.0.Final.jar = 1733846739905
+C:\Users\User\.m2\repository\org\apache\commons\commons-math3\3.6.1\commons-math3-3.6.1.jar = 1733846740291
+C:\Users\User\.m2\repository\org\slf4j\slf4j-api\2.0.6\slf4j-api-2.0.6.jar = 1733846739486
+C:\Users\User\.m2\repository\io\micrometer\micrometer-core\1.10.5\micrometer-core-1.10.5.jar = 1733846739722
+C:\Users\User\.m2\repository\io\micrometer\micrometer-commons\1.10.5\micrometer-commons-1.10.5.jar = 1733846740402
+C:\Users\User\.m2\repository\io\micrometer\micrometer-observation\1.10.5\micrometer-observation-1.10.5.jar = 1733846739658
+C:\Users\User\.m2\repository\jakarta\xml\bind\jakarta.xml.bind-api\4.0.0\jakarta.xml.bind-api-4.0.0.jar = 1733846739928
+C:\Users\User\.m2\repository\jakarta\activation\jakarta.activation-api\2.1.0\jakarta.activation-api-2.1.0.jar = 1733846740046
+C:\Users\User\.m2\repository\org\optaplanner\optaplanner-constraint-streams-drools\9.44.0.Final\optaplanner-constraint-streams-drools-9.44.0.Final.jar = 1733846740498
+C:\Users\User\.m2\repository\org\optaplanner\optaplanner-constraint-streams-common\9.44.0.Final\optaplanner-constraint-streams-common-9.44.0.Final.jar = 1733846740541
+C:\Users\User\.m2\repository\org\drools\drools-engine\8.44.0.Final\drools-engine-8.44.0.Final.jar = 1733846740554
+C:\Users\User\.m2\repository\org\kie\kie-api\8.44.0.Final\kie-api-8.44.0.Final.jar = 1733846740623
+C:\Users\User\.m2\repository\org\kie\kie-internal\8.44.0.Final\kie-internal-8.44.0.Final.jar = 1733846740692
+C:\Users\User\.m2\repository\org\drools\drools-core\8.44.0.Final\drools-core-8.44.0.Final.jar = 1733846740912
+C:\Users\User\.m2\repository\org\kie\kie-util-xml\8.44.0.Final\kie-util-xml-8.44.0.Final.jar = 1733846741083
+C:\Users\User\.m2\repository\org\drools\drools-wiring-api\8.44.0.Final\drools-wiring-api-8.44.0.Final.jar = 1733846741154
+C:\Users\User\.m2\repository\org\drools\drools-base\8.44.0.Final\drools-base-8.44.0.Final.jar = 1733846740916
+C:\Users\User\.m2\repository\org\drools\drools-wiring-static\8.44.0.Final\drools-wiring-static-8.44.0.Final.jar = 1733846741261
+C:\Users\User\.m2\repository\org\drools\drools-io\8.44.0.Final\drools-io-8.44.0.Final.jar = 1733846741461
+C:\Users\User\.m2\repository\commons-codec\commons-codec\1.15\commons-codec-1.15.jar = 1733846741110
+C:\Users\User\.m2\repository\org\drools\drools-wiring-dynamic\8.44.0.Final\drools-wiring-dynamic-8.44.0.Final.jar = 1733846741492
+C:\Users\User\.m2\repository\org\drools\drools-kiesession\8.44.0.Final\drools-kiesession-8.44.0.Final.jar = 1733846741240
+C:\Users\User\.m2\repository\org\drools\drools-tms\8.44.0.Final\drools-tms-8.44.0.Final.jar = 1733846741277
+C:\Users\User\.m2\repository\org\drools\drools-compiler\8.44.0.Final\drools-compiler-8.44.0.Final.jar = 1733846741476
+C:\Users\User\.m2\repository\org\drools\drools-drl-parser\8.44.0.Final\drools-drl-parser-8.44.0.Final.jar = 1733846741467
+C:\Users\User\.m2\repository\org\drools\drools-drl-extensions\8.44.0.Final\drools-drl-extensions-8.44.0.Final.jar = 1733846741476
+C:\Users\User\.m2\repository\org\drools\drools-drl-ast\8.44.0.Final\drools-drl-ast-8.44.0.Final.jar = 1733846741632
+C:\Users\User\.m2\repository\org\kie\kie-memory-compiler\8.44.0.Final\kie-memory-compiler-8.44.0.Final.jar = 1733846742461
+C:\Users\User\.m2\repository\org\drools\drools-ecj\8.44.0.Final\drools-ecj-8.44.0.Final.jar = 1733846741890
+C:\Users\User\.m2\repository\org\eclipse\jdt\ecj\3.33.0\ecj-3.33.0.jar = 1733846741987
+C:\Users\User\.m2\repository\org\kie\kie-util-maven-support\8.44.0.Final\kie-util-maven-support-8.44.0.Final.jar = 1733846742012
+C:\Users\User\.m2\repository\org\antlr\antlr-runtime\3.5.2\antlr-runtime-3.5.2.jar = 1733846741878
+C:\Users\User\.m2\repository\org\drools\drools-model-compiler\8.44.0.Final\drools-model-compiler-8.44.0.Final.jar = 1733846742043
+C:\Users\User\.m2\repository\org\drools\drools-canonical-model\8.44.0.Final\drools-canonical-model-8.44.0.Final.jar = 1733846742051
+C:\Users\User\.m2\repository\org\drools\drools-model-codegen\8.44.0.Final\drools-model-codegen-8.44.0.Final.jar = 1733846742156
+C:\Users\User\.m2\repository\org\drools\drools-util\8.44.0.Final\drools-util-8.44.0.Final.jar = 1733846742146
+C:\Users\User\.m2\repository\org\drools\drools-codegen-common\8.44.0.Final\drools-codegen-common-8.44.0.Final.jar = 1733846742700
+C:\Users\User\.m2\repository\com\github\javaparser\javaparser-core\3.24.2\javaparser-core-3.24.2.jar = 1733846742394
+C:\Users\User\.m2\repository\org\drools\drools-mvel-parser\8.44.0.Final\drools-mvel-parser-8.44.0.Final.jar = 1733846742315
+C:\Users\User\.m2\repository\org\drools\drools-mvel-compiler\8.44.0.Final\drools-mvel-compiler-8.44.0.Final.jar = 1733846742328
+C:\Users\User\.m2\repository\org\drools\drools-commands\8.44.0.Final\drools-commands-8.44.0.Final.jar = 1733846742476
+C:\Users\User\.m2\repository\org\drools\drools-alphanetwork-compiler\8.44.0.Final\drools-alphanetwork-compiler-8.44.0.Final.jar = 1733846742459
+C:\Users\User\.m2\repository\org\optaplanner\optaplanner-constraint-drl\9.44.0.Final\optaplanner-constraint-drl-9.44.0.Final.jar = 1733846742514
+C:\Users\User\.m2\repository\org\optaplanner\optaplanner-constraint-streams-bavet\9.44.0.Final\optaplanner-constraint-streams-bavet-9.44.0.Final.jar = 1733846742617
+C:\Users\User\.m2\repository\org\openjfx\javafx-controls\20\javafx-controls-20.jar = 1733852336817
+C:\Users\User\.m2\repository\org\openjfx\javafx-controls\20\javafx-controls-20-win.jar = 1733852337641
+C:\Users\User\.m2\repository\org\openjfx\javafx-graphics\20\javafx-graphics-20.jar = 1733852337015
+C:\Users\User\.m2\repository\org\openjfx\javafx-graphics\20\javafx-graphics-20-win.jar = 1733852338310
+C:\Users\User\.m2\repository\org\openjfx\javafx-base\20\javafx-base-20.jar = 1733852337137
+C:\Users\User\.m2\repository\org\openjfx\javafx-base\20\javafx-base-20-win.jar = 1733852337613
+C:\Users\User\.m2\repository\com\fasterxml\jackson\core\jackson-databind\2.15.2\jackson-databind-2.15.2.jar = 1733846743015
+C:\Users\User\.m2\repository\com\fasterxml\jackson\core\jackson-annotations\2.15.2\jackson-annotations-2.15.2.jar = 1733846742948
+C:\Users\User\.m2\repository\com\fasterxml\jackson\core\jackson-core\2.15.2\jackson-core-2.15.2.jar = 1733846743037
+C:\Users\User\.m2\repository\org\json\json\20210307\json-20210307.jar = 1733846743030
+C:\Users\User\.m2\repository\com\squareup\okhttp3\okhttp\4.11.0\okhttp-4.11.0.jar = 1733846743110
+C:\Users\User\.m2\repository\com\squareup\okio\okio\3.2.0\okio-3.2.0.jar = 1733846743834
+C:\Users\User\.m2\repository\com\squareup\okio\okio-jvm\3.2.0\okio-jvm-3.2.0.jar = 1733846743181
+C:\Users\User\.m2\repository\org\jetbrains\kotlin\kotlin-stdlib\1.6.20\kotlin-stdlib-1.6.20.jar = 1733846743470
+C:\Users\User\.m2\repository\org\jetbrains\kotlin\kotlin-stdlib-common\1.6.20\kotlin-stdlib-common-1.6.20.jar = 1733846743185
+C:\Users\User\.m2\repository\org\jetbrains\annotations\13.0\annotations-13.0.jar = 1733846743193
+C:\Users\User\.m2\repository\org\jetbrains\kotlin\kotlin-stdlib-jdk8\1.6.20\kotlin-stdlib-jdk8-1.6.20.jar = 1733846743611
+C:\Users\User\.m2\repository\org\jetbrains\kotlin\kotlin-stdlib-jdk7\1.6.20\kotlin-stdlib-jdk7-1.6.20.jar = 1733846743553
+C:\Users\User\.m2\repository\com\google\code\gson\gson\2.10.1\gson-2.10.1.jar = 1733846743343
+C:\Users\User\java2\Github\AthensEase\src\main\java = 1734428191323
+C:\Users\User\java2\Github\AthensEase\target\site\apidocs\allclasses-index.html = 1736408581779
+C:\Users\User\java2\Github\AthensEase\target\site\apidocs\allpackages-index.html = 1736408581785
+C:\Users\User\java2\Github\AthensEase\target\site\apidocs\copy.svg = 1736408581934
+C:\Users\User\java2\Github\AthensEase\target\site\apidocs\element-list = 1736408581325
+C:\Users\User\java2\Github\AthensEase\target\site\apidocs\help-doc.html = 1736408581910
+C:\Users\User\java2\Github\AthensEase\target\site\apidocs\index-all.html = 1736408581870
+C:\Users\User\java2\Github\AthensEase\target\site\apidocs\index.html = 1736408581725
+C:\Users\User\java2\Github\AthensEase\target\site\apidocs\link.svg = 1736408581936
+C:\Users\User\java2\Github\AthensEase\target\site\apidocs\member-search-index.js = 1736408581804
+C:\Users\User\java2\Github\AthensEase\target\site\apidocs\module-search-index.js = 1736408581789
+C:\Users\User\java2\Github\AthensEase\target\site\apidocs\overview-summary.html = 1736408581882
+C:\Users\User\java2\Github\AthensEase\target\site\apidocs\overview-tree.html = 1736408581706
+C:\Users\User\java2\Github\AthensEase\target\site\apidocs\package-search-index.js = 1736408581791
+C:\Users\User\java2\Github\AthensEase\target\site\apidocs\script.js = 1736408581932
+C:\Users\User\java2\Github\AthensEase\target\site\apidocs\search-page.js = 1736408581947
+C:\Users\User\java2\Github\AthensEase\target\site\apidocs\search.html = 1736408581875
+C:\Users\User\java2\Github\AthensEase\target\site\apidocs\search.js = 1736408581944
+C:\Users\User\java2\Github\AthensEase\target\site\apidocs\stylesheet.css = 1736408581925
+C:\Users\User\java2\Github\AthensEase\target\site\apidocs\tag-search-index.js = 1736408581807
+C:\Users\User\java2\Github\AthensEase\target\site\apidocs\type-search-index.js = 1736408581793

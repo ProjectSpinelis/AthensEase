@@ -78,6 +78,29 @@
       </configuration>
     </plugin>
     <plugin>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-javadoc-plugin</artifactId>
+            <version>3.3.0</version>
+            <executions>
+                <execution>
+                    <goals>
+                        <goal>javadoc</goal>
+                    </goals>
+                    <configuration>
+                        <sourceFiles>
+                            <file>src/main/java/com/athensease/dataretrieval/ApiHandler.java</file>
+                            <file>src/main/java/com/athensease/dataretrieval/JsonFormatter.java</file>
+                            <file>src/main/java/com/athensease/dataretrieval/Main.java</file>
+                        </sourceFiles>
+                        <classpath>
+                            <path>target/classes</path>
+                            <path>target/dependency/*</path>
+                        </classpath>
+                    </configuration>
+                </execution>
+            </executions>
+        </plugin>
+    <plugin>
                <groupId>org.openjfx</groupId>
                <artifactId>javafx-maven-plugin</artifactId>
                 <version>${javafx.maven.plugin.version}</version>

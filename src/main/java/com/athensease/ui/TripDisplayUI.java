@@ -8,20 +8,46 @@ import javafx.stage.Stage;
 import com.athensease.sights.Sight;
 import com.athensease.sights.Trip;
 
+/**
+ * The {@code TripDisplayUI} class is a JavaFX application that provides a user interface (UI) to display details
+ * of a trip, including trip information, chosen sights, and an optimized route.
+ * This class serves as the visual representation for the trip data, displaying it in an organized layout.
+ * The UI allows the user to interact with the trip data and view the optimized route after clicking a button.
+ *
+ * Key features of the class include:
+ * <ul>
+ *     <li>Displaying general trip details such as duration, budget, and trailhead.</li>
+ *     <li>Displaying a list of the chosen sights for the trip.</li>
+ *     <li>Allowing the user to view an optimized route by pressing a button, which removes the button from the UI and displays the route information.</li>
+ * </ul>
+ */
 public class TripDisplayUI extends Application {
 
     private static Trip trip;  // Static field to hold the trip data
 
-    // No-argument constructor (required by JavaFX)
+    /**
+     * No-argument constructor (required by JavaFX).
+     */
     public TripDisplayUI() {
     }
 
-    // Static method to launch the UI with the Trip data
+    /**
+     * Static method to launch the UI with the provided trip data.
+     * 
+     * @param tripData the trip data to display in the UI
+     */
     public static void launchUI(Trip tripData) {
         trip = tripData;
         launch();  // Launch the JavaFX application
     }
 
+    /**
+     * Initializes the JavaFX UI. This method is called by the JavaFX runtime when the application starts.
+     * It builds the UI elements and sets up the layout for displaying trip details and an optimized route.
+     *
+     * @param primaryStage the primary stage for the JavaFX application
+     * @throws IllegalStateException if the trip data has not been initialized
+     */
     @Override
     public void start(Stage primaryStage) {
         // Ensure the trip data is initialized before proceeding
@@ -79,7 +105,13 @@ public class TripDisplayUI extends Application {
         primaryStage.show();
     }
 
-    // Method to display the optimized route
+    /**
+     * Displays the optimized route of the trip, which includes a list of sights with detailed information such as
+     * name, visit order, price, and visit time.
+     * The optimized route is displayed after the user clicks the button to reveal it.
+     * 
+     * @param root the root container of the UI to which the optimized route is added
+     */
     private void displayOptimizedRoute(VBox root) {
         // For demo purposes, we just use the chosen sights
         trip.setOptimizedSights(trip.getChosenSights());
