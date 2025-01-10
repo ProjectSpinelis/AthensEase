@@ -9,27 +9,30 @@ import java.util.stream.Collectors;
 import org.optaplanner.core.api.score.buildin.hardsoft.HardSoftScore;
 
 import com.athensease.dataretrieval.ApiHandler;
+import com.athensease.optimization.TrailHeadInclusion;
 
 public class Trip {
     private int duration;
     private double budget;
     private String address;
-    private List<Integer> chosenCategories;
+    private boolean[] chosenCategories;
     private List<Sight> chosenSights;
+    private int optmizeFor;
 
     private List<Sight> optimizedSights;
     private HardSoftScore optimizationScore;
     private double totalDistanceTraveled;
+    private double totalTravelDuration;
     private double ticketsCost;
     
     // Constructor
-    public Trip(int duration, double budget, String address, List<Integer> chosenCategories, List<Sight> chosenSights) {
-        this.duration = duration;
-        this.budget = budget;
-        this.address = address;
-        this.chosenCategories = chosenCategories;
-        this.chosenSights = chosenSights;
+    public Trip() {
+        chosenCategories = new boolean[4];
+        chosenSights = new ArrayList<>();
+    }
+    
 
+    public void prepTrip() {
         int counter = 0;
         for(Sight sight : chosenSights) {
             sight.setVisitOrder(++counter);
@@ -99,11 +102,11 @@ public class Trip {
     public void setChosenSights(List<Sight> chosenSights) {
         this.chosenSights = chosenSights;
     }
-    public List<Integer> getChosenCategories() {
+    public boolean[] getChosenCategories() {
         return chosenCategories;
     }
 
-    public void setChosenCategories(List<Integer> chosenCategories) {
+    public void setChosenCategories(boolean[] chosenCategories) {
         this.chosenCategories = chosenCategories;
     }
 
@@ -131,6 +134,14 @@ public class Trip {
         this.totalDistanceTraveled = totalDistanceTraveled;
     }
 
+    public double getTotalTravelDuration() {
+        return totalTravelDuration;
+    }
+
+    public void setTotalTravelDuration(double totalTravelDuration) {
+        this.totalTravelDuration = totalTravelDuration;
+    }
+
     public double getTicketsCost() {
         return ticketsCost;
     }
@@ -139,8 +150,33 @@ public class Trip {
         this.ticketsCost = ticketsCost;
     }
 
+    
+    public int getOptmizeFor() {
+        return optmizeFor;
+    }
+
+
+    public void setOptmizeFor(int optmizeFor) {
+        this.optmizeFor = optmizeFor;
+    }
+
+    // Returns the total cost of the trip
+    public double getTotalCost() {
+        return this.getChosenSights().stream()
+            .mapToDouble(Sight::getPrice)
+            .sum();
+    }
+
+    // Returns the minimum visit time required to visit all sights, only sightseeing time
+    public int getMinVisitTime() {
+        return this.getChosenSights().stream()
+            .mapToInt(Sight::getVisitTime)
+            .sum();
+    }
+
+
     // Prints Trip Details
-    public void printTrip() {
+    public void tripCalculations() {
         System.out.println("The score is: " + this.getOptimizationScore());
     
         System.out.println("\nThe optimized route is the following:\n");
@@ -150,30 +186,51 @@ public class Trip {
             .collect(Collectors.toList());  // Collect the sorted sights into a list
     
         double totalDistance = 0;
+        double totalTravelDuration = 0;
         double ticketsCost = 0;
+
         for (int i = 0; i < sortedSights.size(); i++) {
             Sight currentSight = sortedSights.get(i);
             ticketsCost += currentSight.getPrice();
             if (currentSight.getVisitOrder() == 1) {
                 System.out.println("Distance from starting point: " + currentSight.getDistanceFromStartingPoint() + " km");
                 totalDistance += currentSight.getDistanceFromStartingPoint();
+                totalTravelDuration += currentSight.getDurationFromStartingPoint();
             }
             System.out.println(currentSight);
     
-            if (i < sortedSights.size() - 1) {  // If there is a next sight
-                Sight nextSight = sortedSights.get(i + 1);
-                double distance = currentSight.calculateDistanceToSight(nextSight);
-                totalDistance += distance;
-                System.out.println("  Distance to next sight: " + distance + " km");
-            } else {
+            if (i < sortedSights.size() -1) {  // If there is a next sight
+                if (!currentSight.getName().equals("Hotel")) { // If the current sight is not hotel
+                    if (!sortedSights.get(i + 1).getName().equals("Hotel")) { // If the next sight is not hotel
+                        Sight nextSight = sortedSights.get(i + 1);
+                        double distance = currentSight.calculateDistanceToSight(nextSight);
+                        totalDistance += distance;
+                        totalTravelDuration += currentSight.calculateDurationToSight(nextSight);
+                        System.out.println("  Distance to next sight: " + distance + " km");
+                    } else { // If the next sight is hotel
+                        System.out.println("  Distance back to hotel: " + currentSight.getDistanceToStartingPoint() + " km");
+                        totalDistance += currentSight.getDistanceToStartingPoint();
+                        totalTravelDuration += currentSight.getDurationToStartingPoint();
+                    }
+                } else { // If the current sight is hotel
+                    Sight nextSight = sortedSights.get(i + 1);
+                    System.out.println("  Distance to next sight: " + nextSight.getDistanceFromStartingPoint() + " km");
+                    totalDistance += nextSight.getDistanceFromStartingPoint();
+                    totalTravelDuration += nextSight.getDurationFromStartingPoint();
+                }
+            } else { // If the current sight is the last sight
                 System.out.println("Distance back to starting point: " + currentSight.getDistanceToStartingPoint() + " km");
-                totalDistance += currentSight.getDistanceToStartingPoint();
+                totalDistance += currentSight.getDistanceFromStartingPoint();
+                totalTravelDuration += currentSight.getDurationFromStartingPoint();
             }
 
         }
         this.setTotalDistanceTraveled(totalDistance);
         this.setTicketsCost(ticketsCost);
-        System.out.println("Total distance traveled: " + this.getTotalDistanceTraveled() + " km");
+        this.setTotalTravelDuration(totalTravelDuration);
+        System.out.println("\nTotal distance traveled: " + this.getTotalDistanceTraveled() + " km");
+        System.out.println("Total duration spent on trasportation: " + this.getTotalTravelDuration() + " minutes");
+        System.out.println("Total duration spent on sightseeing: " + this.getMinVisitTime() + " minutes");
         System.out.println("Tickets cost: " + this.getTicketsCost() + " euro");
     }
 }

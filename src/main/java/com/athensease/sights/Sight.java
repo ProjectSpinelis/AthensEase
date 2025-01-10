@@ -15,6 +15,7 @@ public class Sight {
     private int visitTime;
     private String category;
     private boolean mustSee;
+    private String link;
 
     @PlanningVariable
     private Integer visitOrder;
@@ -82,6 +83,14 @@ public class Sight {
 
     public void setVisitOrder(int visitOrder) {
         this.visitOrder = visitOrder;
+    }
+
+    public String getLink() {
+        return link;
+    }
+
+    public void setLink(String link) {
+        this.link = link;
     }
 
     public void setDistanceToStartingPoint(double distanceToStartingPoint) {

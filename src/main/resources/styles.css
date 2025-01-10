@@ -1,0 +1,50 @@
+/* Global Background Color */
+.root {
+    background-color: #f2cb90;
+    -fx-background-color: #f2cb90;
+}
+
+/* Global Text Style */
+.label, .text {
+    -fx-text-fill: #000000;
+    font-family: "Montserrat";
+    -fx-font-family: "Montserrat";
+    -fx-font-size: 16px; /* Adjust size as needed */
+    -fx-alignment: center; /* Center text horizontally and vertically */
+}
+
+/* Heading Text */
+.heading {
+    -fx-font-size: 8px; /* Adjust size as needed */
+    -fx-font-weight: bold;
+    -fx-padding: 20px 0; /* Add 20px vertical padding, 0px horizontal padding */
+}
+
+
+/* Button Style */
+.button {
+    -fx-font-size: 16px; /* Adjust text size */
+    -fx-padding: 10px 10px; /* Add padding inside the button (top-bottom, left-right) */
+    -fx-background-color: #d4b483; /* Button background color */
+    -fx-text-fill: #000000; /* Text color */
+    -fx-font-family: "Montserrat"; /* Font for the button text */
+}
+
+/* Big-Button Style */
+.big-button {
+    -fx-font-size: 18px; /* Adjust text size */
+    -fx-padding: 10px 20px; /* Add padding inside the button (top-bottom, left-right) */
+    -fx-pref-width: 200px; /* Set a preferred width for the button */
+    -fx-pref-height: 50px; /* Set a preferred height for the button */
+    -fx-background-color: #d4b483; /* Button background color */
+    -fx-text-fill: #000000; /* Text color */
+    -fx-font-family: "Montserrat"; /* Font for the button text */
+    -fx-font-weight: bold;
+}
+
+.text-field, .text-area {
+    -fx-text-fill: #000000;
+    -fx-font-family: "Montserrat";
+    -fx-background-color: #ffffff;
+    -fx-border-color: #d4b483;
+}

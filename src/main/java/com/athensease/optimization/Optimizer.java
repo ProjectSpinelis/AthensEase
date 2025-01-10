@@ -12,21 +12,35 @@ import com.athensease.optimization.domain.RoutePlan;
 import com.athensease.sights.Sight;
 import com.athensease.sights.Trip;
 import com.athensease.optimization.solver.RoutePlanConstraintProvider;
+import com.athensease.optimization.solver.RoutePlanConstraintProviderForDuration;
 
 public class Optimizer {
 
     public static void optimizeTrip(Trip trip) {
         
-        SolverConfig solverConfig = new SolverConfig()
-                .withSolutionClass(RoutePlan.class)
-                .withEntityClasses(Sight.class)
-                .withConstraintProviderClass(RoutePlanConstraintProvider.class)
-                // The solver runs only for 5 seconds on this small dataset.
-                // It's recommended to run for at least 5 minutes ("5m") otherwise.
-                .withTerminationSpentLimit(Duration.ofSeconds(5));
+        SolverConfig solverConfig;
+        
+        if (trip.getOptmizeFor() == 1) { // If the objective is to minimize the total travel distance
+            System.out.println("Minimizing for distance"); 
+            solverConfig = new SolverConfig()
+                    .withSolutionClass(RoutePlan.class)
+                    .withEntityClasses(Sight.class)
+                    .withConstraintProviderClass(RoutePlanConstraintProvider.class)
+                    // The solver runs only for 5 seconds on this small dataset.
+                    // It's recommended to run for at least 5 minutes ("5m") otherwise.
+                    .withTerminationSpentLimit(Duration.ofSeconds(5));
 
-        SolverFactory<RoutePlan> solverFactory = SolverFactory.create(solverConfig); 
+        } else { // If the objective is to minimize the total travel duration
+            System.out.println("Minimizing for duration"); 
+            solverConfig = new SolverConfig()
+                    .withSolutionClass(RoutePlan.class)
+                    .withEntityClasses(Sight.class)
+                    .withConstraintProviderClass(RoutePlanConstraintProviderForDuration.class)
+                    .withTerminationSpentLimit(Duration.ofSeconds(5));
+            
+        }
 
+        SolverFactory<RoutePlan> solverFactory = SolverFactory.create(solverConfig);
 
         // Load the problem
         RoutePlan problem = generateDemoData(trip);
@@ -44,8 +58,9 @@ public class Optimizer {
 
         List<Sight> sights = new ArrayList<>();
         sights = trip.getChosenSights();
+        double budget = trip.getBudget();
 
-        RoutePlan route = new RoutePlan(sights);
+        RoutePlan route = new RoutePlan(sights, budget);
         return route;
     }
 }
