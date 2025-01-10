@@ -12,6 +12,8 @@ import java.util.List;
 public class UserInputHandler {
 
     Scanner s = new Scanner(System.in);
+    private int daysOfTheTrip = 0; // Default value
+    private List<Integer> TrailHeadDays= new ArrayList<>();
 
     public int gatherDuration() {
         int days = 0;
@@ -32,23 +34,106 @@ public class UserInputHandler {
                 s.nextLine(); // Clear buffer
             }
         }
+        this.daysOfTheTrip = days;
         return days;
     }
 
-    public String gatherTrailhead() {
-        System.out.println("Please enter your trailhead.");
-        String trailhead = "";
-
+    public List<String> gatherTrailheads() {
+        System.out.println("Please enter your trailhead."); //adds first trailhead
+        List<String> trailhead = new ArrayList<>();
+        
         while (true) {
-            trailhead = s.nextLine().trim(); // Read input and trim spaces
-            if (!trailhead.isEmpty()) {
+            trailhead.add(s.nextLine().trim()); // Read input and trim spaces
+            if (trailhead.size() > 0) {
                 break; // Exit loop if input is valid
             } else {
                 System.err.println("Invalid input. Please enter a non-null, non-empty trailhead.");
             }
         }
-        System.out.println("You entered: " + trailhead);
+
+        System.out.println("Do you have additional trailhead? Enter 1 for Yes or 2 for No.");
+        int answer1 = s.nextInt();
+        int dayOfFirstChange = 0; // Default value
+        s.nextLine(); // Clear buffer
+        if (answer1 == 1) {
+            System.out.println("Please enter your additional trailhead"); // adds second trailhead 
+            while (true) {
+                trailhead.add(s.nextLine().trim()); // Read input and trim spaces
+                if (trailhead.size() > 1) {
+                    break; // Exit loop if input is valid
+                } else {
+                    System.err.println("Invalid input. Please enter a non-null, non-empty trailhead.");
+                }
+            }
+            System.out.println("Please give the day of the trip that you change trailhead: ");
+            dayOfFirstChange = s.nextInt();
+        }
+
+        int answer2 = 0; // Default value
+        int dayOfSecondChange = 0; // Default value
+        if (answer1 == 1) {
+            System.out.println("Do you have additional trailhead? Enter 1 for Yes or 2 for No.");
+            answer2 = s.nextInt();
+            s.nextLine(); // Clear buffer
+            if (answer2 == 1) {
+                System.out.println("Please enter your additional trailhead"); // adds third trailhead 
+                while (true) {
+                    trailhead.add(s.nextLine().trim()); // Read input and trim spaces
+                    if (trailhead.size() > 2) {
+                        break; // Exit loop if input is valid
+                    } else {
+                        System.err.println("Invalid input. Please enter a non-null, non-empty trailhead.");
+                    }
+                }
+                System.out.println("Please give the day of the trip that you change trailhead: ");
+                dayOfSecondChange = s.nextInt();
+            }
+        }
+
+        List<Integer> daysOfChange = new ArrayList<>();
+        if (answer1 == 1) {
+            for (int i = 0; i < dayOfFirstChange - 1; i++) {
+                daysOfChange.add(1);
+            }
+            daysOfChange.add(2);
+            if (answer2 == 1) {
+                for (int i = dayOfFirstChange; i < dayOfSecondChange - 1; i++) {
+                    daysOfChange.add(2);
+                }
+                daysOfChange.add(3);
+                for (int i = dayOfSecondChange; i < this.daysOfTheTrip - 1; i++) {
+                    daysOfChange.add(3);
+                }
+            } else {
+                for (int i = dayOfFirstChange; i < this.daysOfTheTrip - 1; i++) {
+                    daysOfChange.add(2);
+                }
+            }
+        } else {
+            for (int i = 0; i < this.daysOfTheTrip - 1; i++) {
+                daysOfChange.add(1);
+            }
+        }
+
+        this.TrailHeadDays = daysOfChange;
+
         return trailhead;
+    }
+
+    public List<Integer> getTrailHeadDays() {
+        return TrailHeadDays;
+    }
+
+    public void setTrailHeadDays(List<Integer> trailHeadDays) {
+        this.TrailHeadDays = trailHeadDays;
+    }
+
+    public int getDaysOfTheTrip() {
+        return daysOfTheTrip;
+    }
+
+    public void setDaysOfTheTrip(int daysOfTheTrip) {
+        this.daysOfTheTrip = daysOfTheTrip;
     }
 
     public int gatherBudget() {

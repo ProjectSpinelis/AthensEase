@@ -2,7 +2,6 @@ package com.athensease.ui;
 
 import java.util.List;
 
-import com.athensease.optimization.TrailHeadInclusion;
 import com.athensease.optimization.Optimizer;
 import com.athensease.sights.Sight;
 import com.athensease.sights.Trip;
@@ -14,13 +13,14 @@ public class TripPlanner {
         UserInputHandler inputHandler = new UserInputHandler();
 
         int duration = inputHandler.gatherDuration();
-        String address = inputHandler.gatherTrailhead();
+        List<String> addresses = inputHandler.gatherTrailheads();
+        List<Integer> trailHeadDays = inputHandler.getTrailHeadDays();
         double budget = inputHandler.gatherBudget();
         List<Integer> chosenCategories = inputHandler.chooseCategories();
         List<Sight> chosenSights = inputHandler.chooseSights(chosenCategories);
         boolean objective = inputHandler.chooseObjective();
         
-        Trip trip = new Trip(duration, budget, address, chosenCategories, chosenSights);
+        Trip trip = new Trip(duration, budget, addresses, trailHeadDays, chosenCategories, chosenSights);
 
         if (trip.getBudget() < trip.getTotalCost()) {
             System.out.println("Your budget is too low to visit all the sights you've chosen. Please try again.");
@@ -31,7 +31,9 @@ public class TripPlanner {
             } else {
                 System.out.println("You're all set! Let's recap.");
                 System.out.println("Duration of trip: " + trip.getDuration());
-                System.out.println("Trailhead: " + trip.getAddress());
+                for(int i = 0; i < addresses.size(); i++) {
+                    System.out.println("Trailhead " + (i+1) + ": " + addresses.get(i));
+                }
                 System.out.println("Your budget: "+ trip.getBudget());
                 System.out.println("Your categories of interest: " + trip.getChosenCategories());
                 System.out.println("Your chosen sights: ");
@@ -40,7 +42,6 @@ public class TripPlanner {
                 }
 
                 Optimizer.optimizeTrip(trip, objective);
-                TrailHeadInclusion.addOneTraildHead(trip, trip.getOptimizedSights());
                 trip.printTrip();
             }
         }

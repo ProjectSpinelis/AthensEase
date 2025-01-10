@@ -18,7 +18,7 @@ public class RoutePlanConstraintProvider implements ConstraintProvider {
                
         };
     }
-
+    
     private Constraint minimizeTotalDistance(ConstraintFactory constraintFactory) {
     return constraintFactory.forEachUniquePair(Sight.class)
 
@@ -47,7 +47,7 @@ public class RoutePlanConstraintProvider implements ConstraintProvider {
             })
             .asConstraint("Minimize total travel distance");
     }
-
+    
     private Constraint uniqueVisitOrders(ConstraintFactory constraintFactory) {
         return constraintFactory.forEachUniquePair(Sight.class)  // Iterate over all unique pairs of sights
                 .filter((sight1, sight2) -> sight1.getVisitOrder() == sight2.getVisitOrder())  // Check if visitOrder is the same

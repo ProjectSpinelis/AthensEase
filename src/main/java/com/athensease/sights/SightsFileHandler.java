@@ -96,7 +96,7 @@ public class SightsFileHandler {
             e.printStackTrace();
         }
 
-        return -1; // Return -1 if no match or parsing error occurs
+        return 5; // Return 5 if no match or parsing error occurs, to avoid crashing the program
     }
 
     // Is used to calculate duration between Sight objects
@@ -138,6 +138,6 @@ public class SightsFileHandler {
         } catch (NumberFormatException e) {
             e.printStackTrace();
         }
-        return -1;
+        return 5; // Return 5 if no match or parsing error occurs, to avoid crashing the program
     }
 }

@@ -19,10 +19,17 @@ public class Sight {
     @PlanningVariable
     private Integer visitOrder;
     
+    //About first trailhead
     private double distanceToStartingPoint;
     private double distanceFromStartingPoint;
     private double durationToStartingPoint;
     private double durationFromStartingPoint;
+
+    //About second and third trailhead
+    private double distanceToSecondTrailHead;
+    private double durationToSecondTrailHead;
+    private double distanceToThirdTrailHead;
+    private double durationToThirdTrailHead;
 
     private static int maxVisitOrder = 0;
 
@@ -119,6 +126,38 @@ public class Sight {
 
     public void setDurationFromStartingPoint(double durationFromStartingPoint) {
         this.durationFromStartingPoint = durationFromStartingPoint;
+    }
+
+    public double getDistanceToSecondTrailHead() {
+        return distanceToSecondTrailHead;
+    }
+
+    public void setDistanceToSecondTrailHead(double distanceToSecondTrailHead) {
+        this.distanceToSecondTrailHead = distanceToSecondTrailHead;
+    }
+
+    public double getDurationToSecondTrailHead() {
+        return durationToSecondTrailHead;
+    }
+
+    public void setDurationToSecondTrailHead(double durationToSecondTrailHead) {
+        this.durationToSecondTrailHead = durationToSecondTrailHead;
+    }
+
+    public double getDistanceToThirdTrailHead() {
+        return distanceToThirdTrailHead;
+    }
+
+    public void setDistanceToThirdTrailHead(double distanceToThirdTrailHead) {
+        this.distanceToThirdTrailHead = distanceToThirdTrailHead;
+    }
+
+    public double getDurationToThirdTrailHead() {
+        return durationToThirdTrailHead;
+    }
+
+    public void setDurationToThirdTrailHead(double durationToThirdTrailHead) {
+        this.durationToThirdTrailHead = durationToThirdTrailHead;
     }
 
     public static int getMaxVisitOrder() {
