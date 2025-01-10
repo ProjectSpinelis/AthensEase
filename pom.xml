@@ -61,6 +61,11 @@
         <artifactId>javafx-controls</artifactId>
         <version>21.0.5</version> <!-- Change version to match your SDK -->
 </dependency>
+<dependency>
+  <groupId>org.openjfx</groupId>
+  <artifactId>javafx-web</artifactId>
+  <version>21.0.5</version> <!-- Match version with javafx-controls -->
+</dependency>
 </dependencies>
 
 <build>

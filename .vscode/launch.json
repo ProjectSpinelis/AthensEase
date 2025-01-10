@@ -3,6 +3,14 @@
     "configurations": [
         {
             "type": "java",
+            "name": "DynamicHtmlCreator",
+            "request": "launch",
+            "mainClass": "com.athensease.ui.DynamicHtmlCreator",
+            "projectName": "athensease",
+            "vmArgs": "--module-path \"C:\\javafx\\javafx-sdk-21.0.2\\lib\" --add-modules javafx.controls,javafx.fxml,javafx.web"
+        },
+        {
+            "type": "java",
             "name": "SimpleJavaFXApp",
             "request": "launch",
             "mainClass": "com.athensease.ui.SimpleJavaFXApp",
@@ -14,7 +22,7 @@
             "request": "launch",
             "mainClass": "com.athensease.ui.TripDisplayUI",
             "projectName": "athensease",
-            "vmArgs": "--module-path \"C:\\javafx\\javafx-sdk-21.0.2\\lib\" --add-modules javafx.controls,javafx.fxml"
+            "vmArgs": "--module-path \"C:\\javafx\\javafx-sdk-21.0.2\\lib\" --add-modules javafx.controls,javafx.fxml,javafx.web"
         },
         {
             "type": "java",
@@ -35,6 +43,15 @@
             "request": "launch",
             "mainClass": "com.athensease.ui.TripDisplayUI",
             "projectName": "athensease"
+        },
+        {
+            "type": "java",
+            "name": "WebViewer",
+            "request": "launch",
+            "mainClass": "com.athensease.ui.WebViewer",
+            "projectName": "athensease",
+             "vmArgs": "--module-path \"C:\\javafx\\javafx-sdk-21.0.2\\lib\" --add-modules javafx.controls,javafx.fxml,javafx.web"
+
         },
         {
             "type": "java",
