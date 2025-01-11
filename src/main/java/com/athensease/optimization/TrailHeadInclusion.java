@@ -15,7 +15,7 @@ public class TrailHeadInclusion {
      * based on the available time in a day (8 hours by default).
      *
      * @param sights A list of sights to visit, each with travel and visit times.
-     * @return A list of sights where the traveler should return to the hotel after visiting them.
+     * @return A list of sights where the traveler should return to the hotel 
      */
     public static List<Sight> findHotelStopPoints(List<Sight> sights) {
         List<Sight> hotelStopPoints = new ArrayList<>();
@@ -30,12 +30,12 @@ public class TrailHeadInclusion {
 
             // Check if we need to return to the hotel after this sight
             if (remainingTime < timeNeeded + currentSight.getDurationToStartingPoint()) {
-                hotelStopPoints.add(currentSight); // Add the current sight as the stop point
-                remainingTime = 480; // Reset time for the next day
+                hotelStopPoints.add(sights.get(i - 1)); // Add the current sight as the stop point
+                remainingTime = 480 - currentSight.getDurationToStartingPoint() - currentSight.getVisitTime(); // Reset time and deduct return trip
+            } else {
+                // Deduct time spent visiting the sight and traveling to it
+                remainingTime -= timeNeeded;
             }
-
-            // Deduct time spent visiting the sight and traveling to it
-            remainingTime -= timeNeeded;
         }
 
         return hotelStopPoints;

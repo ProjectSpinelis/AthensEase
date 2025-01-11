@@ -291,7 +291,7 @@ public class Trip {
             if (i < (sortedSights.size() - 1)) {  // If there is a next sight
                 if (hotelStopAfter) { // If after this sight we need to return to the hotel
 
-                    int trailHeadOption = getTrailHeadDays().get(daysCounter - 1);
+                    int trailHeadOption = getTrailHeadDays().get(daysCounter - 2);
 
                     double distanceToTrailHead = 0; //Default value
                     double durationToTrailHead = 0; //Default value
