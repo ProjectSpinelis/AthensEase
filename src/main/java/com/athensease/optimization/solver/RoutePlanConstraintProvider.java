@@ -7,8 +7,18 @@ import org.optaplanner.core.api.score.stream.Constraint;
 import org.optaplanner.core.api.score.stream.ConstraintFactory;
 import org.optaplanner.core.api.score.stream.ConstraintProvider;
 
+/**
+ * Provides constraints for optimizing a route plan in an OptaPlanner solution.
+ * This class defines the rules used to calculate the optimization score.
+ */
 public class RoutePlanConstraintProvider implements ConstraintProvider {
 
+    /**
+     * Defines all constraints for the route plan optimization.
+     *
+     * @param constraintFactory Factory for creating constraints.
+     * @return An array of constraints for the optimization problem.
+     */
     @Override
     public Constraint[] defineConstraints(ConstraintFactory constraintFactory) {
         return new Constraint[] {
@@ -19,6 +29,12 @@ public class RoutePlanConstraintProvider implements ConstraintProvider {
         };
     }
     
+    /**
+     * Minimizes the total distance traveled in the route.
+     *
+     * @param constraintFactory Factory for creating constraints.
+     * @return A constraint that penalizes longer travel distances.
+     */
     private Constraint minimizeTotalDistance(ConstraintFactory constraintFactory) {
     return constraintFactory.forEachUniquePair(Sight.class)
 
@@ -48,6 +64,12 @@ public class RoutePlanConstraintProvider implements ConstraintProvider {
             .asConstraint("Minimize total travel distance");
     }
     
+    /**
+     * Ensures that each sight has a unique visit order in the route.
+     *
+     * @param constraintFactory Factory for creating constraints.
+     * @return A constraint that penalizes duplicate visit orders.
+     */
     private Constraint uniqueVisitOrders(ConstraintFactory constraintFactory) {
         return constraintFactory.forEachUniquePair(Sight.class)  // Iterate over all unique pairs of sights
                 .filter((sight1, sight2) -> sight1.getVisitOrder() == sight2.getVisitOrder())  // Check if visitOrder is the same

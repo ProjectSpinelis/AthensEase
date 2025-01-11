@@ -10,10 +10,22 @@ import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 
+/**
+ * Handles operations related to managing sight data, including reading from JSON files,
+ * filtering sights, and calculating distances and durations between sights.
+ */
 public class SightsFileHandler {
+
+    /**
+     * List of sights loaded from a JSON file.
+     */
     private List<Sight> sights;
 
     // Constructor reads from json and initialises sights list
+
+    /**
+     * Constructor initializes the sights list by reading data from the JSON file.
+     */
     public SightsFileHandler() {
         ObjectMapper mapper = new ObjectMapper();
         try {
@@ -32,11 +44,22 @@ public class SightsFileHandler {
         }
     }
 
+    /**
+     * Retrieves the list of sights.
+     *
+     * @return List of Sight objects.
+     */
     public List<Sight> getSights() {
         return sights;
     }
 
     // Is used to create distances.json file from sight addresses
+
+    /**
+     * Retrieves the locations of all sights as a list of strings.
+     *
+     * @return List of sight locations.
+     */
     public List<String> getLocations() {
         List<String> locations = new ArrayList<>();
         
@@ -47,6 +70,13 @@ public class SightsFileHandler {
     }
 
     // Is used by interface to show available sights to user
+
+    /**
+     * Filters sights by their category or includes must-see sights if the category is 0.
+     *
+     * @param category The category to filter sights by (0 for must-see sights).
+     * @return List of filtered sights.
+     */
     public List<Sight> filterSightsByCategory(int category) {
         List<Sight> filteredSights = new ArrayList<>();
     
@@ -72,6 +102,14 @@ public class SightsFileHandler {
     }
 
     // Is used to calculate distance between Sight objects
+
+    /**
+     * Calculates the distance between two sights using data from a JSON file.
+     *
+     * @param origin The origin sight's location.
+     * @param destination The destination sight's location.
+     * @return Distance between the origin and destination in kilometers.
+     */
     public double getDistanceFromJson(String origin, String destination) {
         ObjectMapper mapper = new ObjectMapper();
 
@@ -100,6 +138,14 @@ public class SightsFileHandler {
     }
 
     // Is used to calculate duration between Sight objects
+
+    /**
+     * Calculates the duration between two sights using data from a JSON file.
+     *
+     * @param origin The origin sight's location.
+     * @param destination The destination sight's location.
+     * @return Duration between the origin and destination in minutes.
+     */
     public double getDurationFromJson(String origin, String destination) {
         ObjectMapper mapper = new ObjectMapper();
 

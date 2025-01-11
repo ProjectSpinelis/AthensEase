@@ -11,6 +11,10 @@ import org.optaplanner.core.api.score.buildin.hardsoft.HardSoftScore;
 import com.athensease.optimization.TrailHeadInclusion;
 import com.athensease.dataretrieval.ApiHandler;
 
+/**
+ * Represents a trip, managing its details such as duration, budget, trailheads, and chosen sights.
+ * Provides functionality for trip optimization and printing trip details.
+ */
 public class Trip {
     private int duration;
     private double budget;
@@ -28,6 +32,17 @@ public class Trip {
     private double ticketsCost;
     
     // Constructor for one trailhead or Multiple trailheads, up to 3 Trailheads are supported
+
+    /**
+     * Constructs a Trip with the specified parameters.
+     *
+     * @param duration Duration of the trip in days.
+     * @param budget Budget for the trip.
+     * @param addresses List of addresses for up to three trailheads.
+     * @param trailHeadDays Days assigned to trailheads.
+     * @param chosenCategories List of chosen categories for sights.
+     * @param chosenSights List of sights chosen for the trip.
+     */
     public Trip(int duration, double budget, List<String> addresses, List<Integer> trailHeadDays, List<Integer> chosenCategories, List<Sight> chosenSights) {
         this.duration = duration;
         this.budget = budget;
@@ -84,6 +99,14 @@ public class Trip {
     }
 
     // Helper method
+
+    /**
+     * Helper method to interact with the API handler for calculating distances and durations.
+     *
+     * @param origin List of origin locations.
+     * @param destination List of destination locations.
+     * @return A list containing distance and duration values.
+     */
     public static List<Double> callApiHandler(List<String> origin, List<String> destination) {
         List<Double> distanceAndDuration = new ArrayList<>();
         ApiHandler handler = new ApiHandler(origin, destination);
@@ -107,7 +130,8 @@ public class Trip {
     }
     
 
-    // Setters and Getters
+    // Getters and Setters
+
     public int getDuration() {
         return duration;
     }
@@ -199,6 +223,12 @@ public class Trip {
     }
 
     // Returns the total cost of the trip
+
+    /**
+     * Calculates the total cost of the trip based on the prices of chosen sights.
+     *
+     * @return Total cost of the trip.
+     */
     public double getTotalCost() {
         return this.getChosenSights().stream()
             .mapToDouble(Sight::getPrice)
@@ -206,13 +236,21 @@ public class Trip {
     }
 
     // Returns the minimum visit time required to visit all sights, only sightseeing time
+    
+    /**
+     * Calculates the minimum visit time required for all chosen sights.
+     *
+     * @return Minimum visit time in minutes.
+     */
     public int getMinVisitTime() {
         return this.getChosenSights().stream()
             .mapToInt(Sight::getVisitTime)
             .sum();
     }
 
-    // Prints Trip Details
+    /**
+     * Prints the details of the trip, including the optimized route, distances, durations, and costs.
+     */
     public void printTrip() {
         System.out.println("The score is: " + this.getOptimizationScore());
     

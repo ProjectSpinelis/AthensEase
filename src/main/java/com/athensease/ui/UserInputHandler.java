@@ -9,12 +9,21 @@ import com.athensease.sights.SightsFileHandler;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Handles user input for configuring trip details, including trip duration, trailheads,
+ * budget, preferred categories, and chosen sights.
+ */
 public class UserInputHandler {
 
     Scanner s = new Scanner(System.in);
     private int daysOfTheTrip = 0; // Default value
     private List<Integer> TrailHeadDays= new ArrayList<>();
 
+    /**
+     * Gathers the duration of the trip in days from the user.
+     *
+     * @return The number of days for the trip.
+     */
     public int gatherDuration() {
         int days = 0;
         while (true) {
@@ -38,6 +47,11 @@ public class UserInputHandler {
         return days;
     }
 
+    /**
+     * Collects trailhead locations and associated trailhead change days from the user.
+     *
+     * @return A list of trailhead locations.
+     */
     public List<String> gatherTrailheads() {
         System.out.println("Please enter your trailhead."); //adds first trailhead
         List<String> trailhead = new ArrayList<>();
@@ -120,22 +134,47 @@ public class UserInputHandler {
         return trailhead;
     }
 
+    /**
+     * Retrieves the trailhead days for the trip.
+     *
+     * @return List of trailhead days.
+     */
     public List<Integer> getTrailHeadDays() {
         return TrailHeadDays;
     }
 
+    /**
+     * Sets the trailhead days for the trip.
+     *
+     * @param trailHeadDays List of trailhead days.
+     */
     public void setTrailHeadDays(List<Integer> trailHeadDays) {
         this.TrailHeadDays = trailHeadDays;
     }
 
+    /**
+     * Retrieves the number of days for the trip.
+     *
+     * @return Number of days for the trip.
+     */
     public int getDaysOfTheTrip() {
         return daysOfTheTrip;
     }
 
+    /**
+     * Sets the number of days for the trip.
+     *
+     * @param daysOfTheTrip Number of days for the trip.
+     */
     public void setDaysOfTheTrip(int daysOfTheTrip) {
         this.daysOfTheTrip = daysOfTheTrip;
     }
 
+    /**
+     * Gathers the budget for the trip from the user.
+     *
+     * @return The budget in euros.
+     */
     public int gatherBudget() {
         System.out.println("Are you travelling on a budget? Enter 1 for Yes or 2 for No.");
         int onAbudget = 0;
@@ -175,6 +214,11 @@ public class UserInputHandler {
         return budget;
     }
 
+    /**
+     * Allows the user to select preferred categories of attractions.
+     *
+     * @return List of selected category indices.
+     */
     public List<Integer> chooseCategories() {
         System.out.println("It's time for you to choose the categories of attractions you prefer to see.");
         System.out.println("Choose by typing their numbers separated by commas:");
@@ -197,6 +241,12 @@ public class UserInputHandler {
         return selectedCategories;
     }
 
+    /**
+     * Allows the user to select specific sights from available categories.
+     *
+     * @param chosenCategories List of chosen categories.
+     * @return List of selected sights.
+     */
     public List<Sight> chooseSights(List<Integer> chosenCategories) {
         List<Sight> availableSights = new ArrayList<>();
         SightsFileHandler sightsHandler = new SightsFileHandler();
@@ -228,6 +278,13 @@ public class UserInputHandler {
         return selectedSights;
     }
 
+    /**
+     * Parses user input for category or sight selection.
+     *
+     * @param input User input as a comma-separated string.
+     * @param maxCategoryIndex Maximum index allowed for selection.
+     * @return List of selected indices.
+     */
     private List<Integer> parseSelection(String input, int maxCategoryIndex) {
         if (input.isEmpty()) {
             throw new IllegalArgumentException("Input cannot be empty. Please try again.");
@@ -251,6 +308,12 @@ public class UserInputHandler {
         }
         return choices;
     }
+
+    /**
+     * Allows the user to choose their optimization objective.
+     *
+     * @return True if the objective is to minimize total travel distance, false for minimizing duration.
+     */
     public boolean chooseObjective() {
         System.out.println("Choose your objective:");
         System.out.println("1. Minimize total travel distance");

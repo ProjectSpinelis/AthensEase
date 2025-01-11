@@ -4,10 +4,16 @@ import org.optaplanner.core.api.domain.entity.PlanningEntity;
 import org.optaplanner.core.api.domain.lookup.PlanningId;
 import org.optaplanner.core.api.domain.variable.PlanningVariable;
 
-
+/**
+ * Represents a sight to be visited, including details such as location, price, visit time,
+ * and various distances and durations related to trailheads and other sights.
+ */
 @PlanningEntity
 public class Sight {
 
+    /**
+     * Unique identifier for the sight.
+     */
     @PlanningId
     private String name;
     private String location;
@@ -16,23 +22,71 @@ public class Sight {
     private String category;
     private boolean mustSee;
 
+    /**
+     * Order in which the sight is visited during the trip.
+     */
     @PlanningVariable
     private Integer visitOrder;
     
     //About first trailhead
+
+    /**
+     * Distance from the sight to the starting point, in kilometers.
+     */
     private double distanceToStartingPoint;
+
+    /**
+     * Distance from the starting point to the sight, in kilometers.
+     */
     private double distanceFromStartingPoint;
+
+    /**
+     * Duration from the sight to the starting point, in minutes.
+     */
     private double durationToStartingPoint;
+
+    /**
+     * Duration from the starting point to the sight, in minutes.
+     */
     private double durationFromStartingPoint;
 
     //About second and third trailhead
+
+    /**
+     * Distance from the sight to the second trailhead, in kilometers.
+     */
     private double distanceToSecondTrailHead;
+
+    /**
+     * Duration from the sight to the second trailhead, in minutes.
+     */
     private double durationToSecondTrailHead;
+
+    /**
+     * Distance from the sight to the third trailhead, in kilometers.
+     */
     private double distanceToThirdTrailHead;
+
+    /**
+     * Duration from the sight to the third trailhead, in minutes.
+     */
     private double durationToThirdTrailHead;
 
+    /**
+     * Maximum visit order allowed for any sight.
+     */
     private static int maxVisitOrder = 0;
 
+    /**
+     * Constructs a new Sight with specified attributes.
+     *
+     * @param name Name of the sight.
+     * @param location Location of the sight.
+     * @param price Price to visit the sight.
+     * @param visitTime Estimated visit time in minutes.
+     * @param category Category of the sight.
+     * @param mustSee Indicates if the sight is a must-see.
+     */
     public Sight(String name, String location, double price, int visitTime, String category, boolean mustSee) {
         this.name = name;
         this. location = location;
@@ -42,6 +96,9 @@ public class Sight {
         this.mustSee = mustSee;
     }
 
+    /**
+     * Default constructor for Sight.
+     */
     public Sight() {
 
     }
@@ -160,6 +217,8 @@ public class Sight {
         this.durationToThirdTrailHead = durationToThirdTrailHead;
     }
 
+    // Static methods
+    
     public static int getMaxVisitOrder() {
         return maxVisitOrder;
     }
@@ -168,8 +227,12 @@ public class Sight {
         Sight.maxVisitOrder = maxVisitOrder;
     }
 
-
-
+    /**
+     * Calculates the distance to another sight.
+     *
+     * @param sight The destination sight.
+     * @return Distance to the destination sight in kilometers.
+     */
     public double calculateDistanceToSight(Sight sight) {
         String origin = this.getLocation();
         String destination = sight.getLocation();
@@ -178,6 +241,12 @@ public class Sight {
         return handler.getDistanceFromJson(origin, destination);
     }
 
+    /**
+     * Calculates the duration to another sight.
+     *
+     * @param sight The destination sight.
+     * @return Duration to the destination sight in minutes.
+     */
     public double calculateDurationToSight(Sight sight) {
         String origin = this.getLocation();
         String destination = sight.getLocation();
@@ -186,6 +255,11 @@ public class Sight {
         return handler.getDurationFromJson(origin, destination);
     }
 
+    /**
+     * Returns a string representation of the sight.
+     *
+     * @return A string containing the sight's details.
+     */
     @Override
     public String toString() {
         if(this.name.equals("Hotel")) {
