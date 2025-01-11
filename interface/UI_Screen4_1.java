@@ -62,21 +62,25 @@ public class UI_Screen4_1 {
         Label instructionLabel = new Label(
                 "On which of those days will you change your starting point?\n" +
                         "We have already included day 1 for you, please continue with the rest.\n" +
-                            "Integers divided by comma (,) are expected."
+                            "Maximum 2 integers divided by comma (,) are expected." +
+                                "(Up to 3 different trailheads total.)"
         );
 
         // Input field for change days
         TextField changeDaysInput = new TextField();
         changeDaysInput.setPromptText("Enter days (e.g., 2, 4)");
         changeDaysInput.textProperty().addListener((observable, oldValue, newValue) -> {
+        boolean hasInvalidInput = false; // Flag for invalid day
+        List<Integer> userDays = new ArrayList<>();
             try {
                 // Parse input and add valid days to the list
                 String[] inputs = newValue.split(",");
-                List<Integer> userDays = new ArrayList<>();
                 for (String input : inputs) {
                     int day = Integer.parseInt(input.trim());
                     if (day > 1 && day <= duration) { // Valid days only
                         userDays.add(day);
+                    } else {
+                        hasInvalidInput = true; // day not valid
                     }
                 }
 
@@ -85,9 +89,28 @@ public class UI_Screen4_1 {
                 changeDays.add(1); // Always include day 1
                 changeDays.addAll(userDays); // Add user-input days
             } catch (NumberFormatException e) {
-                // Reset to default list with only day 1 on invalid input
-                changeDays.clear();
-                changeDays.add(1);
+                hasInvalidInput = true; // Invalid input
+            }
+
+            // Create valid text
+            String validText = userDays.isEmpty() ? "" : userDays.toString().replaceAll("[\\[\\] ]", "");
+
+
+            // Reset to default list with only day 1 on invalid input
+            changeDays.clear();
+            changeDays.add(1);
+            changeDays.addAll(userDays);
+
+            // Update TextField with valid days
+            changeDaysInput.setText(changeDays.subList(1, changeDays.size()).toString().replaceAll("[\\[\\] ]", ""));
+
+            if (!newValue.equals(validText)) {
+                changeDaysInput.setText(validText);
+            }
+
+            // Printed when invalid input
+            if (hasInvalidInput) {
+                System.out.println("Invalid input. Please enter valid days (1-" + duration + ").");
             }
         });
 
@@ -115,7 +138,7 @@ public class UI_Screen4_1 {
         
             // Transition to Screen 4.2 with the changeDays list and isBudgetYesSelected
             try {
-                UI_Screen4_2 screen4_2 = new UI_Screen4_2(FXCollections.observableArrayList(changeDays), isBudgetYesSelected);
+                UI_Screen4_2 screen4_2 = new UI_Screen4_2(duration, FXCollections.observableArrayList(changeDays), isBudgetYesSelected);
                 screen4_2.start(new Stage());
                 primaryStage.close(); // Close the current stage
             } catch (Exception ex) {

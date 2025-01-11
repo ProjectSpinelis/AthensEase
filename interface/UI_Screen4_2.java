@@ -8,6 +8,9 @@
  * 4. Transitioning to the next screen (5) or finalizing the process based on user selections.
  */
 
+import java.util.ArrayList;
+import java.util.List;
+
 import javafx.application.Application;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -18,17 +21,22 @@ import javafx.stage.Stage;
 
 public class UI_Screen4_2 extends Application {
 
+    private int duration; // Total duration of the trip (from Screen 2)
+
     private ObservableList<Integer> changeDays;
     private ObservableList<String> startingPoints;
     private ObservableList<String> finishPoints;
     private boolean isBudgetYesSelected;
 
     // Constructor for initializing the UI_Screen4_2 instance
-    public UI_Screen4_2(ObservableList<Integer> changeDays, boolean isBudgetYesSelected) {
+    public UI_Screen4_2(int duration, ObservableList<Integer> changeDays, boolean isBudgetYesSelected) {
+        this.duration = duration;
         this.changeDays = changeDays;
         this.isBudgetYesSelected = isBudgetYesSelected;
         this.startingPoints = FXCollections.observableArrayList();
         this.finishPoints = FXCollections.observableArrayList();
+
+        // Initialize lists with empty strings
         for (int i = 0; i < changeDays.size(); i++) {
             this.startingPoints.add("");
             this.finishPoints.add("");
@@ -47,6 +55,17 @@ public class UI_Screen4_2 extends Application {
         // Debugging: Print transferred data
         System.out.println("Change Days: " + changeDays);
         System.out.println("Is Budget Yes Selected: " + isBudgetYesSelected);
+
+        // Restrict list size to a maximum of 3 elements
+        while (changeDays.size() > 3) {
+            changeDays.remove(changeDays.size() - 1);
+        }
+        while (startingPoints.size() > 3) {
+            startingPoints.remove(startingPoints.size() - 1);
+        }
+        while (finishPoints.size() > 3) {
+            finishPoints.remove(finishPoints.size() - 1);
+        }
 
         // Create table for displaying change days
         TableView<Integer> changeDaysTable = new TableView<>();
@@ -105,6 +124,20 @@ public class UI_Screen4_2 extends Application {
             // Debugging : Print the lists of startingPoints and finishPoints
             System.out.println("Starting Points: " + startingPoints);
             System.out.println("Finish Points: " + finishPoints);
+
+            List<Integer> trailheadsDays = new ArrayList<>();
+            for (int day = 1; day <= duration; day++) {
+                int trailhead = 1;
+                for (int changeDay : changeDays) {
+                    if (day > changeDay) {
+                        trailhead++;
+                    }
+                }
+                trailheadsDays.add(trailhead);
+            }
+
+            // Debugging: Print the trailheadsDays list
+            System.out.println("Trailheads Days: " + trailheadsDays);
             
             if (isBudgetYesSelected) {
                 System.out.println("Proceeding to Screen 5...");
