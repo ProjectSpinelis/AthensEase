@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
+import com.athensease.sights.Sight;
 
 import org.optaplanner.core.api.score.buildin.hardsoft.HardSoftScore;
 
@@ -138,6 +139,7 @@ public class Trip {
         return totalTravelDuration;
     }
 
+
     public void setTotalTravelDuration(double totalTravelDuration) {
         this.totalTravelDuration = totalTravelDuration;
     }
@@ -214,7 +216,7 @@ public class Trip {
     /**
      * Prints the details of the trip, including the optimized route, distances, durations, and costs.
      */
-    public void printTrip() {
+    public void tripCalculations() {
         System.out.println("The score is: " + this.getOptimizationScore());
     
         System.out.println("\nThe optimized route is the following:\n");
@@ -318,7 +320,7 @@ public class Trip {
                 System.out.println("      ***");
                 System.out.println("       *");
                 
-                int trailHeadOption = getTrailHeadDays().get(daysCounter - 1);
+                int trailHeadOption = getChangeDays().get(daysCounter - 1);
 
                 double distanceToTrailHead = 0; //Default value
                 double durationToTrailHead = 0; //Default value

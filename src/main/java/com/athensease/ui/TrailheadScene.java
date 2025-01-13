@@ -85,7 +85,7 @@ public class TrailheadScene {
                     double distance = handler.extractField(response, "distance"); // Assume this returns a double
                     double duration = handler.extractField(response, "duration"); // Assume this returns a double
 
-                    trip.setAddress(trailhead);
+                    trip.setAddress1(trailhead);
                     System.out.println("Trailhead accepted: " + trailhead);
                     if (isBudgetYesSelected) {
                         System.out.println("Proceeding to Screen 5...");

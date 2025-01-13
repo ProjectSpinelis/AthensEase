@@ -50,7 +50,8 @@ public class ProgressBarScreen {
                 // Εκτέλεση της λειτουργίας optimizeTrip
                 trip.prepTrip();
                 Optimizer.optimizeTrip(trip); // Εκτέλεση σε background thread
-                TrailHeadInclusion.addOneTraildHead(trip, trip.getOptimizedSights());
+                System.out.println("Optimization finished");
+                TrailHeadInclusion.findHotelStopPoints(trip.getOptimizedSights());
                 trip.tripCalculations();
                 System.out.println("Optimization finished Tasks");
                 return null;
