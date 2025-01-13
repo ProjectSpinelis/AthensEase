@@ -7,8 +7,18 @@ import org.optaplanner.core.api.score.stream.Constraint;
 import org.optaplanner.core.api.score.stream.ConstraintFactory;
 import org.optaplanner.core.api.score.stream.ConstraintProvider;
 
+/**
+ * Provides constraints for optimizing a route plan in an OptaPlanner solution.
+ * This class defines the rules used to calculate the optimization score, focusing on minimizing total duration.
+ */
 public class RoutePlanConstraintProviderForDuration implements ConstraintProvider{
 
+    /**
+     * Defines all constraints for the route plan optimization.
+     *
+     * @param constraintFactory Factory for creating constraints.
+     * @return An array of constraints for the optimization problem.
+     */
     @Override
     public Constraint[] defineConstraints(ConstraintFactory constraintFactory) {
         return new Constraint[] {
@@ -19,6 +29,13 @@ public class RoutePlanConstraintProviderForDuration implements ConstraintProvide
         };
     }
 
+
+    /**
+     * Minimizes the total duration of the route.
+     *
+     * @param constraintFactory Factory for creating constraints.
+     * @return A constraint that penalizes longer travel durations.
+     */
     private Constraint minimizeTotalDuration(ConstraintFactory constraintFactory) {
         return constraintFactory.forEachUniquePair(Sight.class)
             
@@ -48,6 +65,12 @@ public class RoutePlanConstraintProviderForDuration implements ConstraintProvide
                 .asConstraint("Minimize total duration time");
     }
     
+    /**
+     * Ensures that each sight has a unique visit order in the route.
+     *
+     * @param constraintFactory Factory for creating constraints.
+     * @return A constraint that penalizes duplicate visit orders.
+     */
     private Constraint uniqueVisitOrders(ConstraintFactory constraintFactory) {
         return constraintFactory.forEachUniquePair(Sight.class)  // Iterate over all unique pairs of sights
                 .filter((sight1, sight2) -> sight1.getVisitOrder() == sight2.getVisitOrder())  // Check if visitOrder is the same

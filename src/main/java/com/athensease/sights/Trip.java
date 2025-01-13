@@ -14,10 +14,15 @@ import com.athensease.optimization.TrailHeadInclusion;
 public class Trip {
     private int duration;
     private double budget;
-    private String address;
+    private String address1;
+    private String address2;
+    private String address3;
+
     private boolean[] chosenCategories;
     private List<Sight> chosenSights;
     private int optmizeFor;
+    private List<Integer> changeDays = new ArrayList<>();
+
 
     private List<Sight> optimizedSights;
     private HardSoftScore optimizationScore;
@@ -40,7 +45,7 @@ public class Trip {
             List<String> destination = new ArrayList<>();
 
             origin.add(sight.getLocation());
-            destination.add(address);
+            destination.add(address1);
 
             List<Double> results = callApiHandler(origin, destination);
             sight.setDistanceToStartingPoint(results.get(0));
@@ -90,12 +95,7 @@ public class Trip {
     public void setBudget(double budget) {
         this.budget = budget;
     }
-    public String getAddress() {
-        return address;
-    }
-    public void setAddress(String address) {
-        this.address = address;
-    }
+    
     public List<Sight> getChosenSights() {
         return chosenSights;
     }
@@ -150,6 +150,33 @@ public class Trip {
         this.ticketsCost = ticketsCost;
     }
 
+    public String getAddress1() {
+        return address1;
+    }
+
+
+    public void setAddress1(String address1) {
+        this.address1 = address1;
+    }
+
+    public String getAddress2() {
+        return address2;
+    }
+
+
+    public void setAddress2(String address2) {
+        this.address2 = address2;
+    }
+
+    public String getAddress3() {
+        return address3;
+    }
+
+
+    public void setAddress3(String address3) {
+        this.address3 = address3;
+    }
+
     
     public int getOptmizeFor() {
         return optmizeFor;
@@ -174,9 +201,20 @@ public class Trip {
             .sum();
     }
 
+    public List<Integer> getChangeDays() {
+        return changeDays;
+    }
 
-    // Prints Trip Details
-    public void tripCalculations() {
+
+    public void setChangeDays(List<Integer> changeDays) {
+        this.changeDays = changeDays;
+    }
+
+
+    /**
+     * Prints the details of the trip, including the optimized route, distances, durations, and costs.
+     */
+    public void printTrip() {
         System.out.println("The score is: " + this.getOptimizationScore());
     
         System.out.println("\nThe optimized route is the following:\n");
@@ -185,9 +223,13 @@ public class Trip {
             .sorted(Comparator.comparingInt(Sight::getVisitOrder))  // Assuming getVisitOrder() returns an int
             .collect(Collectors.toList());  // Collect the sorted sights into a list
     
+        List<Sight> hotelStopPoints = TrailHeadInclusion.findHotelStopPoints(sortedSights);
         double totalDistance = 0;
         double totalTravelDuration = 0;
         double ticketsCost = 0;
+        int daysCounter = 1;
+
+        System.out.println("\nDay " + daysCounter + ":\n");
 
         for (int i = 0; i < sortedSights.size(); i++) {
             Sight currentSight = sortedSights.get(i);
@@ -197,33 +239,106 @@ public class Trip {
                 totalDistance += currentSight.getDistanceFromStartingPoint();
                 totalTravelDuration += currentSight.getDurationFromStartingPoint();
             }
+            
+            boolean hotelStopAfter = false;
+            for (Sight sight : hotelStopPoints) {
+                if (currentSight.getName() == sight.getName()) {
+                    hotelStopAfter = true;
+                    daysCounter += 1;
+                    break;
+                }
+            }
+            
             System.out.println(currentSight);
     
-            if (i < sortedSights.size() -1) {  // If there is a next sight
-                if (!currentSight.getName().equals("Hotel")) { // If the current sight is not hotel
-                    if (!sortedSights.get(i + 1).getName().equals("Hotel")) { // If the next sight is not hotel
-                        Sight nextSight = sortedSights.get(i + 1);
-                        double distance = currentSight.calculateDistanceToSight(nextSight);
-                        totalDistance += distance;
-                        totalTravelDuration += currentSight.calculateDurationToSight(nextSight);
-                        System.out.println("  Distance to next sight: " + distance + " km");
-                    } else { // If the next sight is hotel
-                        System.out.println("  Distance back to hotel: " + currentSight.getDistanceToStartingPoint() + " km");
-                        totalDistance += currentSight.getDistanceToStartingPoint();
-                        totalTravelDuration += currentSight.getDurationToStartingPoint();
+            if (i < (sortedSights.size() - 1)) {  // If there is a next sight
+                if (hotelStopAfter) { // If after this sight we need to return to the hotel
+
+                    int trailHeadOption = getChangeDays().get(daysCounter - 2);
+
+                    double distanceToTrailHead = 0; //Default value
+                    double durationToTrailHead = 0; //Default value
+
+                    if (trailHeadOption == 1) {
+                        distanceToTrailHead = currentSight.getDistanceToStartingPoint();
+                        durationToTrailHead = currentSight.getDurationToStartingPoint();
+                        System.out.println("Distance back to hotel (" + address1 + "): " + distanceToTrailHead + " km");
+                    } else if (trailHeadOption == 2) {
+                        distanceToTrailHead = currentSight.getDistanceToSecondTrailHead();
+                        durationToTrailHead = currentSight.getDurationToSecondTrailHead();
+                        System.out.println("Distance back to hotel (" + address2 + "): " + distanceToTrailHead + " km");
+                    } else if (trailHeadOption == 3) {
+                        distanceToTrailHead = currentSight.getDistanceToThirdTrailHead();
+                        durationToTrailHead = currentSight.getDurationToThirdTrailHead();
+                        System.out.println("Distance back to hotel (" + address3 + "): " + distanceToTrailHead + " km");
                     }
-                } else { // If the current sight is hotel
+
+                    System.out.println("\nDay " + daysCounter + ":\n");
+                    totalDistance += distanceToTrailHead;
+                    totalTravelDuration += durationToTrailHead;
+                    
+                    double distanceFromTrailHead = 0; //Default value
+                    double durationFromTrailHead = 0; //Default value
+
                     Sight nextSight = sortedSights.get(i + 1);
-                    System.out.println("  Distance to next sight: " + nextSight.getDistanceFromStartingPoint() + " km");
-                    totalDistance += nextSight.getDistanceFromStartingPoint();
-                    totalTravelDuration += nextSight.getDurationFromStartingPoint();
+
+                    if (trailHeadOption == 1) {
+                        distanceFromTrailHead = nextSight.getDistanceFromStartingPoint();
+                        durationFromTrailHead = nextSight.getDurationFromStartingPoint();
+                    } else if (trailHeadOption == 2) {
+                        distanceFromTrailHead = nextSight.getDistanceToSecondTrailHead();
+                        durationFromTrailHead = nextSight.getDurationToSecondTrailHead();
+                    } else if (trailHeadOption == 3) {
+                        distanceFromTrailHead = nextSight.getDistanceToThirdTrailHead();
+                        durationFromTrailHead = nextSight.getDurationToThirdTrailHead();
+                    }
+
+                    totalDistance += distanceFromTrailHead;
+                    totalTravelDuration += durationFromTrailHead;
+                    System.out.println("Distance from hotel to next sight: " + distanceFromTrailHead + " km");
+                } else { // If after this sight we don't need to return to the hotel
+                    Sight nextSight = sortedSights.get(i + 1);
+                    double distance = currentSight.calculateDistanceToSight(nextSight);
+                    totalDistance += distance;
+                    totalTravelDuration += currentSight.calculateDurationToSight(nextSight);
+                    System.out.println("Distance to next sight: " + distance + " km");
                 }
             } else { // If the current sight is the last sight
-                System.out.println("Distance back to starting point: " + currentSight.getDistanceToStartingPoint() + " km");
-                totalDistance += currentSight.getDistanceFromStartingPoint();
-                totalTravelDuration += currentSight.getDurationFromStartingPoint();
-            }
 
+                System.out.println("Your trip was finished.\n");
+
+                //Fireworks for the end of the trip
+                System.out.println("       *");
+                System.out.println("      * *");
+                System.out.println(" *   *   *   *");
+                System.out.println("  *  *   *  *");
+                System.out.println("   *  ***  *");
+                System.out.println("    *******");
+                System.out.println("     *****");
+                System.out.println("      ***");
+                System.out.println("       *");
+                
+                int trailHeadOption = getTrailHeadDays().get(daysCounter - 1);
+
+                double distanceToTrailHead = 0; //Default value
+                double durationToTrailHead = 0; //Default value
+
+                if (trailHeadOption == 1) {
+                    distanceToTrailHead = currentSight.getDistanceToStartingPoint();
+                    durationToTrailHead = currentSight.getDurationToStartingPoint();
+                    System.out.println("Distance back to hotel (" + address1 + "): " + distanceToTrailHead + " km");
+                } else if (trailHeadOption == 2) {
+                    distanceToTrailHead = currentSight.getDistanceToSecondTrailHead();
+                    durationToTrailHead = currentSight.getDurationToSecondTrailHead();
+                    System.out.println("Distance back to hotel (" + address2 + "): " + distanceToTrailHead + " km");
+                } else if (trailHeadOption == 3) {
+                    distanceToTrailHead = currentSight.getDistanceToThirdTrailHead();
+                    durationToTrailHead = currentSight.getDurationToThirdTrailHead();
+                    System.out.println("Distance back to hotel (" + address3 + "): " + distanceToTrailHead + " km");
+                }
+                totalDistance += distanceToTrailHead;
+                totalTravelDuration += durationToTrailHead;
+            }
         }
         this.setTotalDistanceTraveled(totalDistance);
         this.setTicketsCost(ticketsCost);

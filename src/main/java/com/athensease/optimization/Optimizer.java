@@ -14,14 +14,23 @@ import com.athensease.sights.Trip;
 import com.athensease.optimization.solver.RoutePlanConstraintProvider;
 import com.athensease.optimization.solver.RoutePlanConstraintProviderForDuration;
 
+/**
+ * The Optimizer class provides methods to optimize a trip using OptaPlanner.
+ * It supports objectives of minimizing either total travel distance or total travel duration.
+ */
 public class Optimizer {
 
+    /**
+     * Optimizes a trip based on the specified objective.
+     *
+     * @param trip The trip to be optimized, containing chosen sights and budget.
+     * @param objective The optimization objective: true for minimizing total distance, false for minimizing total duration.
+     */
     public static void optimizeTrip(Trip trip) {
         
         SolverConfig solverConfig;
         
         if (trip.getOptmizeFor() == 1) { // If the objective is to minimize the total travel distance
-            System.out.println("Minimizing for distance"); 
             solverConfig = new SolverConfig()
                     .withSolutionClass(RoutePlan.class)
                     .withEntityClasses(Sight.class)
@@ -31,7 +40,6 @@ public class Optimizer {
                     .withTerminationSpentLimit(Duration.ofSeconds(5));
 
         } else { // If the objective is to minimize the total travel duration
-            System.out.println("Minimizing for duration"); 
             solverConfig = new SolverConfig()
                     .withSolutionClass(RoutePlan.class)
                     .withEntityClasses(Sight.class)
@@ -43,7 +51,7 @@ public class Optimizer {
         SolverFactory<RoutePlan> solverFactory = SolverFactory.create(solverConfig);
 
         // Load the problem
-        RoutePlan problem = generateDemoData(trip);
+        RoutePlan problem = generateData(trip);
 
         // Solve the problem
         Solver<RoutePlan> solver = solverFactory.buildSolver();
@@ -54,7 +62,13 @@ public class Optimizer {
         trip.setOptimizationScore(solution.getScore());
     }
 
-    public static RoutePlan generateDemoData(Trip trip) {
+    /**
+     * Generates data for the trip to create a RoutePlan.
+     *
+     * @param trip The trip containing chosen sights and budget.
+     * @return A RoutePlan object initialized with the trip's data.
+     */
+    public static RoutePlan generateData(Trip trip) {
 
         List<Sight> sights = new ArrayList<>();
         sights = trip.getChosenSights();

@@ -1,11 +1,24 @@
-C:\Users\User\java2\Github\AthensEase\src\main\java\com\athensease\dataretrieval\ApiHandler.java
-C:\Users\User\java2\Github\AthensEase\src\main\java\com\athensease\dataretrieval\JsonFormatter.java
-C:\Users\User\java2\Github\AthensEase\src\main\java\com\athensease\dataretrieval\Main.java
-C:\Users\User\java2\Github\AthensEase\src\main\java\com\athensease\optimization\domain\RoutePlan.java
-C:\Users\User\java2\Github\AthensEase\src\main\java\com\athensease\optimization\Optimizer.java
-C:\Users\User\java2\Github\AthensEase\src\main\java\com\athensease\optimization\solver\RoutePlanConstraintProvider.java
-C:\Users\User\java2\Github\AthensEase\src\main\java\com\athensease\sights\Sight.java
-C:\Users\User\java2\Github\AthensEase\src\main\java\com\athensease\sights\SightsFileHandler.java
-C:\Users\User\java2\Github\AthensEase\src\main\java\com\athensease\sights\Trip.java
-C:\Users\User\java2\Github\AthensEase\src\main\java\com\athensease\ui\TripPlanner.java
-C:\Users\User\java2\Github\AthensEase\src\main\java\com\athensease\ui\UserInputHandler.java
+C:\Users\User\Desktop\Reference Material\All About University\Java Exercises Programming II\Java Files\GitHubTest\EvaggelosUI\AthensEase\src\main\java\com\athensease\dataretrieval\ApiHandler.java
+C:\Users\User\Desktop\Reference Material\All About University\Java Exercises Programming II\Java Files\GitHubTest\EvaggelosUI\AthensEase\src\main\java\com\athensease\dataretrieval\JsonFormatter.java
+C:\Users\User\Desktop\Reference Material\All About University\Java Exercises Programming II\Java Files\GitHubTest\EvaggelosUI\AthensEase\src\main\java\com\athensease\dataretrieval\Main.java
+C:\Users\User\Desktop\Reference Material\All About University\Java Exercises Programming II\Java Files\GitHubTest\EvaggelosUI\AthensEase\src\main\java\com\athensease\optimization\domain\RoutePlan.java
+C:\Users\User\Desktop\Reference Material\All About University\Java Exercises Programming II\Java Files\GitHubTest\EvaggelosUI\AthensEase\src\main\java\com\athensease\optimization\Optimizer.java
+C:\Users\User\Desktop\Reference Material\All About University\Java Exercises Programming II\Java Files\GitHubTest\EvaggelosUI\AthensEase\src\main\java\com\athensease\optimization\solver\RoutePlanConstraintProvider.java
+C:\Users\User\Desktop\Reference Material\All About University\Java Exercises Programming II\Java Files\GitHubTest\EvaggelosUI\AthensEase\src\main\java\com\athensease\optimization\solver\RoutePlanConstraintProviderForDuration.java
+C:\Users\User\Desktop\Reference Material\All About University\Java Exercises Programming II\Java Files\GitHubTest\EvaggelosUI\AthensEase\src\main\java\com\athensease\optimization\TrailHeadInclusion.java
+C:\Users\User\Desktop\Reference Material\All About University\Java Exercises Programming II\Java Files\GitHubTest\EvaggelosUI\AthensEase\src\main\java\com\athensease\sights\Sight.java
+C:\Users\User\Desktop\Reference Material\All About University\Java Exercises Programming II\Java Files\GitHubTest\EvaggelosUI\AthensEase\src\main\java\com\athensease\sights\SightsFileHandler.java
+C:\Users\User\Desktop\Reference Material\All About University\Java Exercises Programming II\Java Files\GitHubTest\EvaggelosUI\AthensEase\src\main\java\com\athensease\sights\Trip.java
+C:\Users\User\Desktop\Reference Material\All About University\Java Exercises Programming II\Java Files\GitHubTest\EvaggelosUI\AthensEase\src\main\java\com\athensease\ui\App.java
+C:\Users\User\Desktop\Reference Material\All About University\Java Exercises Programming II\Java Files\GitHubTest\EvaggelosUI\AthensEase\src\main\java\com\athensease\ui\BudgetScene.java
+C:\Users\User\Desktop\Reference Material\All About University\Java Exercises Programming II\Java Files\GitHubTest\EvaggelosUI\AthensEase\src\main\java\com\athensease\ui\CategoriesScreen.java
+C:\Users\User\Desktop\Reference Material\All About University\Java Exercises Programming II\Java Files\GitHubTest\EvaggelosUI\AthensEase\src\main\java\com\athensease\ui\FirstInputScene.java
+C:\Users\User\Desktop\Reference Material\All About University\Java Exercises Programming II\Java Files\GitHubTest\EvaggelosUI\AthensEase\src\main\java\com\athensease\ui\MyButton.java
+C:\Users\User\Desktop\Reference Material\All About University\Java Exercises Programming II\Java Files\GitHubTest\EvaggelosUI\AthensEase\src\main\java\com\athensease\ui\ProgressBarScreen.java
+C:\Users\User\Desktop\Reference Material\All About University\Java Exercises Programming II\Java Files\GitHubTest\EvaggelosUI\AthensEase\src\main\java\com\athensease\ui\ResultScreen.java
+C:\Users\User\Desktop\Reference Material\All About University\Java Exercises Programming II\Java Files\GitHubTest\EvaggelosUI\AthensEase\src\main\java\com\athensease\ui\SightScene.java
+C:\Users\User\Desktop\Reference Material\All About University\Java Exercises Programming II\Java Files\GitHubTest\EvaggelosUI\AthensEase\src\main\java\com\athensease\ui\TrailheadScene.java
+C:\Users\User\Desktop\Reference Material\All About University\Java Exercises Programming II\Java Files\GitHubTest\EvaggelosUI\AthensEase\src\main\java\com\athensease\ui\TripPlanner.java
+C:\Users\User\Desktop\Reference Material\All About University\Java Exercises Programming II\Java Files\GitHubTest\EvaggelosUI\AthensEase\src\main\java\com\athensease\ui\UI_Screen4_1.java
+C:\Users\User\Desktop\Reference Material\All About University\Java Exercises Programming II\Java Files\GitHubTest\EvaggelosUI\AthensEase\src\main\java\com\athensease\ui\UI_Screen4_2.java
+C:\Users\User\Desktop\Reference Material\All About University\Java Exercises Programming II\Java Files\GitHubTest\EvaggelosUI\AthensEase\src\main\java\com\athensease\ui\UserInputHandler.java

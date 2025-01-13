@@ -1,60 +1,43 @@
 package com.athensease.optimization;
 
 import com.athensease.sights.Sight;
-import com.athensease.sights.Trip;
 import java.util.List;
 import java.util.ArrayList;
 
+/**
+ * The TrailHeadInclusion class provides functionality to determine stop points
+ * where a traveler should return to the hotel during a multi-day trip.
+ */
 public class TrailHeadInclusion {
 
-    private static int nightsAtHotel;
+    /**
+     * Determines the stop points (sights) where the traveler needs to return to the hotel after visiting them.
+     * based on the available time in a day (8 hours by default).
+     *
+     * @param sights A list of sights to visit, each with travel and visit times.
+     * @return A list of sights where the traveler should return to the hotel 
+     */
+    public static List<Sight> findHotelStopPoints(List<Sight> sights) {
+        List<Sight> hotelStopPoints = new ArrayList<>();
+        double remainingTime = 480; // 8 hours in minutes
 
-    public static void addOneTraildHead(Trip trip, List<Sight> sights) {
-        // Add one trailhead to the trip
+        for (int i = 0; i < sights.size(); i++) {
+            Sight currentSight = sights.get(i);
+            double travelTime = (i == 0)
+                    ? currentSight.getDurationFromStartingPoint() // Travel time from start point for the first sight
+                    : sights.get(i - 1).calculateDurationToSight(currentSight);
+            double timeNeeded = travelTime + currentSight.getVisitTime();
 
-        List<Sight> plan = new ArrayList<>();
-        double remainingTime = 480; // Start with 480 minutes available each day - 8 hours
-
-        nightsAtHotel = 0;
-        int hotelCount = 0; // To track which hotel it is
-        
-        int j = 0;
-        for (Sight sight : sights) {
-            double timeNeeded = sight.getVisitTime() + sight.getDurationToStartingPoint();
-
-            // Check if there is enough time to visit the sight and return to the hotel
-            if (remainingTime < timeNeeded) {
-                // End the current day and return to the hotel
-                hotelCount++; // Increment the hotel count
-                plan.add(new Sight("Hotel", "Hotel", hotelCount, 0, "Hotel", false));
-                nightsAtHotel += 1;
-                remainingTime = 480; // Reset for the next day
+            // Check if we need to return to the hotel after this sight
+            if (remainingTime < timeNeeded + currentSight.getDurationToStartingPoint()) {
+                hotelStopPoints.add(sights.get(i - 1)); // Add the current sight as the stop point
+                remainingTime = 480 - currentSight.getDurationToStartingPoint() - currentSight.getVisitTime(); // Reset time and deduct return trip
+            } else {
+                // Deduct time spent visiting the sight and traveling to it
+                remainingTime -= timeNeeded;
             }
-
-            // Add the sight to the plan
-            plan.add(sight);
-            remainingTime -= sight.getVisitTime(); // Deduct the used time
-            if (j != 0) { // If it's not the first sight
-                remainingTime -= sights.get(j-1).calculateDurationToSight(sights.get(j)); // Deduct the time to travel to the sight
-            } else { // If it's the first sight
-                remainingTime -= sight.getDurationFromStartingPoint(); // Deduct the time to travel to the first sight
-            }
-            j += 1;
         }
 
-        int i =1;
-        for (Sight sight : plan) {
-            sight.setVisitOrder(i);
-            i += 1;
-        }
-
-        trip.setOptimizedSights(plan);
-    }
-    public static int getNightsAtHotel() {
-        return nightsAtHotel;
-    }
-
-    public static void setNightsAtHotel(int nights) {
-        nightsAtHotel = nights;
+        return hotelStopPoints;
     }
 }
