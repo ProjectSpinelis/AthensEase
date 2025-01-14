@@ -1,4 +1,4 @@
-package com.athensease;
+package com.athensease.optimization;
 
 import com.athensease.optimization.domain.RoutePlan;
 import com.athensease.sights.Sight;

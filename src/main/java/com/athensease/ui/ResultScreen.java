@@ -4,6 +4,8 @@ import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.layout.*;
 import javafx.stage.Stage;
+import javafx.animation.PauseTransition;
+import javafx.util.Duration;
 
 import java.util.Comparator;
 import java.util.List;
@@ -49,11 +51,10 @@ public class ResultScreen {
         Label sightseeingLabel = new Label("Total Sightseeing Time: " + trip.getMinVisitTime() + " minutes");
         Label ticketsLabel = new Label("Total Tickets Cost: " + trip.getTicketsCost() + " €");
 
-
         // Layout for trip details
         VBox tripDetailsBox = new VBox(10);
         tripDetailsBox.getChildren().addAll(titleLabel, durationLabel);
-        //Show budget only if applicable
+        // Show budget only if applicable
         if (trip.getBudget() < Integer.MAX_VALUE) {
             Label budgetLabel = new Label("Budget: €" + trip.getBudget());
             tripDetailsBox.getChildren().add(budgetLabel);
@@ -107,7 +108,7 @@ public class ResultScreen {
             .collect(Collectors.toList()); 
         int count = 0;
         for (Sight sight : sortedSights) {
-            if (sight.getName() == "Hotel") {
+            if (sight.getName().equals("Hotel")) {
                 Label dayChangeLabel = new Label("Day " + ((int) sight.getPrice() + 1));
                 dayChangeLabel.getStyleClass().add("heading");
                 dayChangeLabel.setStyle("-fx-font-size: 18px");
@@ -126,130 +127,34 @@ public class ResultScreen {
                 );
                 sightBox.setStyle("-fx-background-color: #d4b483; -fx-padding: 10; -fx-border-color: #cccccc; -fx-border-width: 1px;");
                 optimizedRouteBox.getChildren().add(sightBox);
-
-                List<Sight> hotelStopPoints = TrailHeadInclusion.findHotelStopPoints(sortedSights);
-                double totalDistance = 0;
-                double totalTravelDuration = 0;
-                double ticketsCost = 0;
-                int daysCounter = 1;
-
-                /*System.out.println("\nDay " + daysCounter + ":\n");
-
-                for (int i = 0; i < sortedSights.size(); i++) {
-                    Sight currentSight = sortedSights.get(i);
-                    ticketsCost += currentSight.getPrice();
-                    if (currentSight.getVisitOrder() == 1) {
-                        System.out.println("Distance from starting point: " + currentSight.getDistanceFromStartingPoint() + " km");
-                        totalDistance += currentSight.getDistanceFromStartingPoint();
-                        totalTravelDuration += currentSight.getDurationFromStartingPoint();
-                    }
-                    
-                    boolean hotelStopAfter = false;
-                    for (Sight sight3 : hotelStopPoints) {
-                        if (currentSight.getName() == sight3.getName()) {
-                            hotelStopAfter = true;
-                            daysCounter += 1;
-                            break;
-                        }
-                    }
-                    
-                    System.out.println(currentSight);
-            
-                    if (i < (sortedSights.size() - 1)) {  // If there is a next sight
-                        if (hotelStopAfter) { // If after this sight we need to return to the hotel
-
-                            int trailHeadOption = trip.getChangeDays().get(daysCounter - 2);
-
-                            double distanceToTrailHead = 0; //Default value
-                            double durationToTrailHead = 0; //Default value
-
-                            if (trailHeadOption == 1) {
-                                distanceToTrailHead = currentSight.getDistanceToStartingPoint();
-                                durationToTrailHead = currentSight.getDurationToStartingPoint();
-                                System.out.println("Distance back to hotel (" + trip.getAddress1() + "): " + distanceToTrailHead + " km");
-                            } else if (trailHeadOption == 2) {
-                                distanceToTrailHead = currentSight.getDistanceToSecondTrailHead();
-                                durationToTrailHead = currentSight.getDurationToSecondTrailHead();
-                                System.out.println("Distance back to hotel (" + trip.getAddress2() + "): " + distanceToTrailHead + " km");
-                            } else if (trailHeadOption == 3) {
-                                distanceToTrailHead = currentSight.getDistanceToThirdTrailHead();
-                                durationToTrailHead = currentSight.getDurationToThirdTrailHead();
-                                System.out.println("Distance back to hotel (" + trip.getAddress3() + "): " + distanceToTrailHead + " km");
-                            }
-
-                            System.out.println("\nDay " + daysCounter + ":\n");
-                            totalDistance += distanceToTrailHead;
-                            totalTravelDuration += durationToTrailHead;
-                            
-                            double distanceFromTrailHead = 0; //Default value
-                            double durationFromTrailHead = 0; //Default value
-
-                            Sight nextSight = sortedSights.get(i + 1);
-
-                            if (trailHeadOption == 1) {
-                                distanceFromTrailHead = nextSight.getDistanceFromStartingPoint();
-                                durationFromTrailHead = nextSight.getDurationFromStartingPoint();
-                            } else if (trailHeadOption == 2) {
-                                distanceFromTrailHead = nextSight.getDistanceToSecondTrailHead();
-                                durationFromTrailHead = nextSight.getDurationToSecondTrailHead();
-                            } else if (trailHeadOption == 3) {
-                                distanceFromTrailHead = nextSight.getDistanceToThirdTrailHead();
-                                durationFromTrailHead = nextSight.getDurationToThirdTrailHead();
-                            }
-
-                            totalDistance += distanceFromTrailHead;
-                            totalTravelDuration += durationFromTrailHead;
-                            System.out.println("Distance from hotel to next sight: " + distanceFromTrailHead + " km");
-                        } else { // If after this sight we don't need to return to the hotel
-                            Sight nextSight = sortedSights.get(i + 1);
-                            double distance = currentSight.calculateDistanceToSight(nextSight);
-                            totalDistance += distance;
-                            totalTravelDuration += currentSight.calculateDurationToSight(nextSight);
-                            System.out.println("Distance to next sight: " + distance + " km");
-                        }
-                    } else { // If the current sight is the last sight
-
-                        System.out.println("Your trip was finished.\n");
-
-                        //Fireworks for the end of the trip
-                        System.out.println("       *");
-                        System.out.println("      * *");
-                        System.out.println(" *   *   *   *");
-                        System.out.println("  *  *   *  *");
-                        System.out.println("   *  ***  *");
-                        System.out.println("    *******");
-                        System.out.println("     *****");
-                        System.out.println("      ***");
-                        System.out.println("       *");
-                        
-                        int trailHeadOption = trip.getChangeDays().get(daysCounter - 1);
-
-                        double distanceToTrailHead = 0; //Default value
-                        double durationToTrailHead = 0; //Default value
-
-                        if (trailHeadOption == 1) {
-                            distanceToTrailHead = currentSight.getDistanceToStartingPoint();
-                            durationToTrailHead = currentSight.getDurationToStartingPoint();
-                            System.out.println("Distance back to hotel (" + trip.getAddress1() + "): " + distanceToTrailHead + " km");
-                        } else if (trailHeadOption == 2) {
-                            distanceToTrailHead = currentSight.getDistanceToSecondTrailHead();
-                            durationToTrailHead = currentSight.getDurationToSecondTrailHead();
-                            System.out.println("Distance back to hotel (" + trip.getAddress2() + "): " + distanceToTrailHead + " km");
-                        } else if (trailHeadOption == 3) {
-                            distanceToTrailHead = currentSight.getDistanceToThirdTrailHead();
-                            durationToTrailHead = currentSight.getDurationToThirdTrailHead();
-                            System.out.println("Distance back to hotel (" + trip.getAddress3() + "): " + distanceToTrailHead + " km");
-                        }
-                        totalDistance += distanceToTrailHead;
-                        totalTravelDuration += durationToTrailHead;
-                    }
-                } */
             }
         }
-        Button mapButton = new Button("View Route on Map");
-        mapButton.setOnAction(e -> {
-            goToMapScene();
-        });
+
+        
+// Create the "View Route on Map" button
+Button mapButton = new Button("View Route on Map");
+mapButton.setStyle("-fx-background-color: #d4b483; -fx-text-fill: black; -fx-font-size: 16px; -fx-padding: 10px 20px; -fx-background-radius: 5px; -fx-border-color: #8a6e3c; -fx-border-width: 1px;");
+mapButton.setOnAction(e -> {
+    // Temporarily change the button style for feedback
+    mapButton.setStyle("-fx-background-color: #c9a76c; -fx-text-fill: black; -fx-font-size: 16px; -fx-padding: 10px 20px; -fx-background-radius: 5px; -fx-border-color: #8a6e3c; -fx-border-width: 1px;");
+    
+    // Execute the navigation function
+    goToMapScene();
+    
+    // Revert the style after a short delay
+    PauseTransition pause = new PauseTransition(Duration.seconds(0.2));
+    pause.setOnFinished(ev -> {
+        mapButton.setStyle("-fx-background-color: #d4b483; -fx-text-fill: black; -fx-font-size: 16px; -fx-padding: 10px 20px; -fx-background-radius: 5px; -fx-border-color: #8a6e3c; -fx-border-width: 1px;");
+    });
+    pause.play(); // Correctly invoking play() on the PauseTransition object
+});
+
+
+
+        // Add a tooltip for better user experience
+        mapButton.setTooltip(new Tooltip("Click to view your route on the map"));
+
+        // Add the map button to the optimized route section
         optimizedRouteBox.getChildren().add(mapButton);
 
         // Add the optimized route section to the root
