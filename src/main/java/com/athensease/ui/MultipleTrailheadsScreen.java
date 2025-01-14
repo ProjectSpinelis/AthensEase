@@ -19,7 +19,7 @@
  import javafx.scene.layout.*;
  import javafx.stage.Stage;
  
- public class UI_Screen4_2 extends Application {
+ public class MultipleTrailheadsScreen {
 
     private int duration; // Total duration of the trip (from Screen 2)
     private ObservableList<Integer> changeDays;

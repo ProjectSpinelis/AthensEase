@@ -3,6 +3,7 @@ package com.athensease.ui;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.layout.*;
+import javafx.stage.Stage;
 
 import java.util.Comparator;
 import java.util.List;
@@ -18,10 +19,11 @@ public class ResultScreen {
     public static void setTrip(Trip trip) {
         ResultScreen.trip = trip;
     }
-    
+    private Stage stage;
 
     // No-argument constructor (required by JavaFX)
-    public ResultScreen() {
+    public ResultScreen(Stage stage) {
+        this.stage = stage;
     }
 
     public Scene createScene() {
@@ -131,7 +133,7 @@ public class ResultScreen {
                 double ticketsCost = 0;
                 int daysCounter = 1;
 
-                System.out.println("\nDay " + daysCounter + ":\n");
+                /*System.out.println("\nDay " + daysCounter + ":\n");
 
                 for (int i = 0; i < sortedSights.size(); i++) {
                     Sight currentSight = sortedSights.get(i);
@@ -241,9 +243,14 @@ public class ResultScreen {
                         totalDistance += distanceToTrailHead;
                         totalTravelDuration += durationToTrailHead;
                     }
-                }
+                } */
             }
         }
+        Button mapButton = new Button("View Route on Map");
+        mapButton.setOnAction(e -> {
+            goToMapScene();
+        });
+        optimizedRouteBox.getChildren().add(mapButton);
 
         // Add the optimized route section to the root
         root.getChildren().add(optimizedRouteBox);
@@ -252,5 +259,12 @@ public class ResultScreen {
         ScrollPane scrollPane = new ScrollPane(optimizedRouteBox);
         scrollPane.setFitToWidth(true);
         root.getChildren().add(scrollPane);
+    }
+
+    public void goToMapScene() {
+        DynamicHtmlCreator screen3 = new DynamicHtmlCreator(stage, trip.getOptimizedSights());
+        DynamicHtmlCreator.setTrip(trip); // Pass the trip
+        Scene mapScene = screen3.createScene();
+        stage.setScene(mapScene);
     }
 }

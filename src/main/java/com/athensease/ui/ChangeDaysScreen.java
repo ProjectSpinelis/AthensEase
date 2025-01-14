@@ -123,7 +123,7 @@ import javafx.collections.FXCollections;
 
         // Continue button to move to the next screen
         Button continueButton = new Button("Continue");
-        continueButton.setStyle("-fx-font-size: 14px; -fx-font-weight: bold;");
+        continueButton.getStyleClass().add("big-button");
         continueButton.setOnAction(e -> {
             if (trip.getChangeDays().isEmpty()) {
                 trip.getChangeDays().add(1); // Ensure day 1 is always included
@@ -146,7 +146,10 @@ import javafx.collections.FXCollections;
         root.setCenter(contentVBox); // Center the main content
         root.setBottom(continuePane); // Place Continue button at bottom-right
 
-        return new Scene(root, 700, 300);
+        // Create Scene and return it
+        Scene scene = new Scene(root, 700, 300);
+        scene.getStylesheets().add(getClass().getResource("/styles.css").toExternalForm());
+        return scene;
     }
 
     public void goToMultipleTrailheadsScreen() {

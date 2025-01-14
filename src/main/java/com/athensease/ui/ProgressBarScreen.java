@@ -66,6 +66,7 @@ public class ProgressBarScreen {
         });
 
         // Timeline για την προοδευτική πλήρωση της ProgressBar
+        boolean transitioned = false;
         Timeline timeline = new Timeline(
             new KeyFrame(
                 Duration.millis(frameDurationInMilliseconds), // Εκτελείται κάθε 100ms
@@ -73,6 +74,11 @@ public class ProgressBarScreen {
                     // Αύξηση της τιμής της ProgressBar
                     if (progressBar.getProgress() < 1.0) {
                         progressBar.setProgress(progressBar.getProgress() + increment);
+                    }
+                    if (progressBar.getProgress() >= 1.0 && !transitioned) {
+                        //transitioned = true; // Prevent duplicate calls
+                        trip.setOptimizedSights(trip.getChosenSights());
+                        goToResultsScreen();
                     }
                 }
             )
@@ -100,7 +106,7 @@ public class ProgressBarScreen {
 
     // Function to switch to the results screen
     public void goToResultsScreen() {
-        ResultScreen screen3 = new ResultScreen();
+        ResultScreen screen3 = new ResultScreen(stage);
         ResultScreen.setTrip(trip); // Pass the trip
         Scene resultsScene = screen3.createScene();
         stage.setScene(resultsScene);
