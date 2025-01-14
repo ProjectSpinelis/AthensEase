@@ -9,7 +9,7 @@ import java.io.File;
 import java.io.IOException;
 import java.util.List;
 
-class SightsFileHandlerTest {
+public class SightsFileHandlerTest {
 
     private SightsFileHandler sightsFileHandler;
 

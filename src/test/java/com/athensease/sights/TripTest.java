@@ -1,13 +1,15 @@
 package com.athensease.sights;
 
+import com.athensease.dataretrieval.ApiHandler;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
-import static org.junit.jupiter.api.Assertions.*;
 
 import java.util.List;
 
-class TripTest {
+import static org.junit.jupiter.api.Assertions.*;
+
+public class TripTest {
 
     private Trip trip;
     private ApiHandler mockApiHandler;
@@ -36,7 +38,8 @@ class TripTest {
         Mockito.when(mockApiHandler.extractField(Mockito.anyString(), Mockito.eq("duration"))).thenReturn(10.0);
 
         // Create a trip with one sight
-        Sight sight = new Sight("Sight1", "Location1", 10, 20, 30, 5);
+        Sight sight = new Sight("Sight1", "Location1", 10, 20, "category", false);
+        sight.setVisitTime(5);
         trip.setAddress("Athens");
         trip.setChosenSights(List.of(sight));
 
@@ -84,21 +87,25 @@ class TripTest {
     @Test
     void testGetTotalCost() {
         // Create a few sights with known prices
-        Sight sight1 = new Sight("Sight1", "Location1", 10, 20, 30, 5);
-        Sight sight2 = new Sight("Sight2", "Location2", 15, 25, 35, 7);
+        Sight sight1 = new Sight("Sight1", "Location1", 10, 20, "category", false);
+        sight1.setPrice(10);
+        Sight sight2 = new Sight("Sight2", "Location2", 15, 25, "category", false);
+        sight2.setPrice(15);
         trip.setChosenSights(List.of(sight1, sight2));
 
         // Test if the total cost is calculated correctly
         double totalCost = trip.getTotalCost();
-        assertEquals(12.0, totalCost);
+        assertEquals(25.0, totalCost); // 10 + 15
     }
 
     // Test getMinVisitTime method
     @Test
     void testGetMinVisitTime() {
         // Create a few sights with known visit times
-        Sight sight1 = new Sight("Sight1", "Location1", 10, 20, 30, 5);
-        Sight sight2 = new Sight("Sight2", "Location2", 15, 25, 35, 7);
+        Sight sight1 = new Sight("Sight1", "Location1", 10, 20, "category", false);
+        sight1.setVisitTime(5);
+        Sight sight2 = new Sight("Sight2", "Location2", 15, 25, "category", false);
+        sight2.setVisitTime(7);
         trip.setChosenSights(List.of(sight1, sight2));
 
         // Test if the minimum visit time is calculated correctly
@@ -110,10 +117,12 @@ class TripTest {
     @Test
     void testTripCalculations() {
         // Set up mock sights with relevant data
-        Sight sight1 = new Sight("Sight1", "Location1", 10, 20, 30, 5);
+        Sight sight1 = new Sight("Sight1", "Location1", 10, 20, "category", false);
         sight1.setDistanceFromStartingPoint(5);
         sight1.setDurationFromStartingPoint(10);
-        Sight sight2 = new Sight("Sight2", "Location2", 15, 25, 35, 7);
+        Sight sight2 = new Sight("Sight2", "Location2", 15, 25, "category", false);
+        sight2.setDistanceFromStartingPoint(5);
+        sight2.setDurationFromStartingPoint(10);
         trip.setChosenSights(List.of(sight1, sight2));
 
         // Manually invoke tripCalculations to ensure output is correctly processed
