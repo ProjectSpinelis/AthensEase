@@ -1,0 +1,276 @@
+@startuml
+
+package com.athensease.sights {
+    class Sight {
+        +getName(): String
+        +setName(name: String): void
+        +getLocation(): String
+        +setLocation(location: String): void
+        +getPrice(): double
+        +setPrice(price: double): void
+        +getVisitTime(): int
+        +setVisitTime(visitTime: int): void
+        +getCategory(): String
+        +setCategory(category: String): void
+        +isMustSee(): boolean
+        +setMustSee(mustSee: boolean): void
+        +getVisitOrder(): int
+        +setVisitOrder(visitOrder: int): void
+        +getLink(): String
+        +setLink(link: String): void
+        +setDistanceToStartingPoint(distance: double): void
+        +getDistanceToStartingPoint(): double
+        +getDurationToStartingPoint(): double
+        +setDurationToStartingPoint(duration: double): void
+        +getDistanceFromStartingPoint(): double
+        +setDistanceFromStartingPoint(distance: double): void
+        +getDurationFromStartingPoint(): double
+        +setDurationFromStartingPoint(duration: double): void
+        +getMaxVisitOrder(): int
+        +setMaxVisitOrder(maxVisitOrder: int): void
+        +getDistanceToSecondTrailHead(): double
+        +setDistanceToSecondTrailHead(distance: double): void
+        +getDurationToSecondTrailHead(): double
+        +setDurationToSecondTrailHead(duration: double): void
+        +getDistanceToThirdTrailHead(): double
+        +setDistanceToThirdTrailHead(distance: double): void
+        +getDurationToThirdTrailHead(): double
+        +setDurationToThirdTrailHead(duration: double): void
+        +calculateDistanceToSight(sight: Sight): double
+        +calculateDurationToSight(sight: Sight): double
+        +toString(): String
+    }
+
+    class SightsFileHandler {
+        - sights: List<Sight>
+        + SightsFileHandler()
+        + getSights(): List<Sight>
+        + getLocations(): List<String>
+        + filterSightsByCategory(category: int): List<Sight>
+        + getDistanceFromJson(origin: String, destination: String): double
+        + getDurationFromJson(origin: String, destination: String): double
+    }
+
+    class Trip {
+        - duration: int
+        - budget: double
+        - address1: String
+        - address2: String
+        - address3: String
+        - chosenCategories: boolean[]
+        - chosenSights: List<Sight>
+        - optimizeFor: int
+        - changeDays: List<Integer>
+        - optimizedSights: List<Sight>
+        - optimizationScore: HardSoftScore
+        - totalDistanceTraveled: double
+        - totalTravelDuration: double
+        - ticketsCost: double
+
+        + Trip()
+        + prepTrip()
+        + static callApiHandler(origin: List<String>, destination: List<String>): List<Double>
+        + getDuration(): int
+        + setDuration(duration: int): void
+        + getBudget(): double
+        + setBudget(budget: double): void
+        + getChosenSights(): List<Sight>
+        + setChosenSights(chosenSights: List<Sight>): void
+        + getChosenCategories(): boolean[]
+        + setChosenCategories(chosenCategories: boolean[]): void
+        + getOptimizedSights(): List<Sight>
+        + setOptimizedSights(optimizedSights: List<Sight>): void
+        + getOptimizationScore(): HardSoftScore
+        + setOptimizationScore(optimizationScore: HardSoftScore): void
+        + getTotalDistanceTraveled(): double
+        + setTotalDistanceTraveled(totalDistanceTraveled: double): void
+        + getTotalTravelDuration(): double
+        + setTotalTravelDuration(totalTravelDuration: double): void
+        + getTicketsCost(): double
+        + setTicketsCost(ticketsCost: double): void
+        + getAddress1(): String
+        + setAddress1(address1: String): void
+        + getAddress2(): String
+        + setAddress2(address2: String): void
+        + getAddress3(): String
+        + setAddress3(address3: String): void
+        + getOptimizeFor(): int
+        + setOptimizeFor(optimizeFor: int): void
+        + getTotalCost(): double
+        + getMinVisitTime(): int
+        + getChangeDays(): List<Integer>
+        + setChangeDays(changeDays: List<Integer>): void
+        + tripCalculations(): void
+    }
+
+    class App {
+        - selectedCategories: boolean[]
+        - sightsHandler: SightsFileHandler
+        - stage: Stage
+        - trip: Trip
+
+        + setTrip(trip: Trip): void
+        + start(stage: Stage): void
+        + goToInputScreen1(): void
+        + main(args: String[]): void
+    }
+}
+
+package com.athensease.ui {
+    class BudgetScene {
+        - budget: int
+        - stage: Stage
+        - trip: Trip
+
+        + setTrip(trip: Trip): void
+        + createScene(): Scene
+        + goToCategoriesScene(): void
+    }
+
+    class CategoriesScreen {
+        - trip: Trip
+        - stage: Stage
+
+        + setTrip(trip: Trip): void
+        + createScene(): Scene
+        + goToSightsScene(): void
+    }
+
+    class DynamicHtmlCreator {
+        - stage: Stage
+        - sightsToShow: List<Sight>
+        - trip: Trip
+
+        + setTrip(trip: Trip): void
+        + createScene(): Scene
+        + generateDynamicHTML(origin: String, destination: String, waypoints: ArrayList<String>, polyline: String): String
+        + goToResultsScreen(): void
+    }
+
+    class ProgressBarScreen {
+        - trip: Trip
+        - stage: Stage
+
+        + setTrip(trip: Trip): void
+        + createScene(): Scene
+        + goToResultsScreen(): void
+    }
+
+    class ResultScreen {
+        - trip: Trip
+        - stage: Stage
+
+        + setTrip(trip: Trip): void
+        + createScene(): Scene
+        - displayOptimizedRoute(root: VBox): void
+        + goToMapScene(): void
+    }
+
+    class TrailheadScene {
+        - trailhead: String
+        - isBudgetYesSelected: boolean
+        - stage: Stage
+        - trip: Trip
+
+        + setTrip(trip: Trip): void
+        + setIsYesBudget(isBudgetYesSelected: boolean): void
+        + createScene(): Scene
+        - goToBudgetScene(): void
+        - goToCategoriesScene(): void
+    }
+
+    class UserInputHandler {
+        - s: Scanner
+        + gatherDuration(): int
+        + gatherTrailhead(): String
+        + gatherBudget(): int
+        + chooseCategories(): List<Integer>
+        + chooseSights(chosenCategories: List<Integer>): List<Sight>
+        - parseSelection(input: String, maxCategoryIndex: int): List<Integer>
+    }
+
+    class WebViewer {
+        - stage: Stage
+        + WebViewer(stage: Stage)
+        + displayMap(htmlContent: String): void
+    }
+}
+
+package com.athensease.optimization {
+    class Optimizer {
+        + optimizeTrip(trip: Trip): void
+        + generateData(trip: Trip): RoutePlan
+    }
+
+    class RoutePlan {
+        + getSightsList(): List<Sight>
+        + getScore(): Score
+    }
+
+    class TrailHeadInclusion {
+        + findHotelStopPoints(sights: List<Sight>): List<Sight>
+    }
+
+    Optimizer --> Trip : uses
+    Optimizer --> SolverConfig : uses
+    Optimizer --> SolverFactory : uses
+    Optimizer --> Solver : uses
+    Optimizer --> RoutePlan : uses
+    Optimizer --> RoutePlanConstraintProvider : uses
+    Optimizer --> RoutePlanConstraintProviderForDuration : uses
+    TrailHeadInclusion --> Sight : uses
+}
+
+package org.optaplanner.core.api.solver {
+    class SolverFactory {
+        + create(solverConfig: SolverConfig): SolverFactory
+    }
+
+    class Solver {
+        + solve(problem: RoutePlan): RoutePlan
+    }
+
+    class SolverConfig {
+        + withSolutionClass(solutionClass: Class): SolverConfig
+        + withEntityClasses(entityClass: Class): SolverConfig
+        + withConstraintProviderClass(constraintProviderClass: Class): SolverConfig
+        + withTerminationSpentLimit(duration: Duration): SolverConfig
+    }
+}
+
+package com.athensease.optimization.solver {
+    class RoutePlanConstraintProvider {
+        + defineConstraints(constraintFactory: ConstraintFactory): Constraint[]
+    }
+
+    class RoutePlanConstraintProviderForDuration {
+        + defineConstraints(constraintFactory: ConstraintFactory): Constraint[]
+    }
+}
+
+package org.optaplanner.core.api.score.stream {
+    interface ConstraintProvider {
+        + defineConstraints(constraintFactory: ConstraintFactory): Constraint[]
+    }
+
+    class ConstraintFactory {
+        + forEachUniquePair(clazz: Class): ConstraintStream
+    }
+
+    class Constraint {
+        + penalize(score: HardSoftScore, function): Constraint
+        + asConstraint(name: String): Constraint
+    }
+
+    class ConstraintStream {
+        + filter(function): ConstraintStream
+    }
+
+    class HardSoftScore {
+        <<enumeration>>
+        + ONE_SOFT
+        + ONE_HARD
+    }
+}
+
+@enduml
