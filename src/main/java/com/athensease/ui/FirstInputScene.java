@@ -47,11 +47,11 @@ public class FirstInputScene {
         durationInput.setPromptText("Enter a number");
 
         // Question 2: Button choices
-        Label question2 = new Label("2. How many trailheads are you going to have? (tip: count your starting points).");
-        Button oneTrailButton = new Button("One");
-        Button manyTrailsButton = new Button("Many");
+        //Label question2 = new Label("2. How many trailheads are you going to have? (tip: count your starting points).");
+        //Button oneTrailButton = new Button("One");
+        //Button manyTrailsButton = new Button("Many");
 
-        oneTrailButton.setOnAction(e -> {
+        /* oneTrailButton.setOnAction(e -> {
             System.out.println("Selected: One trailhead");
             isOneTrailheadSelected = true;
             oneTrailButton.setStyle("-fx-background-color: lightblue");
@@ -64,9 +64,12 @@ public class FirstInputScene {
             manyTrailsButton.setStyle("-fx-background-color: lightblue");
             oneTrailButton.setStyle("-fx-background-color: #d4b483");
         });
+        */
+
+        isOneTrailheadSelected = true; // As sad as it may seem, we are only supporting one trailhead 
 
         // Question 3: Button choices
-        Label question3 = new Label("3. Are you travelling on a budget?");
+        Label question3 = new Label("2. Are you travelling on a budget?");
         Button budgetYesButton = new Button("Yes");
         Button budgetNoButton = new Button("No");
 
@@ -139,7 +142,6 @@ public class FirstInputScene {
         contentVBox.getChildren().addAll(
             title,
             question1, durationInput,
-            question2, oneTrailButton, manyTrailsButton,
             question3, budgetYesButton, budgetNoButton, feedbackLabel
         );
 

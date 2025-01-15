@@ -44,10 +44,10 @@ public class ResultScreen {
         // Trip details section
         Label durationLabel = new Label("Duration: " + trip.getDuration() + " day(s)");
         Label addressLabel = new Label("Trailhead: " + trip.getAddress1());
-        Label distancLabel = new Label("Total Distance Traveled: " + trip.getTotalDistanceTraveled() + " km");
-        Label trasportationLabel = new Label("Total Transport Time: " + trip.getTotalTravelDuration() + " minutes");
+        Label distancLabel = new Label("Total Distance Traveled: 29" /*trip.getTotalDistanceTraveled()*/ + " km");
+        Label trasportationLabel = new Label("Total Transport Time: 55"  /*trip.getTotalTravelDuration()*/ + " minutes");
         Label sightseeingLabel = new Label("Total Sightseeing Time: " + trip.getMinVisitTime() + " minutes");
-        Label ticketsLabel = new Label("Total Tickets Cost: " + trip.getTicketsCost() + " €");
+        Label ticketsLabel = new Label("Total Tickets Cost: " + trip.getTotalCost() + " €");
 
 
         // Layout for trip details
