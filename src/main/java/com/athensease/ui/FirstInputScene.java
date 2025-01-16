@@ -172,7 +172,7 @@ public class FirstInputScene {
         Scene trailheadScene = screen3.createScene();
         stage.setScene(trailheadScene);
     }
-
+    /* 
     public void goToChangeDaysScreen() {
         // Μετάβαση στην οθόνη για το trailhead
         ChangeDaysScreen screen3 = new ChangeDaysScreen(stage);
@@ -180,4 +180,5 @@ public class FirstInputScene {
         Scene changesDaysScene = screen3.createScene();
         stage.setScene(changesDaysScene);
     }
+    */
 }

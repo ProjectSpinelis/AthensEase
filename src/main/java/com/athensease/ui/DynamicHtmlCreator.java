@@ -119,7 +119,7 @@ public class DynamicHtmlCreator {
     // Function to switch to the results screen
     public void goToResultsScreen() {
         ResultScreen screen3 = new ResultScreen(stage);
-        ResultScreen.setTrip(trip); // Pass the trip
+        screen3.setTrip(trip); // Pass the trip
         Scene resultsScene = screen3.createScene();
         stage.setScene(resultsScene);
     }

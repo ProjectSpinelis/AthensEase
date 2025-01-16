@@ -5,7 +5,7 @@ import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
-import com.athensease.sights.Sight;
+//import com.athensease.sights.Sight;
 
 import org.optaplanner.core.api.score.buildin.hardsoft.HardSoftScore;
 
@@ -201,6 +201,82 @@ public class Trip {
         return this.getChosenSights().stream()
             .mapToInt(Sight::getVisitTime)
             .sum();
+    }
+
+    /**
+     * Calculates the total distance of the trip.
+     * @return
+     */
+    public int calculateTotalDistance() {
+        List<Sight> sortedSights = this.getOptimizedSights().stream()
+            .sorted(Comparator.comparingInt(Sight::getVisitOrder))  // Assuming getVisitOrder() returns an int
+            .collect(Collectors.toList());  // Collect the sorted sights into a list
+        double totalDistance = 0;
+
+        List<Sight> hotelStopPoints = TrailHeadInclusion.findHotelStopPoints(sortedSights);
+        boolean hotelStopAfter = false; // Checks if after this sight we need to return to the hotel
+    
+        for (int i = 0; i < sortedSights.size(); i++) {
+            Sight currentSight = sortedSights.get(i);
+            for (Sight s : hotelStopPoints) {
+                if (currentSight == s) {
+                    hotelStopAfter = true;
+                }
+            }
+            if (i == 0) { // If this is the first sight
+                totalDistance += sortedSights.get(i).getDistanceFromStartingPoint();
+            } else if (i < sortedSights.size() - 1) { // If there is a next sight
+                if (hotelStopAfter) { // If after this sight we need to return to the hotel
+                    totalDistance += sortedSights.get(i).getDistanceToStartingPoint();
+                    totalDistance += sortedSights.get(i+1).getDistanceFromStartingPoint();
+                    hotelStopAfter = false;
+                } else { // If after this sight we don't need to return to the hotel
+                    Sight nexSight = sortedSights.get(i + 1);
+                    totalDistance += currentSight.calculateDistanceToSight(nexSight);
+                }
+            } else { // If this is the last sight
+                totalDistance += sortedSights.get(i).getDistanceToStartingPoint();
+            }
+        }
+        return (int) totalDistance;
+    }
+    
+    /**
+     * Calculates the total duration of the trip.
+     * @return
+     */
+    public int calculateTotalDuration() {
+        List<Sight> sortedSights = this.getOptimizedSights().stream()
+            .sorted(Comparator.comparingInt(Sight::getVisitOrder))  // Assuming getVisitOrder() returns an int
+            .collect(Collectors.toList());  // Collect the sorted sights into a list
+        double totalDuration = 0;
+
+        List<Sight> hotelStopPoints = TrailHeadInclusion.findHotelStopPoints(sortedSights);
+        boolean hotelStopAfter = false; // Checks if after this sight we need to return to the hotel
+    
+        for (int i = 0; i < sortedSights.size(); i++) {
+            Sight currentSight = sortedSights.get(i);
+            for (Sight s : hotelStopPoints) {
+                if (currentSight == s) {
+                    hotelStopAfter = true;
+                }
+            }
+            if (i == 0) { // If this is the first sight
+                totalDuration += sortedSights.get(i).getDurationFromStartingPoint();
+            } else if (i < sortedSights.size() - 1) { // If there is a next sight
+                if (hotelStopAfter) { // If after this sight we need to return to the hotel
+                    totalDuration += sortedSights.get(i).getDurationToStartingPoint();
+                    totalDuration += sortedSights.get(i+1).getDurationFromStartingPoint();
+                    hotelStopAfter = false; // Reset the flag
+                } else { // If after this sight we don't need to return to the hotel
+                    Sight nexSight = sortedSights.get(i + 1);
+                    totalDuration += currentSight.calculateDurationToSight(nexSight);
+                }
+            } else { // If this is the last sight
+                totalDuration += sortedSights.get(i).getDurationToStartingPoint();
+            }
+        }
+        return (int) totalDuration;
     }
 
     public List<Integer> getChangeDays() {

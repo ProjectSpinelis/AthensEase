@@ -84,7 +84,8 @@ public class TrailheadScene {
                     String response = handler.getResponse(url);
                     double distance = handler.extractField(response, "distance"); // Assume this returns a double
                     double duration = handler.extractField(response, "duration"); // Assume this returns a double
-
+                    assert distance > 0 && duration > 0; // Assume distance and duration are always positive
+                    
                     trip.setAddress1(trailhead);
                     System.out.println("Trailhead accepted: " + trailhead);
                     if (isBudgetYesSelected) {

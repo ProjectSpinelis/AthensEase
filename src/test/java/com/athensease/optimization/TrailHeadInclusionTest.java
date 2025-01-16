@@ -1,8 +1,7 @@
-package com.athensease;
+package com.athensease.optimization;
 
 import com.athensease.sights.Sight;
 import org.junit.jupiter.api.Test;
-import com.athensease.optimization.TrailHeadInclusion;
 import java.util.Arrays;
 import java.util.List;
 

@@ -8,13 +8,12 @@ import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
 import com.athensease.optimization.Optimizer;
-import com.athensease.optimization.TrailHeadInclusion;
 import com.athensease.sights.Trip;
 
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.concurrent.Task;
-import javafx.util.Duration;
+import javafx.util.Duration; 
 
 public class ProgressBarScreen {
 
@@ -30,6 +29,15 @@ public class ProgressBarScreen {
     }
 
     public Scene createScene() {
+        /*
+        List<Sight> chosenSights = trip.getChosenSights();
+        trip2.setChosenSights(chosenSights);
+        String address1 = trip.getAddress1();
+        trip2.setAddress1(address1);
+        int optimizeFor = trip.getOptmizeFor();
+        trip2.setOptmizeFor(optimizeFor);
+        */
+
         // Δημιουργία ProgressBar
         ProgressBar progressBar = new ProgressBar(0); // Ξεκινά από 0 (άδειο)
         progressBar.setPrefWidth(400); // Πλάτος της μπάρας
@@ -51,8 +59,8 @@ public class ProgressBarScreen {
                 trip.prepTrip();
                 Optimizer.optimizeTrip(trip); // Εκτέλεση σε background thread
                 System.out.println("Optimization finished");
-                TrailHeadInclusion.findHotelStopPoints(trip.getOptimizedSights());
-                trip.tripCalculations();
+                //TrailHeadInclusion.findHotelStopPoints(trip.getOptimizedSights());
+                //trip.tripCalculations();
                 System.out.println("Optimization finished Tasks");
                 return null;
             }
@@ -66,7 +74,7 @@ public class ProgressBarScreen {
         });
 
         // Timeline για την προοδευτική πλήρωση της ProgressBar
-        boolean transitioned = false;
+        //boolean transitioned = false;
         Timeline timeline = new Timeline(
             new KeyFrame(
                 Duration.millis(frameDurationInMilliseconds), // Εκτελείται κάθε 100ms
@@ -75,9 +83,9 @@ public class ProgressBarScreen {
                     if (progressBar.getProgress() < 1.0) {
                         progressBar.setProgress(progressBar.getProgress() + increment);
                     }
-                    if (progressBar.getProgress() >= 1.0 && !transitioned) {
+                    if (progressBar.getProgress() >= 1.0) {
                         //transitioned = true; // Prevent duplicate calls
-                        trip.setOptimizedSights(trip.getChosenSights());
+                        //trip.setOptimizedSights(trip.getChosenSights());
                         goToResultsScreen();
                     }
                 }
@@ -107,7 +115,7 @@ public class ProgressBarScreen {
     // Function to switch to the results screen
     public void goToResultsScreen() {
         ResultScreen screen3 = new ResultScreen(stage);
-        ResultScreen.setTrip(trip); // Pass the trip
+        screen3.setTrip(trip); // Pass the trip
         Scene resultsScene = screen3.createScene();
         stage.setScene(resultsScene);
     }

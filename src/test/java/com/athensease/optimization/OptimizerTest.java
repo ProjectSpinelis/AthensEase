@@ -1,11 +1,9 @@
-package com.athensease;
+package com.athensease.optimization;
 
 import com.athensease.optimization.domain.RoutePlan;
 import com.athensease.sights.Sight;
 import com.athensease.sights.Trip;
 import org.junit.jupiter.api.Test;
-import com.athensease.optimization.Optimizer;
-
 import java.util.Arrays;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -34,7 +32,7 @@ public class OptimizerTest {
     
         // Call optimizeTrip
         try {
-            Optimizer.optimizeTrip(trip, true);
+            Optimizer.optimizeTrip(trip);
         } catch (Exception e) {
             fail("Exception occurred: " + e.getMessage());
         }
@@ -60,7 +58,7 @@ public class OptimizerTest {
     
         // Call optimizeTrip
         try {
-            Optimizer.optimizeTrip(trip, true);
+            Optimizer.optimizeTrip(trip);
         } catch (Exception e) {
             fail("Exception occurred: " + e.getMessage());
         }

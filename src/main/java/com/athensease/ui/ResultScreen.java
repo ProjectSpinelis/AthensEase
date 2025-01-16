@@ -15,9 +15,9 @@ import com.athensease.sights.Trip;
 
 public class ResultScreen {
 
-    private static Trip trip;
-    public static void setTrip(Trip trip) {
-        ResultScreen.trip = trip;
+    private Trip trip;
+    public void setTrip(Trip trip) {
+        this.trip = trip;
     }
     private Stage stage;
 
@@ -44,8 +44,8 @@ public class ResultScreen {
         // Trip details section
         Label durationLabel = new Label("Duration: " + trip.getDuration() + " day(s)");
         Label addressLabel = new Label("Trailhead: " + trip.getAddress1());
-        Label distancLabel = new Label("Total Distance Traveled: 29" /*trip.getTotalDistanceTraveled()*/ + " km");
-        Label trasportationLabel = new Label("Total Transport Time: 55"  /*trip.getTotalTravelDuration()*/ + " minutes");
+        Label distancLabel = new Label("Total Distance Traveled: " + trip.calculateTotalDistance() + " km");
+        Label trasportationLabel = new Label("Total Transport Time: " + trip.calculateTotalDuration() + " minutes");
         Label sightseeingLabel = new Label("Total Sightseeing Time: " + trip.getMinVisitTime() + " minutes");
         Label ticketsLabel = new Label("Total Tickets Cost: " + trip.getTotalCost() + " €");
 
@@ -106,13 +106,39 @@ public class ResultScreen {
             .sorted(Comparator.comparingInt(Sight::getVisitOrder))  // Assuming getVisitOrder() returns an int
             .collect(Collectors.toList()); 
         int count = 0;
+        int dayCount = 1;
+        List<Sight> hotelStopPoints = TrailHeadInclusion.findHotelStopPoints(sortedSights);
+
         for (Sight sight : sortedSights) {
-            if (sight.getName() == "Hotel") {
-                Label dayChangeLabel = new Label("Day " + ((int) sight.getPrice() + 1));
+            boolean hotelStopAfter = false; // Checks if after this sight we need to return to the hotel
+            for (Sight s : hotelStopPoints) {
+                if (sight == s) {
+                    hotelStopAfter = true;
+                }
+            }
+
+            if (hotelStopAfter) {
+                count++; 
+                VBox sightBox = new VBox(10);
+                Label nLabel = new Label(sight.getName());
+                nLabel.setStyle("-fx-font-size: 16px; -fx-font-weight: bold;");
+                sightBox.getChildren().addAll(
+                    nLabel,
+                    new Label("Visit Order: " + count),
+                    new Label("Ticket cost: " + sight.getPrice() + " €"),
+                    new Label("Viewing Time: " + sight.getVisitTime() + " minutes")
+                );
+                sightBox.setStyle("-fx-background-color: #d4b483; -fx-padding: 10; -fx-border-color: #cccccc; -fx-border-width: 1px;");
+                optimizedRouteBox.getChildren().add(sightBox);
+
+
+                dayCount++;
+                Label dayChangeLabel = new Label("Day " + dayCount);
                 dayChangeLabel.getStyleClass().add("heading");
                 dayChangeLabel.setStyle("-fx-font-size: 18px");
                 optimizedRouteBox.getChildren().add(dayChangeLabel);
                 count = 0;
+                
             } else {
                 count++; 
                 VBox sightBox = new VBox(10);
@@ -127,12 +153,13 @@ public class ResultScreen {
                 sightBox.setStyle("-fx-background-color: #d4b483; -fx-padding: 10; -fx-border-color: #cccccc; -fx-border-width: 1px;");
                 optimizedRouteBox.getChildren().add(sightBox);
 
+                /* 
                 List<Sight> hotelStopPoints = TrailHeadInclusion.findHotelStopPoints(sortedSights);
                 double totalDistance = 0;
                 double totalTravelDuration = 0;
                 double ticketsCost = 0;
                 int daysCounter = 1;
-
+                */
                 /*System.out.println("\nDay " + daysCounter + ":\n");
 
                 for (int i = 0; i < sortedSights.size(); i++) {
