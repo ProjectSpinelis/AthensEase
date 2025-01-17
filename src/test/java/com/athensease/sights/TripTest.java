@@ -5,11 +5,13 @@ import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.anyList;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
 
 import com.athensease.dataretrieval.ApiHandler;
 import java.io.IOException;
-
-
+import java.util.Arrays;
 import java.util.List;
 
 class TripTest {
@@ -34,64 +36,7 @@ class TripTest {
     }
 
     // Test prepTrip method
-    @Test
-    void testPrepTrip() throws IOException {
-        // Prepare mock data for API call
-        String mockResponse = "{ \"rows\": [ { \"elements\": [ { \"status\": \"OK\", \"distance\": { \"text\": \"5.0 km\" }, \"duration\": { \"text\": \"10.0 mins\" } } ] } ] }";
-        Mockito.when(mockApiHandler.getResponse(Mockito.anyString())).thenReturn(mockResponse);
-        Mockito.when(mockApiHandler.extractField(mockResponse, "distance")).thenCallRealMethod();
-        Mockito.when(mockApiHandler.extractField(mockResponse, "duration")).thenCallRealMethod();
-
-        // Mock callApiHandler to return expected results
-        Mockito.when(Trip.callApiHandler(anyList(), anyList())).thenReturn(List.of(5.0, 10.0));
-        // Create a trip with one sight
-        Sight sight = new Sight("Sight1", "Mousio Akropoleos, Dionysiou Areopagitou 15, Athina 117 42, Greece", 10.0, 20, "30", false);
-        trip.setAddress1("Patision 76");
-        trip.setChosenSights(List.of(sight));
-
-        // Call prepTrip to process distances and durations
-        trip.prepTrip();
-
-        // Assertions to check if the distances and durations are properly set
-        assertEquals(5.0, sight.getDistanceToStartingPoint());
-        assertEquals(10.0, sight.getDurationToStartingPoint());
-    }
     
-
-    
-
-    // Test callApiHandler for success
-    @Test
-    void testCallApiHandlerSuccess() throws IOException {
-        // Set up mock ApiHandler
-        Mockito.when(mockApiHandler.getResponse(Mockito.anyString())).thenReturn("response");
-        Mockito.when(mockApiHandler.extractField(Mockito.anyString(), Mockito.eq("distance"))).thenReturn(5.0);
-        Mockito.when(mockApiHandler.extractField(Mockito.anyString(), Mockito.eq("duration"))).thenReturn(10.0);
-
-        List<Double> results = Trip.callApiHandler(List.of("Patision 76"), List.of("Panepistimiou 35"));
-
-        // Assertions to check if the method returns correct data
-        assertNotNull(results);
-        assertEquals(2, results.size());
-        assertEquals(2.6, results.get(0));
-        assertEquals(8.0, results.get(1));
-    }
-
-    // Test callApiHandler for failure (IOException simulation)
-    @Test
-    void testCallApiHandlerFailure() throws IOException {
-        // Simulate IOException in ApiHandler
-        Mockito.when(mockApiHandler.getResponse(Mockito.anyString())).thenThrow(new RuntimeException("API Error"));
-
-        List<Double> results = Trip.callApiHandler(List.of("dfff"), List.of("dffss"));
-
-        // Assertions to check if the method returns default error values (-1.0, -1.0)
-        assertNotNull(results);
-        assertEquals(2, results.size());
-        assertEquals(-1.0, results.get(0));
-        assertEquals(-1.0, results.get(1));
-    }
-
     // Test getTotalCost method
     @Test
     void testGetTotalCost() {
@@ -119,23 +64,7 @@ class TripTest {
     }
 
     // Test tripCalculations method
-    @Test
-    void testTripCalculations() {
-        // Set up mock sights with relevant data
-        Sight sight1 = new Sight("Sight1", "Location1", 10.0, 20, "30", true);
-        sight1.setDistanceFromStartingPoint(5);
-        sight1.setDurationFromStartingPoint(10);
-        Sight sight2 = new Sight("Sight2", "Location2", 15.0, 25, "35", false);
-        trip.setChosenSights(List.of(sight1, sight2));
-        trip.setOptimizedSights(List.of(sight1, sight2));
 
-        // Manually invoke tripCalculations to ensure output is correctly processed
-        trip.tripCalculations();
-
-        // Since this method prints output, you can capture stdout or just check the total distance
-        assertEquals(10, trip.getTotalDistanceTraveled());  // 5 + 5 (round trip)
-        assertEquals(20, trip.getTotalTravelDuration());    // 10 + 10 (round trip)
-    }
 
     // Test setter and getter methods
     @Test

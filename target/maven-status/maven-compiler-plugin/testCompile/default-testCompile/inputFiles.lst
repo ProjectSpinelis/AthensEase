@@ -1,12 +1,11 @@
-C:\Users\User\Desktop\Reference Material\All About University\Java Exercises Programming II\Java Files\GitHubTest\Final2\AthensEase\src\test\java\com\athensease\dataretrieval\ApiHandlerTest.java
-C:\Users\User\Desktop\Reference Material\All About University\Java Exercises Programming II\Java Files\GitHubTest\Final2\AthensEase\src\test\java\com\athensease\dataretrieval\JsonFormatterTest.java
-C:\Users\User\Desktop\Reference Material\All About University\Java Exercises Programming II\Java Files\GitHubTest\Final2\AthensEase\src\test\java\com\athensease\dataretrieval\MainDataHandlerTest.java
-C:\Users\User\Desktop\Reference Material\All About University\Java Exercises Programming II\Java Files\GitHubTest\Final2\AthensEase\src\test\java\com\athensease\dataretrieval\MapURLBuilderTest.java
-C:\Users\User\Desktop\Reference Material\All About University\Java Exercises Programming II\Java Files\GitHubTest\Final2\AthensEase\src\test\java\com\athensease\dataretrieval\RouteDataFetcherTest.java
-C:\Users\User\Desktop\Reference Material\All About University\Java Exercises Programming II\Java Files\GitHubTest\Final2\AthensEase\src\test\java\com\athensease\optimization\domain\RoutePlanTest.java
-C:\Users\User\Desktop\Reference Material\All About University\Java Exercises Programming II\Java Files\GitHubTest\Final2\AthensEase\src\test\java\com\athensease\optimization\OptimizerTest.java
-C:\Users\User\Desktop\Reference Material\All About University\Java Exercises Programming II\Java Files\GitHubTest\Final2\AthensEase\src\test\java\com\athensease\optimization\solver\RoutePlanConstraintProviderForDurationTest.java
-C:\Users\User\Desktop\Reference Material\All About University\Java Exercises Programming II\Java Files\GitHubTest\Final2\AthensEase\src\test\java\com\athensease\optimization\solver\RoutePlanConstraintProviderTest.java
-C:\Users\User\Desktop\Reference Material\All About University\Java Exercises Programming II\Java Files\GitHubTest\Final2\AthensEase\src\test\java\com\athensease\optimization\TrailHeadInclusionTest.java
-C:\Users\User\Desktop\Reference Material\All About University\Java Exercises Programming II\Java Files\GitHubTest\Final2\AthensEase\src\test\java\com\athensease\sights\SightsFileHandlerTest.java
-C:\Users\User\Desktop\Reference Material\All About University\Java Exercises Programming II\Java Files\GitHubTest\Final2\AthensEase\src\test\java\com\athensease\sights\TripTest.java
+C:\Users\User\java2\Github\AthensEase\src\test\java\com\athensease\dataretrieval\ApiHandlerTest.java
+C:\Users\User\java2\Github\AthensEase\src\test\java\com\athensease\dataretrieval\JsonFormatterTest.java
+C:\Users\User\java2\Github\AthensEase\src\test\java\com\athensease\dataretrieval\MainDataHandlerTest.java
+C:\Users\User\java2\Github\AthensEase\src\test\java\com\athensease\dataretrieval\MapURLBuilderTest.java
+C:\Users\User\java2\Github\AthensEase\src\test\java\com\athensease\optimization\domain\RoutePlanTest.java
+C:\Users\User\java2\Github\AthensEase\src\test\java\com\athensease\optimization\OptimizerTest.java
+C:\Users\User\java2\Github\AthensEase\src\test\java\com\athensease\optimization\solver\RoutePlanConstraintProviderForDurationTest.java
+C:\Users\User\java2\Github\AthensEase\src\test\java\com\athensease\optimization\solver\RoutePlanConstraintProviderTest.java
+C:\Users\User\java2\Github\AthensEase\src\test\java\com\athensease\optimization\TrailHeadInclusionTest.java
+C:\Users\User\java2\Github\AthensEase\src\test\java\com\athensease\sights\SightsFileHandlerTest.java
+C:\Users\User\java2\Github\AthensEase\src\test\java\com\athensease\sights\TripTest.java

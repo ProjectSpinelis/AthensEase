@@ -28,6 +28,9 @@ public class ResultScreen {
         this.stage = stage;
     }
 
+    int count = 0;
+    int dayCount = 1;
+
     public Scene createScene() {
         // Ensure the trip data is initialized before proceeding
         if (trip == null) {
@@ -100,7 +103,6 @@ public class ResultScreen {
         // Add each sight in the optimized route
         optimizedRouteBox.getChildren().add(optimizedRouteLabel);
         Label dayOneLabel = new Label("Day 1");
-        ;
         optimizedRouteBox.getChildren().add(dayOneLabel);
         dayOneLabel.getStyleClass().add("heading");
         dayOneLabel.setStyle("-fx-font-size: 18px");
@@ -108,13 +110,15 @@ public class ResultScreen {
         List<Sight> sortedSights = trip.getOptimizedSights().stream()
             .sorted(Comparator.comparingInt(Sight::getVisitOrder))  // Assuming getVisitOrder() returns an int
             .collect(Collectors.toList()); 
-        int count = 0;
-        int dayCount = 1;
+        
+        
         List<Sight> hotelStopPoints = TrailHeadInclusion.findHotelStopPoints(sortedSights);
+        List<List<Sight>> sightsPerDay = new ArrayList<>();
+        sightsPerDay.add(new ArrayList<>());
+        sightsPerDay.get(dayCount -1).add(new Sight("hotel", trip.getAddress1(), 0, 0, "hotel", false));
 
-        sightsForMap.add(new Sight("hotel", trip.getAddress1(), 0, 0, "hotel", false));
         for (Sight sight : sortedSights) {
-            sightsForMap.add(sight);
+            sightsPerDay.get(dayCount - 1).add(sight);
             boolean hotelStopAfter = false; // Checks if after this sight we need to return to the hotel
             for (Sight s : hotelStopPoints) {
                 if (sight == s) {
@@ -137,16 +141,21 @@ public class ResultScreen {
                 optimizedRouteBox.getChildren().add(sightBox);
 
                 Sight hotel = new Sight("hotel", trip.getAddress1(), 0, 0, "hotel", false);
-                sightsForMap.add(hotel);
+                sightsPerDay.get(dayCount -1).add(hotel);
+
+                // Capture the current day's list in a final variable for the button action
+                final List<Sight> currentDaySights = new ArrayList<>(sightsPerDay.get(dayCount - 1));
+
                 Button mapButton2 = new Button("View Map");
                 mapButton2.setOnAction(e -> {
-                    goToMapScene(sightsForMap);
+                    goToMapScene(currentDaySights);
                 });
                 optimizedRouteBox.getChildren().add(mapButton2);
-                sightsForMap.clear();
-                sightsForMap.add(hotel);
+                
 
                 dayCount++;
+                sightsPerDay.add(new ArrayList<>());
+                sightsPerDay.get(dayCount -1).add(hotel);
                 Label dayChangeLabel = new Label("Day " + dayCount);
                 dayChangeLabel.getStyleClass().add("heading");
                 dayChangeLabel.setStyle("-fx-font-size: 18px");
@@ -173,8 +182,9 @@ public class ResultScreen {
         Button mapButton = new Button("View Map");
         mapButton.setOnAction(e -> {
             sightsForMap.add(new Sight("hotel", trip.getAddress1(), 0, 0, "hotel", false));
-            goToMapScene(sightsForMap);
+            goToMapScene(sightsPerDay.get(dayCount -1));
         });
+        optimizedRouteBox.getChildren().add(mapButton);
 
         // Add the optimized route section to the root
         root.getChildren().add(optimizedRouteBox);

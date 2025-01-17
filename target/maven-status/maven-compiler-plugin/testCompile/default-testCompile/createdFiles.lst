@@ -1,7 +1,7 @@
 com\athensease\optimization\solver\RoutePlanConstraintProviderTest.class
 com\athensease\optimization\OptimizerTest.class
-com\athensease\dataretrieval\RouteDataFetcherTest.class
 com\athensease\optimization\domain\RoutePlanTest.class
+com\athensease\dataretrieval\ApiHandlerTest$1.class
 com\athensease\dataretrieval\JsonFormatterTest.class
 com\athensease\dataretrieval\MapURLBuilderTest.class
 com\athensease\sights\TripTest.class

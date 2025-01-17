@@ -23,8 +23,8 @@ public class ApiHandlerTest {
         Call mockCall = mock(Call.class);
         Response mockResponse = mock(Response.class);
         ResponseBody mockResponseBody = ResponseBody.create(
-            "{ \"key\": \"value\" }",
-            okhttp3.MediaType.parse("application/json")
+                "{ \"key\": \"value\" }",
+                okhttp3.MediaType.parse("application/json")
         );
 
         // Set up the mocked response behavior
@@ -35,9 +35,18 @@ public class ApiHandlerTest {
         when(mockClient.newCall(any(Request.class))).thenReturn(mockCall);
         when(mockCall.execute()).thenReturn(mockResponse);
 
-        // Use reflection to inject the mock client into ApiHandler
-        ApiHandler apiHandler = new ApiHandler(List.of("origin1"), List.of("destination1"));
-        injectMockHttpClient(apiHandler, mockClient);
+        // Subclass ApiHandler to override getResponse for testing
+        ApiHandler apiHandler = new ApiHandler(List.of("origin1"), List.of("destination1")) {
+            @Override
+            public String getResponse(String url) throws IOException {
+                try (Response response = mockClient.newCall(new Request.Builder().url(url).build()).execute()) {
+                    if (!response.isSuccessful()) {
+                        throw new IOException("Unexpected code " + response);
+                    }
+                    return response.body().string();
+                }
+            }
+        };
 
         // Create a test URL and get the response
         String testUrl = apiHandler.createURL();
@@ -49,16 +58,5 @@ public class ApiHandlerTest {
         // Verify interactions
         verify(mockClient).newCall(any(Request.class));
         verify(mockCall).execute();
-    }
-
-    // Helper method to inject the mocked OkHttpClient into ApiHandler
-    private void injectMockHttpClient(ApiHandler apiHandler, OkHttpClient mockClient) {
-        try {
-            java.lang.reflect.Field clientField = ApiHandler.class.getDeclaredField("client");
-            clientField.setAccessible(true);
-            clientField.set(apiHandler, mockClient);
-        } catch (Exception e) {
-            throw new RuntimeException("Failed to inject mock OkHttpClient", e);
-        }
     }
 }
