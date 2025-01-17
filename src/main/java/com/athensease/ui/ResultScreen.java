@@ -5,6 +5,7 @@ import javafx.scene.control.*;
 import javafx.scene.layout.*;
 import javafx.stage.Stage;
 
+import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -15,9 +16,10 @@ import com.athensease.sights.Trip;
 
 public class ResultScreen {
 
-    private Trip trip;
-    public void setTrip(Trip trip) {
-        this.trip = trip;
+    private static Trip trip;
+    private List<Sight> sightsForMap = new ArrayList<>();
+    public static void setTrip(Trip trip) {
+        ResultScreen.trip = trip;
     }
     private Stage stage;
 
@@ -98,6 +100,7 @@ public class ResultScreen {
         // Add each sight in the optimized route
         optimizedRouteBox.getChildren().add(optimizedRouteLabel);
         Label dayOneLabel = new Label("Day 1");
+        ;
         optimizedRouteBox.getChildren().add(dayOneLabel);
         dayOneLabel.getStyleClass().add("heading");
         dayOneLabel.setStyle("-fx-font-size: 18px");
@@ -109,7 +112,10 @@ public class ResultScreen {
         int dayCount = 1;
         List<Sight> hotelStopPoints = TrailHeadInclusion.findHotelStopPoints(sortedSights);
 
+        
+
         for (Sight sight : sortedSights) {
+            sightsForMap.add(sight);
             boolean hotelStopAfter = false; // Checks if after this sight we need to return to the hotel
             for (Sight s : hotelStopPoints) {
                 if (sight == s) {
@@ -131,11 +137,19 @@ public class ResultScreen {
                 sightBox.setStyle("-fx-background-color: #d4b483; -fx-padding: 10; -fx-border-color: #cccccc; -fx-border-width: 1px;");
                 optimizedRouteBox.getChildren().add(sightBox);
 
+                Button mapButton2 = new Button("View Map");
+                mapButton2.setOnAction(e -> {
+                    goToMapScene(sightsForMap);
+                });
+                optimizedRouteBox.getChildren().add(mapButton2);
+                sightsForMap = new ArrayList<>();
 
                 dayCount++;
                 Label dayChangeLabel = new Label("Day " + dayCount);
                 dayChangeLabel.getStyleClass().add("heading");
                 dayChangeLabel.setStyle("-fx-font-size: 18px");
+                
+                
                 optimizedRouteBox.getChildren().add(dayChangeLabel);
                 count = 0;
                 
@@ -273,11 +287,11 @@ public class ResultScreen {
                 } */
             }
         }
-        Button mapButton = new Button("View Route on Map");
+        /*Button mapButton = new Button("View Route on Map");
         mapButton.setOnAction(e -> {
             goToMapScene();
         });
-        optimizedRouteBox.getChildren().add(mapButton);
+        optimizedRouteBox.getChildren().add(mapButton); */
 
         // Add the optimized route section to the root
         root.getChildren().add(optimizedRouteBox);
@@ -288,8 +302,8 @@ public class ResultScreen {
         root.getChildren().add(scrollPane);
     }
 
-    public void goToMapScene() {
-        DynamicHtmlCreator screen3 = new DynamicHtmlCreator(stage, trip.getOptimizedSights());
+    public void goToMapScene(List<Sight> sights) {
+        DynamicHtmlCreator screen3 = new DynamicHtmlCreator(stage, sights);
         DynamicHtmlCreator.setTrip(trip); // Pass the trip
         Scene mapScene = screen3.createScene();
         stage.setScene(mapScene);

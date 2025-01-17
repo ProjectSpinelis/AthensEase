@@ -27,6 +27,7 @@ public class Optimizer {
      * @param objective The optimization objective: true for minimizing total distance, false for minimizing total duration.
      */
     public static void optimizeTrip(Trip trip) {
+        System.out.println("Optimization started");
         
         SolverConfig solverConfig;
         
@@ -38,6 +39,7 @@ public class Optimizer {
                     // The solver runs only for 5 seconds on this small dataset.
                     // It's recommended to run for at least 5 minutes ("5m") otherwise.
                     .withTerminationSpentLimit(Duration.ofSeconds(5));
+                System.out.println("Optimization for distance");
 
         } else { // If the objective is to minimize the total travel duration
             solverConfig = new SolverConfig()
@@ -45,21 +47,28 @@ public class Optimizer {
                     .withEntityClasses(Sight.class)
                     .withConstraintProviderClass(RoutePlanConstraintProviderForDuration.class)
                     .withTerminationSpentLimit(Duration.ofSeconds(5));
+            System.out.println("Optimization for duration");
             
         }
-//
+        System.out.println("Solver config: " + solverConfig);
+
         SolverFactory<RoutePlan> solverFactory = SolverFactory.create(solverConfig);
+        System.out.println("Created solver factory: " + solverFactory);
 
         // Load the problem
         RoutePlan problem = generateData(trip);
+        System.out.println("Generated data: " + problem);
 
         // Solve the problem
         Solver<RoutePlan> solver = solverFactory.buildSolver();
+        System.out.println("Created solver: " + solver);
         RoutePlan solution = solver.solve(problem);
+        System.out.println(solution);
 
         // Optimize Trip Instance
         trip.setOptimizedSights(solution.getSightsList());
         trip.setOptimizationScore(solution.getScore());
+        System.out.println("Set opimized sights: ");
     }
 
     /**

@@ -47,7 +47,7 @@ public class ProgressBarScreen {
         Label loadingLabel = new Label("Optimizing your trip...");
 
         // Χρονικό διάστημα και βήμα για την πλήρωση της μπάρας
-        int totalDurationInMilliseconds = 25000; // 15 δευτερόλεπτα σε milliseconds
+        int totalDurationInMilliseconds = 5000; // 15 δευτερόλεπτα σε milliseconds
         int frameDurationInMilliseconds = 100; // Κάθε frame διαρκεί 100ms
         double increment = 1.0 / (totalDurationInMilliseconds / frameDurationInMilliseconds);
 
@@ -115,7 +115,7 @@ public class ProgressBarScreen {
     // Function to switch to the results screen
     public void goToResultsScreen() {
         ResultScreen screen3 = new ResultScreen(stage);
-        screen3.setTrip(trip); // Pass the trip
+        ResultScreen.setTrip(trip); // Pass the trip
         Scene resultsScene = screen3.createScene();
         stage.setScene(resultsScene);
     }

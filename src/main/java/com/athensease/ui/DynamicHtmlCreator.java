@@ -10,8 +10,11 @@ import javafx.scene.control.Button;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
-import javafx.scene.web.WebView;
 
+import java.awt.Desktop;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -42,16 +45,15 @@ public class DynamicHtmlCreator {
 
             String htmlContent = generateDynamicHTML(origin, destination, waypoints, polyline);
 
-            // Create WebView to display HTML content
-            WebView webView = new WebView();
-            webView.getEngine().loadContent(htmlContent);
+            // Write the HTML content to a temporary file and open it in the user's default browser
+            openInBrowser(htmlContent);
 
+            // Provide a back button to return to the previous screen
             Button backButton = new Button("Back");
             backButton.getStyleClass().add("big-button");
             backButton.setOnAction(e -> goToResultsScreen());
 
             VBox box = new VBox();
-            box.getChildren().add(webView);
             box.getChildren().add(backButton);
             StackPane root = new StackPane();
             root.getChildren().add(box);
@@ -76,50 +78,64 @@ public class DynamicHtmlCreator {
         }
 
         return "<!DOCTYPE html>" +
-        "<html>" +
-        "<head>" +
-        "  <title>Route Map</title>" +
-        "  <script src=\"https://maps.googleapis.com/maps/api/js?key=AIzaSyDits1cNQEJkWEK_FSF_crxVCeV-brw3rE&libraries=geometry&callback=initMap\" async defer></script>" +
-        "  <script>" +
-        "    function initMap() {" +
-        "      var origin = '" + origin + "';" +
-        "      var destination = '" + destination + "';" +
-        "      var waypoints = [" + waypointScript.toString() + "];" +
-        "      var map = new google.maps.Map(document.getElementById('map'), {" +
-        "        zoom: 12," +
-        "        center: { lat: parseFloat(origin.split(',')[0]), lng: parseFloat(origin.split(',')[1]) }," +
-        "        mapTypeId: google.maps.MapTypeId.ROADMAP" +
-        "      });" +
-        "      var directionsService = new google.maps.DirectionsService();" +
-        "      var directionsRenderer = new google.maps.DirectionsRenderer();" +
-        "      directionsRenderer.setMap(map);" +
-        "      var request = {" +
-        "        origin: origin," +
-        "        destination: destination," +
-        "        waypoints: waypoints.map(function(waypoint) { return { location: waypoint, stopover: true }; })," +
-        "        travelMode: google.maps.TravelMode.DRIVING" +
-        "      };" +
-        "      directionsService.route(request, function(response, status) {" +
-        "        if (status == 'OK') {" +
-        "          directionsRenderer.setDirections(response);" +
-        "        } else {" +
-        "          alert('Directions request failed due to ' + status);" +
-        "        }" +
-        "      });" +
-        "    }" +
-        "  </script>" +
-        "</head>" +
-        "<body>" +
-        "  <h1>Route Map</h1>" +
-        "  <div id=\"map\" style=\"height: 600px; width: 100%;\"></div>" +
-        "</body>" +
-        "</html>";
+                "<html>" +
+                "<head>" +
+                "  <title>Route Map</title>" +
+                "  <script src=\"https://maps.googleapis.com/maps/api/js?key=AIzaSyDits1cNQEJkWEK_FSF_crxVCeV-brw3rE&libraries=geometry&callback=initMap\" async defer></script>" +
+                "  <script>" +
+                "    function initMap() {" +
+                "      var origin = '" + origin + "';" +
+                "      var destination = '" + destination + "';" +
+                "      var waypoints = [" + waypointScript.toString() + "];" +
+                "      var map = new google.maps.Map(document.getElementById('map'), {" +
+                "        zoom: 12," +
+                "        center: { lat: parseFloat(origin.split(',')[0]), lng: parseFloat(origin.split(',')[1]) }," +
+                "        mapTypeId: google.maps.MapTypeId.ROADMAP" +
+                "      });" +
+                "      var directionsService = new google.maps.DirectionsService();" +
+                "      var directionsRenderer = new google.maps.DirectionsRenderer();" +
+                "      directionsRenderer.setMap(map);" +
+                "      var request = {" +
+                "        origin: origin," +
+                "        destination: destination," +
+                "        waypoints: waypoints.map(function(waypoint) { return { location: waypoint, stopover: true }; })," +
+                "        travelMode: google.maps.TravelMode.DRIVING" +
+                "      };" +
+                "      directionsService.route(request, function(response, status) {" +
+                "        if (status == 'OK') {" +
+                "          directionsRenderer.setDirections(response);" +
+                "        } else {" +
+                "          alert('Directions request failed due to ' + status);" +
+                "        }" +
+                "      });" +
+                "    }" +
+                "  </script>" +
+                "</head>" +
+                "<body>" +
+                "  <h1>Route Map</h1>" +
+                "  <div id=\"map\" style=\"height: 600px; width: 100%;\"></div>" +
+                "</body>" +
+                "</html>";
     }
 
-    // Function to switch to the results screen
+    private void openInBrowser(String htmlContent) {
+        try {
+            File tempFile = File.createTempFile("route_map", ".html");
+            tempFile.deleteOnExit();
+
+            try (FileWriter writer = new FileWriter(tempFile)) {
+                writer.write(htmlContent);
+            }
+
+            Desktop.getDesktop().browse(tempFile.toURI());
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
     public void goToResultsScreen() {
         ResultScreen screen3 = new ResultScreen(stage);
-        screen3.setTrip(trip); // Pass the trip
+        ResultScreen.setTrip(trip); // Pass the trip
         Scene resultsScene = screen3.createScene();
         stage.setScene(resultsScene);
     }
