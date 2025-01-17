@@ -1,0 +1,48 @@
+-------------------------------------------------------------------------------
+Test set: com.athensease.sights.TripTest
+-------------------------------------------------------------------------------
+Tests run: 9, Failures: 1, Errors: 2, Skipped: 0, Time elapsed: 2.32 s <<< FAILURE! - in com.athensease.sights.TripTest
+com.athensease.sights.TripTest.testCallApiHandlerFailure  Time elapsed: 0.251 s  <<< ERROR!
+java.lang.RuntimeException: Failed to extract distance from response
+	at com.athensease.dataretrieval.ApiHandler.extractField(ApiHandler.java:78)
+	at com.athensease.sights.Trip.callApiHandler(Trip.java:70)
+	at com.athensease.sights.TripTest.testCallApiHandlerFailure(TripTest.java:79)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:580)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1596)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1596)
+Caused by: java.lang.IllegalArgumentException: API response status: NOT_FOUND
+	at com.athensease.dataretrieval.ApiHandler.extractField(ApiHandler.java:67)
+	... 5 more
+
+com.athensease.sights.TripTest.testPrepTrip  Time elapsed: 0.525 s  <<< FAILURE!
+org.opentest4j.AssertionFailedError: expected: <5.0> but was: <4.2>
+	at org.junit.jupiter.api.AssertionFailureBuilder.build(AssertionFailureBuilder.java:151)
+	at org.junit.jupiter.api.AssertionFailureBuilder.buildAndThrow(AssertionFailureBuilder.java:132)
+	at org.junit.jupiter.api.AssertEquals.failNotEqual(AssertEquals.java:197)
+	at org.junit.jupiter.api.AssertEquals.assertEquals(AssertEquals.java:70)
+	at org.junit.jupiter.api.AssertEquals.assertEquals(AssertEquals.java:65)
+	at org.junit.jupiter.api.Assertions.assertEquals(Assertions.java:885)
+	at com.athensease.sights.TripTest.testPrepTrip(TripTest.java:52)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:580)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1596)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1596)
+
+com.athensease.sights.TripTest.testTripCalculations  Time elapsed: 0.003 s  <<< ERROR!
+java.lang.NullPointerException: Cannot invoke "java.lang.Integer.intValue()" because "<local2>.visitOrder" is null
+	at com.athensease.sights.Sight.getVisitOrder(Sight.java:85)
+	at java.base/java.util.Comparator.lambda$comparingInt$7b0bb60$1(Comparator.java:494)
+	at java.base/java.util.TimSort.countRunAndMakeAscending(TimSort.java:355)
+	at java.base/java.util.TimSort.sort(TimSort.java:220)
+	at java.base/java.util.Arrays.sort(Arrays.java:1308)
+	at java.base/java.util.stream.SortedOps$SizedRefSortingSink.end(SortedOps.java:353)
+	at java.base/java.util.stream.AbstractPipeline.copyInto(AbstractPipeline.java:510)
+	at java.base/java.util.stream.AbstractPipeline.wrapAndCopyInto(AbstractPipeline.java:499)
+	at java.base/java.util.stream.ReduceOps$ReduceOp.evaluateSequential(ReduceOps.java:921)
+	at java.base/java.util.stream.AbstractPipeline.evaluate(AbstractPipeline.java:234)
+	at java.base/java.util.stream.ReferencePipeline.collect(ReferencePipeline.java:682)
+	at com.athensease.sights.Trip.tripCalculations(Trip.java:302)
+	at com.athensease.sights.TripTest.testTripCalculations(TripTest.java:126)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:580)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1596)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1596)
+

@@ -1,0 +1,48 @@
+{
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "type": "java",
+            "name": "SimpleJavaFXApp",
+            "request": "launch",
+            "mainClass": "com.athensease.ui.SimpleJavaFXApp",
+            "projectName": "athensease"
+        },
+        {
+            "type": "java",
+            "name": "TripDisplayUI",
+            "request": "launch",
+            "mainClass": "com.athensease.ui.TripDisplayUI",
+            "projectName": "athensease",
+            "vmArgs": "--module-path \"C:\\javafx\\javafx-sdk-21.0.2\\lib\" --add-modules javafx.controls,javafx.fxml"
+        },
+        {
+            "type": "java",
+            "name": "Current File",
+            "request": "launch",
+            "mainClass": "${file}"
+        },
+        {
+            "type": "java",
+            "name": "Main",
+            "request": "launch",
+            "mainClass": "com.athensease.dataretrieval.Main",
+            "projectName": "athensease"
+        },
+        {
+            "type": "java",
+            "name": "TripDisplayUI",
+            "request": "launch",
+            "mainClass": "com.athensease.ui.TripDisplayUI",
+            "projectName": "athensease"
+        },
+        {
+            "type": "java",
+            "name": "TripPlanner",
+            "request": "launch",
+            "mainClass": "com.athensease.ui.TripPlanner",
+            "projectName": "athensease",
+            "vmArgs": "--module-path \"C:\\javafx\\javafx-sdk-21.0.2\\lib\" --add-modules javafx.controls,javafx.fxml"
+        }
+    ]
+}
