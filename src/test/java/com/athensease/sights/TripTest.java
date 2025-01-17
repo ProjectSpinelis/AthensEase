@@ -7,8 +7,6 @@ import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.anyList;
 
 import com.athensease.dataretrieval.ApiHandler;
-import com.athensease.sights.Sight;
-import com.athensease.sights.Trip;
 import java.io.IOException;
 
 
@@ -45,7 +43,7 @@ class TripTest {
         Mockito.when(mockApiHandler.extractField(mockResponse, "duration")).thenCallRealMethod();
 
         // Mock callApiHandler to return expected results
-        Mockito.when(trip.callApiHandler(anyList(), anyList())).thenReturn(List.of(5.0, 10.0));
+        Mockito.when(Trip.callApiHandler(anyList(), anyList())).thenReturn(List.of(5.0, 10.0));
         // Create a trip with one sight
         Sight sight = new Sight("Sight1", "Mousio Akropoleos, Dionysiou Areopagitou 15, Athina 117 42, Greece", 10.0, 20, "30", false);
         trip.setAddress1("Patision 76");
@@ -70,7 +68,7 @@ class TripTest {
         Mockito.when(mockApiHandler.extractField(Mockito.anyString(), Mockito.eq("distance"))).thenReturn(5.0);
         Mockito.when(mockApiHandler.extractField(Mockito.anyString(), Mockito.eq("duration"))).thenReturn(10.0);
 
-        List<Double> results = trip.callApiHandler(List.of("Patision 76"), List.of("Panepistimiou 35"));
+        List<Double> results = Trip.callApiHandler(List.of("Patision 76"), List.of("Panepistimiou 35"));
 
         // Assertions to check if the method returns correct data
         assertNotNull(results);
@@ -85,7 +83,7 @@ class TripTest {
         // Simulate IOException in ApiHandler
         Mockito.when(mockApiHandler.getResponse(Mockito.anyString())).thenThrow(new RuntimeException("API Error"));
 
-        List<Double> results = trip.callApiHandler(List.of("dfff"), List.of("dffss"));
+        List<Double> results = Trip.callApiHandler(List.of("dfff"), List.of("dffss"));
 
         // Assertions to check if the method returns default error values (-1.0, -1.0)
         assertNotNull(results);

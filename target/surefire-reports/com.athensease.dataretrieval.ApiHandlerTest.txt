@@ -1,0 +1,16 @@
+-------------------------------------------------------------------------------
+Test set: com.athensease.dataretrieval.ApiHandlerTest
+-------------------------------------------------------------------------------
+Tests run: 1, Failures: 0, Errors: 1, Skipped: 0, Time elapsed: 1.427 s <<< FAILURE! - in com.athensease.dataretrieval.ApiHandlerTest
+com.athensease.dataretrieval.ApiHandlerTest.testGetResponse  Time elapsed: 1.394 s  <<< ERROR!
+java.lang.RuntimeException: Failed to inject mock OkHttpClient
+	at com.athensease.dataretrieval.ApiHandlerTest.injectMockHttpClient(ApiHandlerTest.java:61)
+	at com.athensease.dataretrieval.ApiHandlerTest.testGetResponse(ApiHandlerTest.java:40)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:580)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1596)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1596)
+Caused by: java.lang.NoSuchFieldException: client
+	at java.base/java.lang.Class.getDeclaredField(Class.java:2782)
+	at com.athensease.dataretrieval.ApiHandlerTest.injectMockHttpClient(ApiHandlerTest.java:57)
+	... 4 more
+

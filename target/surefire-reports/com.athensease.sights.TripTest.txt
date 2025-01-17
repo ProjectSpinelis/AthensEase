@@ -1,35 +1,64 @@
 -------------------------------------------------------------------------------
 Test set: com.athensease.sights.TripTest
 -------------------------------------------------------------------------------
-Tests run: 9, Failures: 1, Errors: 2, Skipped: 0, Time elapsed: 2.32 s <<< FAILURE! - in com.athensease.sights.TripTest
-com.athensease.sights.TripTest.testCallApiHandlerFailure  Time elapsed: 0.251 s  <<< ERROR!
+Tests run: 9, Failures: 0, Errors: 4, Skipped: 0, Time elapsed: 1.092 s <<< FAILURE! - in com.athensease.sights.TripTest
+com.athensease.sights.TripTest.testCallApiHandlerFailure  Time elapsed: 0.287 s  <<< ERROR!
 java.lang.RuntimeException: Failed to extract distance from response
-	at com.athensease.dataretrieval.ApiHandler.extractField(ApiHandler.java:78)
-	at com.athensease.sights.Trip.callApiHandler(Trip.java:70)
-	at com.athensease.sights.TripTest.testCallApiHandlerFailure(TripTest.java:79)
+	at com.athensease.dataretrieval.ApiHandler.extractField(ApiHandler.java:104)
+	at com.athensease.sights.Trip.callApiHandler(Trip.java:76)
+	at com.athensease.sights.TripTest.testCallApiHandlerFailure(TripTest.java:86)
 	at java.base/java.lang.reflect.Method.invoke(Method.java:580)
 	at java.base/java.util.ArrayList.forEach(ArrayList.java:1596)
 	at java.base/java.util.ArrayList.forEach(ArrayList.java:1596)
 Caused by: java.lang.IllegalArgumentException: API response status: NOT_FOUND
-	at com.athensease.dataretrieval.ApiHandler.extractField(ApiHandler.java:67)
+	at com.athensease.dataretrieval.ApiHandler.extractField(ApiHandler.java:93)
 	... 5 more
 
-com.athensease.sights.TripTest.testPrepTrip  Time elapsed: 0.525 s  <<< FAILURE!
-org.opentest4j.AssertionFailedError: expected: <5.0> but was: <4.2>
-	at org.junit.jupiter.api.AssertionFailureBuilder.build(AssertionFailureBuilder.java:151)
-	at org.junit.jupiter.api.AssertionFailureBuilder.buildAndThrow(AssertionFailureBuilder.java:132)
-	at org.junit.jupiter.api.AssertEquals.failNotEqual(AssertEquals.java:197)
-	at org.junit.jupiter.api.AssertEquals.assertEquals(AssertEquals.java:70)
-	at org.junit.jupiter.api.AssertEquals.assertEquals(AssertEquals.java:65)
-	at org.junit.jupiter.api.Assertions.assertEquals(Assertions.java:885)
-	at com.athensease.sights.TripTest.testPrepTrip(TripTest.java:52)
+com.athensease.sights.TripTest.testPrepTrip  Time elapsed: 0.234 s  <<< ERROR!
+java.lang.RuntimeException: Failed to extract distance from response
+	at com.athensease.dataretrieval.ApiHandler.extractField(ApiHandler.java:104)
+	at com.athensease.sights.Trip.callApiHandler(Trip.java:76)
+	at com.athensease.sights.TripTest.testPrepTrip(TripTest.java:46)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:580)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1596)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1596)
+Caused by: org.json.JSONException: JSONArray[0] not found.
+	at org.json.JSONArray.get(JSONArray.java:264)
+	at org.json.JSONArray.getJSONObject(JSONArray.java:477)
+	at com.athensease.dataretrieval.ApiHandler.extractField(ApiHandler.java:89)
+	... 5 more
+
+com.athensease.sights.TripTest.testSetterAndGetter  Time elapsed: 0.007 s  <<< ERROR!
+org.mockito.exceptions.misusing.InvalidUseOfMatchersException: 
+
+Misplaced or misused argument matcher detected here:
+
+-> at com.athensease.sights.TripTest.testPrepTrip(TripTest.java:46)
+-> at com.athensease.sights.TripTest.testPrepTrip(TripTest.java:46)
+
+You cannot use argument matchers outside of verification or stubbing.
+Examples of correct usage of argument matchers:
+    when(mock.get(anyInt())).thenReturn(null);
+    doThrow(new RuntimeException()).when(mock).someVoidMethod(any());
+    verify(mock).someMethod(contains("foo"))
+
+This message may appear after an NullPointerException if the last matcher is returning an object 
+like any() but the stubbed method signature expect a primitive argument, in this case,
+use primitive alternatives.
+    when(mock.get(any())); // bad use, will raise NPE
+    when(mock.get(anyInt())); // correct usage use
+
+Also, this error might show up because you use argument matchers with methods that cannot be mocked.
+Following methods *cannot* be stubbed/verified: final/private/equals()/hashCode().
+Mocking methods declared on non-public parent classes is not supported.
+
+	at com.athensease.sights.TripTest.setUp(TripTest.java:24)
 	at java.base/java.lang.reflect.Method.invoke(Method.java:580)
 	at java.base/java.util.ArrayList.forEach(ArrayList.java:1596)
 	at java.base/java.util.ArrayList.forEach(ArrayList.java:1596)
 
-com.athensease.sights.TripTest.testTripCalculations  Time elapsed: 0.003 s  <<< ERROR!
-java.lang.NullPointerException: Cannot invoke "java.lang.Integer.intValue()" because "<local2>.visitOrder" is null
-	at com.athensease.sights.Sight.getVisitOrder(Sight.java:85)
+com.athensease.sights.TripTest.testTripCalculations  Time elapsed: 0.002 s  <<< ERROR!
+java.lang.NullPointerException
 	at java.base/java.util.Comparator.lambda$comparingInt$7b0bb60$1(Comparator.java:494)
 	at java.base/java.util.TimSort.countRunAndMakeAscending(TimSort.java:355)
 	at java.base/java.util.TimSort.sort(TimSort.java:220)
@@ -40,8 +69,8 @@ java.lang.NullPointerException: Cannot invoke "java.lang.Integer.intValue()" bec
 	at java.base/java.util.stream.ReduceOps$ReduceOp.evaluateSequential(ReduceOps.java:921)
 	at java.base/java.util.stream.AbstractPipeline.evaluate(AbstractPipeline.java:234)
 	at java.base/java.util.stream.ReferencePipeline.collect(ReferencePipeline.java:682)
-	at com.athensease.sights.Trip.tripCalculations(Trip.java:302)
-	at com.athensease.sights.TripTest.testTripCalculations(TripTest.java:126)
+	at com.athensease.sights.Trip.tripCalculations(Trip.java:308)
+	at com.athensease.sights.TripTest.testTripCalculations(TripTest.java:133)
 	at java.base/java.lang.reflect.Method.invoke(Method.java:580)
 	at java.base/java.util.ArrayList.forEach(ArrayList.java:1596)
 	at java.base/java.util.ArrayList.forEach(ArrayList.java:1596)

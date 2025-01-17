@@ -8,13 +8,11 @@ com\athensease\optimization\solver\RoutePlanConstraintProvider.class
 com\athensease\sights\SightsFileHandler$1.class
 com\athensease\dataretrieval\RouteDataFetcher.class
 com\athensease\ui\BudgetScene.class
-com\athensease\dataretrieval\Main.class
-com\athensease\ui\MyButton.class
 com\athensease\sights\SightsFileHandler$3.class
 com\athensease\ui\DynamicHtmlCreator.class
 com\athensease\ui\ProgressBarScreen.class
 com\athensease\ui\TrailheadScene.class
-com\athensease\ui\UserInputHandler.class
+com\athensease\dataretrieval\MainDataHandler.class
 com\athensease\dataretrieval\JsonFormatter$ApiResponse$Row$Element$Duration.class
 com\athensease\optimization\domain\RoutePlan.class
 com\athensease\dataretrieval\JsonFormatter.class

@@ -1,0 +1,16 @@
+-------------------------------------------------------------------------------
+Test set: com.athensease.dataretrieval.RouteDataFetcherTest
+-------------------------------------------------------------------------------
+Tests run: 1, Failures: 1, Errors: 0, Skipped: 0, Time elapsed: 1.259 s <<< FAILURE! - in com.athensease.dataretrieval.RouteDataFetcherTest
+com.athensease.dataretrieval.RouteDataFetcherTest.testFetchRouteData_withMockResponse  Time elapsed: 1.257 s  <<< FAILURE!
+org.opentest4j.AssertionFailedError: Route data should not be null ==> expected: not <null>
+	at org.junit.jupiter.api.AssertionFailureBuilder.build(AssertionFailureBuilder.java:152)
+	at org.junit.jupiter.api.AssertionFailureBuilder.buildAndThrow(AssertionFailureBuilder.java:132)
+	at org.junit.jupiter.api.AssertNotNull.failNull(AssertNotNull.java:49)
+	at org.junit.jupiter.api.AssertNotNull.assertNotNull(AssertNotNull.java:35)
+	at org.junit.jupiter.api.Assertions.assertNotNull(Assertions.java:308)
+	at com.athensease.dataretrieval.RouteDataFetcherTest.testFetchRouteData_withMockResponse(RouteDataFetcherTest.java:66)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:580)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1596)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1596)
+

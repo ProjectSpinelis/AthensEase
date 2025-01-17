@@ -46,26 +46,6 @@ public class FirstInputScene {
         TextField durationInput = new TextField();
         durationInput.setPromptText("Enter a number");
 
-        // Question 2: Button choices
-        //Label question2 = new Label("2. How many trailheads are you going to have? (tip: count your starting points).");
-        //Button oneTrailButton = new Button("One");
-        //Button manyTrailsButton = new Button("Many");
-
-        /* oneTrailButton.setOnAction(e -> {
-            System.out.println("Selected: One trailhead");
-            isOneTrailheadSelected = true;
-            oneTrailButton.setStyle("-fx-background-color: lightblue");
-            manyTrailsButton.setStyle("-fx-background-color: #d4b483");
-        });
-
-        manyTrailsButton.setOnAction(e -> {
-            System.out.println("Selected: Many trailheads");
-            isOneTrailheadSelected = false;
-            manyTrailsButton.setStyle("-fx-background-color: lightblue");
-            oneTrailButton.setStyle("-fx-background-color: #d4b483");
-        });
-        */
-
         isOneTrailheadSelected = true; // As sad as it may seem, we are only supporting one trailhead 
 
         // Question 3: Button choices
@@ -126,13 +106,7 @@ public class FirstInputScene {
         
             // Μετάβαση στην επόμενη οθόνη
             if (isOneTrailheadSelected) {
-                System.out.println("Proceeding to Screen 3...");
                 goToTrailheadScene();
-            } else {
-                /*System.out.println("Proceeding to Screen 4.1...");
-                UI_Screen4_1.setTrip(trip);
-                UI_Screen4_1 nextScreen = new UI_Screen4_1(duration, isBudgetYesSelected);
-                goToUI_Screen4_1(); */
             }
         });
         
@@ -172,13 +146,4 @@ public class FirstInputScene {
         Scene trailheadScene = screen3.createScene();
         stage.setScene(trailheadScene);
     }
-    /* 
-    public void goToChangeDaysScreen() {
-        // Μετάβαση στην οθόνη για το trailhead
-        ChangeDaysScreen screen3 = new ChangeDaysScreen(stage);
-        ChangeDaysScreen.setTrip(trip); // Μεταφορά του ταξιδιού
-        Scene changesDaysScene = screen3.createScene();
-        stage.setScene(changesDaysScene);
-    }
-    */
 }

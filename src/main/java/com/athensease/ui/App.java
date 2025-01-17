@@ -1,6 +1,5 @@
 package com.athensease.ui;
 
-import com.athensease.sights.SightsFileHandler;
 import com.athensease.sights.Trip;
 
 import javafx.application.Application;
@@ -14,43 +13,56 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 
+/**
+ * The App class represents the main user interface for the AthensEase application.
+ * It initializes the main screen and allows users to begin their journey planning by navigating through multiple scenes.
+ * This class also sets up the basic window properties and handles user interactions.
+ */
 public class App extends Application {
-    // Πίνακας με τις κατηγορίες που μπορεί να επιλέξει ο χρήστης
-    boolean[] selectedCategories = {false, false, false};
-    // Αντικείμενο για την ανάγνωση των αξιοθέατων από το αρχείο
-    SightsFileHandler sightsHanlder = new SightsFileHandler();
+
+    // Stage object representing the main window
     private Stage stage;
+    
+    // Static trip object, holds the current trip details
     private static Trip trip;
 
+    /**
+     * Sets the current trip object that is used throughout the application.
+     * 
+     * @param trip The Trip object to set
+     */
     public static void setTrip(Trip trip) {
         App.trip = trip;
     }
 
+    /**
+     * The start method is called when the application is launched. It sets up the main window 
+     * and initializes all UI components such as labels, buttons, and layout.
+     *
+     * @param stage The main window of the application.
+     */
     @Override
     public void start(Stage stage) {
         this.stage = stage;
 
-        // Load the image
+        // Load the application logo
         Image logo = new Image(getClass().getResourceAsStream("/logo.png"));
 
-        // Set the icon of the stage
+        // Set the icon of the stage (window)
         stage.getIcons().add(logo);
 
-        // Δημιουργία του κουμπιού
+        // Create the start button
         Button startButton = new Button("Let's START :)");
         startButton.getStyleClass().add("big-button");
+        startButton.setPadding(new Insets(15, 30, 15, 30));  // Padding around the button
 
-        // Add padding around the button
-        startButton.setPadding(new Insets(15, 30, 15, 30));  // Top, Right, Bottom, Left padding
-
-
-        // Δράση όταν πατηθεί το κουμπί
+        // Action handler when the start button is clicked
         startButton.setOnAction(e -> {
-            goToInputScreen1(); // Μετάβαση στην πρώτη οθόνη
+            goToInputScreen1(); // Transition to the first input screen
         });
 
-        // Δημιουργία των Labels
-        Label welcomeLabel = new Label("Your Personlized Path Through Athens");
+        // Create labels for the welcome message and description
+        Label welcomeLabel = new Label("Your Personalized Path Through Athens");
         welcomeLabel.getStyleClass().add("heading");
         welcomeLabel.setStyle("-fx-font-size: 28px;");
 
@@ -59,49 +71,54 @@ public class App extends Application {
         "2. Craft your journey: Select the sights you can’t miss.\n\n" +
         "3. Maximize the magic: Get the ultimate route tailored just for you.");
 
-        // Δημιουργία VBox για να τοποθετηθούν τα Labels το ένα κάτω από το άλλο
-        VBox vbox = new VBox(20, welcomeLabel, descriptionLabel); // 20px διάστημα μεταξύ των Labels
+        // Create a VBox for organizing labels vertically
+        VBox vbox = new VBox(20, welcomeLabel, descriptionLabel); // 20px gap between labels
         vbox.setStyle("-fx-alignment: top-center;");
 
-        // Δημιουργία Region για το κενό διάστημα μεταξύ του κειμένου και του κουμπιού
+        // Create a Region to add space between the labels and the button
         Region spacer = new Region();
-        VBox.setVgrow(spacer, javafx.scene.layout.Priority.ALWAYS); // Ορίζει το spacer να αναπτυχθεί και να γεμίσει το χώρο
+        VBox.setVgrow(spacer, javafx.scene.layout.Priority.ALWAYS); // Ensure spacer expands to fill available space
 
-        // Δημιουργία VBox για την τοποθέτηση του κουμπιού πιο κοντά στο κείμενο
-        VBox mainVBox = new VBox(10, vbox, spacer, startButton);  // 10px διάστημα για μικρότερη απόσταση
-        mainVBox.setStyle("-fx-alignment: center;");  // Τοποθετούμε τα στοιχεία κεντρικά
+        // Create a main VBox to hold the labels and the button
+        VBox mainVBox = new VBox(10, vbox, spacer, startButton);  // 10px gap for compact layout
+        mainVBox.setStyle("-fx-alignment: center;");  // Center align elements
 
-        // Add some padding around the VBox to give space
-        mainVBox.setPadding(new Insets(10, 10, 10, 10));  // Padding for the VBox (top, right, bottom, left)
+        // Add padding around the main VBox to provide spacing
+        mainVBox.setPadding(new Insets(10, 10, 10, 10));
 
-         // Layout setup: Use StackPane to layer elements
-         StackPane root = new StackPane();  // Use StackPane to stack the elements
- 
-         // Add the mainVBox on top of the logoPane (foreground layer)
-         root.getChildren().add(mainVBox);
+        // Set up StackPane layout to layer elements
+        StackPane root = new StackPane();
+        root.getChildren().add(mainVBox); // Add mainVBox to the root pane
 
-        // Δημιουργία της σκηνής
-        Scene scene = new Scene(root, 600, 450);  // Μέγεθος της σκηνής σε 600x600
+        // Create a scene with specified dimensions
+        Scene scene = new Scene(root, 600, 450);  
+        scene.getStylesheets().add(getClass().getResource("/styles.css").toExternalForm());  // Apply external styles
 
-        scene.getStylesheets().add(getClass().getResource("/styles.css").toExternalForm());
-
-        // Ρυθμίσεις του παραθύρου
+        // Set up window properties
         stage.setTitle("AthensEase");
         stage.setScene(scene);
         stage.show();
     }
 
-    // Μέθοδος για την μετάβαση στην πρώτη οθόνη
+    /**
+     * This method handles the transition to the first input screen.
+     * It creates a new FirstInputScene object and sets it as the current scene.
+     */
     public void goToInputScreen1() {
-        // Δημιουργία αντικειμένου για την πρώτη οθόνη
+        // Create and set the first input screen
         FirstInputScene inputScreen1 = new FirstInputScene(stage);
         FirstInputScene.setTrip(trip);
-        Scene inputScene = inputScreen1.createScene(); // Δημιουργία της σκηνής
-        FirstInputScene.setTrip(trip); // Μεταφορά του ταξιδιού
-        stage.setScene(inputScene); // Αλλαγή της σκηνής
+        Scene inputScene = inputScreen1.createScene();
+        FirstInputScene.setTrip(trip);
+        stage.setScene(inputScene);  // Switch to the input scene
     }
 
+    /**
+     * The main entry point for the application. It launches the JavaFX application.
+     *
+     * @param args Command-line arguments passed to the application
+     */
     public static void main(String[] args) {
-        launch(args);
+        launch(args);  // Launch the JavaFX application
     }
 }

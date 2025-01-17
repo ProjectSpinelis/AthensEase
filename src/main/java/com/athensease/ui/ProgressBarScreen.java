@@ -29,14 +29,6 @@ public class ProgressBarScreen {
     }
 
     public Scene createScene() {
-        /*
-        List<Sight> chosenSights = trip.getChosenSights();
-        trip2.setChosenSights(chosenSights);
-        String address1 = trip.getAddress1();
-        trip2.setAddress1(address1);
-        int optimizeFor = trip.getOptmizeFor();
-        trip2.setOptmizeFor(optimizeFor);
-        */
 
         // Δημιουργία ProgressBar
         ProgressBar progressBar = new ProgressBar(0); // Ξεκινά από 0 (άδειο)
@@ -47,7 +39,7 @@ public class ProgressBarScreen {
         Label loadingLabel = new Label("Optimizing your trip...");
 
         // Χρονικό διάστημα και βήμα για την πλήρωση της μπάρας
-        int totalDurationInMilliseconds = 5000; // 15 δευτερόλεπτα σε milliseconds
+        int totalDurationInMilliseconds = 25000; // 25 δευτερόλεπτα σε milliseconds
         int frameDurationInMilliseconds = 100; // Κάθε frame διαρκεί 100ms
         double increment = 1.0 / (totalDurationInMilliseconds / frameDurationInMilliseconds);
 
@@ -58,10 +50,6 @@ public class ProgressBarScreen {
                 // Εκτέλεση της λειτουργίας optimizeTrip
                 trip.prepTrip();
                 Optimizer.optimizeTrip(trip); // Εκτέλεση σε background thread
-                System.out.println("Optimization finished");
-                //TrailHeadInclusion.findHotelStopPoints(trip.getOptimizedSights());
-                //trip.tripCalculations();
-                System.out.println("Optimization finished Tasks");
                 return null;
             }
         };
@@ -74,7 +62,6 @@ public class ProgressBarScreen {
         });
 
         // Timeline για την προοδευτική πλήρωση της ProgressBar
-        //boolean transitioned = false;
         Timeline timeline = new Timeline(
             new KeyFrame(
                 Duration.millis(frameDurationInMilliseconds), // Εκτελείται κάθε 100ms
@@ -84,15 +71,13 @@ public class ProgressBarScreen {
                         progressBar.setProgress(progressBar.getProgress() + increment);
                     }
                     if (progressBar.getProgress() >= 1.0) {
-                        //transitioned = true; // Prevent duplicate calls
-                        //trip.setOptimizedSights(trip.getChosenSights());
                         goToResultsScreen();
                     }
                 }
             )
         );
 
-        timeline.setCycleCount(totalDurationInMilliseconds / frameDurationInMilliseconds); // Ρυθμίζεται για 30 δευτερόλεπτα
+        timeline.setCycleCount(totalDurationInMilliseconds / frameDurationInMilliseconds);
         timeline.play(); // Ξεκινά το timeline
 
         // Ενεργοποίηση του Task για την εκτέλεση της optimizeTrip σε background thread

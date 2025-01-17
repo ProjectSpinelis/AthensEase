@@ -1,26 +1,24 @@
-C:\Users\mosgi\Desktop\ΔΕΤ\ΔΕΤ 3ο\Προγραμματισμός 2\OneTrailHeadFix\AthensEase\src\main\java\com\athensease\dataretrieval\ApiHandler.java
-C:\Users\mosgi\Desktop\ΔΕΤ\ΔΕΤ 3ο\Προγραμματισμός 2\OneTrailHeadFix\AthensEase\src\main\java\com\athensease\dataretrieval\JsonFormatter.java
-C:\Users\mosgi\Desktop\ΔΕΤ\ΔΕΤ 3ο\Προγραμματισμός 2\OneTrailHeadFix\AthensEase\src\main\java\com\athensease\dataretrieval\Main.java
-C:\Users\mosgi\Desktop\ΔΕΤ\ΔΕΤ 3ο\Προγραμματισμός 2\OneTrailHeadFix\AthensEase\src\main\java\com\athensease\dataretrieval\MapURLBuilder.java
-C:\Users\mosgi\Desktop\ΔΕΤ\ΔΕΤ 3ο\Προγραμματισμός 2\OneTrailHeadFix\AthensEase\src\main\java\com\athensease\dataretrieval\RouteDataFetcher.java
-C:\Users\mosgi\Desktop\ΔΕΤ\ΔΕΤ 3ο\Προγραμματισμός 2\OneTrailHeadFix\AthensEase\src\main\java\com\athensease\optimization\domain\RoutePlan.java
-C:\Users\mosgi\Desktop\ΔΕΤ\ΔΕΤ 3ο\Προγραμματισμός 2\OneTrailHeadFix\AthensEase\src\main\java\com\athensease\optimization\Optimizer.java
-C:\Users\mosgi\Desktop\ΔΕΤ\ΔΕΤ 3ο\Προγραμματισμός 2\OneTrailHeadFix\AthensEase\src\main\java\com\athensease\optimization\solver\RoutePlanConstraintProvider.java
-C:\Users\mosgi\Desktop\ΔΕΤ\ΔΕΤ 3ο\Προγραμματισμός 2\OneTrailHeadFix\AthensEase\src\main\java\com\athensease\optimization\solver\RoutePlanConstraintProviderForDuration.java
-C:\Users\mosgi\Desktop\ΔΕΤ\ΔΕΤ 3ο\Προγραμματισμός 2\OneTrailHeadFix\AthensEase\src\main\java\com\athensease\optimization\TrailHeadInclusion.java
-C:\Users\mosgi\Desktop\ΔΕΤ\ΔΕΤ 3ο\Προγραμματισμός 2\OneTrailHeadFix\AthensEase\src\main\java\com\athensease\sights\Sight.java
-C:\Users\mosgi\Desktop\ΔΕΤ\ΔΕΤ 3ο\Προγραμματισμός 2\OneTrailHeadFix\AthensEase\src\main\java\com\athensease\sights\SightsFileHandler.java
-C:\Users\mosgi\Desktop\ΔΕΤ\ΔΕΤ 3ο\Προγραμματισμός 2\OneTrailHeadFix\AthensEase\src\main\java\com\athensease\sights\Trip.java
-C:\Users\mosgi\Desktop\ΔΕΤ\ΔΕΤ 3ο\Προγραμματισμός 2\OneTrailHeadFix\AthensEase\src\main\java\com\athensease\ui\App.java
-C:\Users\mosgi\Desktop\ΔΕΤ\ΔΕΤ 3ο\Προγραμματισμός 2\OneTrailHeadFix\AthensEase\src\main\java\com\athensease\ui\BudgetScene.java
-C:\Users\mosgi\Desktop\ΔΕΤ\ΔΕΤ 3ο\Προγραμματισμός 2\OneTrailHeadFix\AthensEase\src\main\java\com\athensease\ui\CategoriesScreen.java
-C:\Users\mosgi\Desktop\ΔΕΤ\ΔΕΤ 3ο\Προγραμματισμός 2\OneTrailHeadFix\AthensEase\src\main\java\com\athensease\ui\DynamicHtmlCreator.java
-C:\Users\mosgi\Desktop\ΔΕΤ\ΔΕΤ 3ο\Προγραμματισμός 2\OneTrailHeadFix\AthensEase\src\main\java\com\athensease\ui\FirstInputScene.java
-C:\Users\mosgi\Desktop\ΔΕΤ\ΔΕΤ 3ο\Προγραμματισμός 2\OneTrailHeadFix\AthensEase\src\main\java\com\athensease\ui\MyButton.java
-C:\Users\mosgi\Desktop\ΔΕΤ\ΔΕΤ 3ο\Προγραμματισμός 2\OneTrailHeadFix\AthensEase\src\main\java\com\athensease\ui\ProgressBarScreen.java
-C:\Users\mosgi\Desktop\ΔΕΤ\ΔΕΤ 3ο\Προγραμματισμός 2\OneTrailHeadFix\AthensEase\src\main\java\com\athensease\ui\ResultScreen.java
-C:\Users\mosgi\Desktop\ΔΕΤ\ΔΕΤ 3ο\Προγραμματισμός 2\OneTrailHeadFix\AthensEase\src\main\java\com\athensease\ui\SightScene.java
-C:\Users\mosgi\Desktop\ΔΕΤ\ΔΕΤ 3ο\Προγραμματισμός 2\OneTrailHeadFix\AthensEase\src\main\java\com\athensease\ui\TrailheadScene.java
-C:\Users\mosgi\Desktop\ΔΕΤ\ΔΕΤ 3ο\Προγραμματισμός 2\OneTrailHeadFix\AthensEase\src\main\java\com\athensease\ui\TripPlanner.java
-C:\Users\mosgi\Desktop\ΔΕΤ\ΔΕΤ 3ο\Προγραμματισμός 2\OneTrailHeadFix\AthensEase\src\main\java\com\athensease\ui\UserInputHandler.java
-C:\Users\mosgi\Desktop\ΔΕΤ\ΔΕΤ 3ο\Προγραμματισμός 2\OneTrailHeadFix\AthensEase\src\main\java\com\athensease\ui\WebViewer.java
+C:\Users\User\Desktop\Reference Material\All About University\Java Exercises Programming II\Java Files\GitHubTest\Final2\AthensEase\src\main\java\com\athensease\dataretrieval\ApiHandler.java
+C:\Users\User\Desktop\Reference Material\All About University\Java Exercises Programming II\Java Files\GitHubTest\Final2\AthensEase\src\main\java\com\athensease\dataretrieval\JsonFormatter.java
+C:\Users\User\Desktop\Reference Material\All About University\Java Exercises Programming II\Java Files\GitHubTest\Final2\AthensEase\src\main\java\com\athensease\dataretrieval\MainDataHandler.java
+C:\Users\User\Desktop\Reference Material\All About University\Java Exercises Programming II\Java Files\GitHubTest\Final2\AthensEase\src\main\java\com\athensease\dataretrieval\MapURLBuilder.java
+C:\Users\User\Desktop\Reference Material\All About University\Java Exercises Programming II\Java Files\GitHubTest\Final2\AthensEase\src\main\java\com\athensease\dataretrieval\RouteDataFetcher.java
+C:\Users\User\Desktop\Reference Material\All About University\Java Exercises Programming II\Java Files\GitHubTest\Final2\AthensEase\src\main\java\com\athensease\optimization\domain\RoutePlan.java
+C:\Users\User\Desktop\Reference Material\All About University\Java Exercises Programming II\Java Files\GitHubTest\Final2\AthensEase\src\main\java\com\athensease\optimization\Optimizer.java
+C:\Users\User\Desktop\Reference Material\All About University\Java Exercises Programming II\Java Files\GitHubTest\Final2\AthensEase\src\main\java\com\athensease\optimization\solver\RoutePlanConstraintProvider.java
+C:\Users\User\Desktop\Reference Material\All About University\Java Exercises Programming II\Java Files\GitHubTest\Final2\AthensEase\src\main\java\com\athensease\optimization\solver\RoutePlanConstraintProviderForDuration.java
+C:\Users\User\Desktop\Reference Material\All About University\Java Exercises Programming II\Java Files\GitHubTest\Final2\AthensEase\src\main\java\com\athensease\optimization\TrailHeadInclusion.java
+C:\Users\User\Desktop\Reference Material\All About University\Java Exercises Programming II\Java Files\GitHubTest\Final2\AthensEase\src\main\java\com\athensease\sights\Sight.java
+C:\Users\User\Desktop\Reference Material\All About University\Java Exercises Programming II\Java Files\GitHubTest\Final2\AthensEase\src\main\java\com\athensease\sights\SightsFileHandler.java
+C:\Users\User\Desktop\Reference Material\All About University\Java Exercises Programming II\Java Files\GitHubTest\Final2\AthensEase\src\main\java\com\athensease\sights\Trip.java
+C:\Users\User\Desktop\Reference Material\All About University\Java Exercises Programming II\Java Files\GitHubTest\Final2\AthensEase\src\main\java\com\athensease\ui\App.java
+C:\Users\User\Desktop\Reference Material\All About University\Java Exercises Programming II\Java Files\GitHubTest\Final2\AthensEase\src\main\java\com\athensease\ui\BudgetScene.java
+C:\Users\User\Desktop\Reference Material\All About University\Java Exercises Programming II\Java Files\GitHubTest\Final2\AthensEase\src\main\java\com\athensease\ui\CategoriesScreen.java
+C:\Users\User\Desktop\Reference Material\All About University\Java Exercises Programming II\Java Files\GitHubTest\Final2\AthensEase\src\main\java\com\athensease\ui\DynamicHtmlCreator.java
+C:\Users\User\Desktop\Reference Material\All About University\Java Exercises Programming II\Java Files\GitHubTest\Final2\AthensEase\src\main\java\com\athensease\ui\FirstInputScene.java
+C:\Users\User\Desktop\Reference Material\All About University\Java Exercises Programming II\Java Files\GitHubTest\Final2\AthensEase\src\main\java\com\athensease\ui\ProgressBarScreen.java
+C:\Users\User\Desktop\Reference Material\All About University\Java Exercises Programming II\Java Files\GitHubTest\Final2\AthensEase\src\main\java\com\athensease\ui\ResultScreen.java
+C:\Users\User\Desktop\Reference Material\All About University\Java Exercises Programming II\Java Files\GitHubTest\Final2\AthensEase\src\main\java\com\athensease\ui\SightScene.java
+C:\Users\User\Desktop\Reference Material\All About University\Java Exercises Programming II\Java Files\GitHubTest\Final2\AthensEase\src\main\java\com\athensease\ui\TrailheadScene.java
+C:\Users\User\Desktop\Reference Material\All About University\Java Exercises Programming II\Java Files\GitHubTest\Final2\AthensEase\src\main\java\com\athensease\ui\TripPlanner.java
+C:\Users\User\Desktop\Reference Material\All About University\Java Exercises Programming II\Java Files\GitHubTest\Final2\AthensEase\src\main\java\com\athensease\ui\WebViewer.java

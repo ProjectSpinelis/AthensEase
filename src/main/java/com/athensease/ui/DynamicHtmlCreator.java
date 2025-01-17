@@ -18,21 +18,44 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * The DynamicHtmlCreator class is responsible for generating dynamic HTML content based on trip route data
+ * and displaying the content in a web browser. It also provides navigation for the user interface to go back
+ * to a results screen.
+ */
 public class DynamicHtmlCreator {
 
     private static Trip trip;
     private Stage stage;
     private List<Sight> sightsToShow;
 
+    /**
+     * Constructs a DynamicHtmlCreator object with a given stage and a list of sights to display.
+     *
+     * @param stage The stage to display the resulting scene.
+     * @param sightsToShow The list of sights to be used for route data retrieval.
+     */
     public DynamicHtmlCreator(Stage stage, List<Sight> sightsToShow) {
         this.stage = stage;
         this.sightsToShow = sightsToShow;
     }
 
+    /**
+     * Sets the trip object that will be used in generating the route data.
+     *
+     * @param trip The Trip object to be used for route data generation.
+     */
     public static void setTrip(Trip trip) {
         DynamicHtmlCreator.trip = trip;
     }
 
+    /**
+     * Creates a scene with a button to go back and navigates to the results screen.
+     * This method fetches route data for the given sights and generates a dynamic HTML
+     * map that is opened in the user's default web browser.
+     *
+     * @return The Scene object with a back button to navigate to the results screen.
+     */
     public Scene createScene() {
         RouteDataFetcher routeDataFetcher = new RouteDataFetcher(sightsToShow);
         RouteData routeData = routeDataFetcher.fetchRouteData();
@@ -43,12 +66,13 @@ public class DynamicHtmlCreator {
             String polyline = routeData.getOverviewPolyline();
             ArrayList<String> waypoints = routeData.getWaypoints();
 
+            // Generate dynamic HTML content for the route map
             String htmlContent = generateDynamicHTML(origin, destination, waypoints, polyline);
 
-            // Write the HTML content to a temporary file and open it in the user's default browser
+            // Open the generated HTML content in the default web browser
             openInBrowser(htmlContent);
 
-            // Provide a back button to return to the previous screen
+            // Add a back button to return to the results screen
             Button backButton = new Button("Back");
             backButton.getStyleClass().add("big-button");
             backButton.setOnAction(e -> goToResultsScreen());
@@ -58,7 +82,7 @@ public class DynamicHtmlCreator {
             StackPane root = new StackPane();
             root.getChildren().add(box);
 
-            // Create Scene and return it
+            // Create and return the scene with the back button
             Scene scene = new Scene(root, 800, 600);
             scene.getStylesheets().add(getClass().getResource("/styles.css").toExternalForm());
             return scene;
@@ -68,6 +92,16 @@ public class DynamicHtmlCreator {
         }
     }
 
+    /**
+     * Generates the dynamic HTML content for a route map, including origin, destination, and waypoints.
+     * The generated HTML uses the Google Maps API to display the route on the map.
+     *
+     * @param origin The starting point of the route.
+     * @param destination The destination of the route.
+     * @param waypoints The list of waypoints for the route.
+     * @param polyline The polyline representation of the route.
+     * @return The generated HTML content as a String.
+     */
     public static String generateDynamicHTML(String origin, String destination, ArrayList<String> waypoints, String polyline) {
         StringBuilder waypointScript = new StringBuilder();
         for (String waypoint : waypoints) {
@@ -118,6 +152,11 @@ public class DynamicHtmlCreator {
                 "</html>";
     }
 
+    /**
+     * Opens the generated HTML content in the user's default web browser.
+     *
+     * @param htmlContent The HTML content to be opened.
+     */
     private void openInBrowser(String htmlContent) {
         try {
             File tempFile = File.createTempFile("route_map", ".html");
@@ -133,6 +172,9 @@ public class DynamicHtmlCreator {
         }
     }
 
+    /**
+     * Navigates to the results screen, passing the current trip object.
+     */
     public void goToResultsScreen() {
         ResultScreen screen3 = new ResultScreen(stage);
         ResultScreen.setTrip(trip); // Pass the trip
