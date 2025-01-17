@@ -160,3 +160,12 @@
     "status": "OK"
   }
 ]
+[
+  {
+    "origin": "Athens",
+    "destination": "Rome",
+    "distance": "1200 km",
+    "duration": "14 hours",
+    "status": "OK"
+  }
+]

@@ -112,6 +112,43 @@
             <artifactId>maven-surefire-plugin</artifactId>
             <version>3.0.0-M8</version>
         </plugin>
+         <plugin>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-shade-plugin</artifactId>
+            <version>3.2.1</version>
+            <executions>
+                <execution>
+                    <phase>package</phase>  <!-- This binds the plugin to the 'package' phase -->
+                    <goals>
+                        <goal>shade</goal>  <!-- Goal to create a shaded (uber) JAR -->
+                    </goals>
+                    <configuration>
+                        <createDependencyReducedPom>false</createDependencyReducedPom> <!-- Avoid creating a dependency-reduced POM file -->
+
+                        <!-- Ensure the main class is defined correctly in the JAR manifest -->
+                        <transformers>
+                            <transformer implementation="org.apache.maven.plugins.shade.resource.ManifestResourceTransformer">
+                                <!-- Replace with your actual JavaFX entry point -->
+                                <mainClass>com.athensease.ui.TripPlanner</mainClass> <!-- Adjust this to your main class -->
+                            </transformer>
+                        </transformers>
+
+                        <!-- Avoid signature file issues and include all necessary dependencies -->
+                        <filters>
+                            <filter>
+                                <artifact>*:*</artifact> <!-- Include all dependencies -->
+                                <excludes>
+                                    <!-- Exclude conflicting signature files -->
+                                    <exclude>META-INF/*.RSA</exclude>
+                                    <exclude>META-INF/*.SF</exclude>
+                                    <exclude>META-INF/*.DSA</exclude>
+                                </excludes>
+                            </filter>
+                        </filters>
+                    </configuration>
+                </execution>
+            </executions>
+        </plugin>
   </plugins>
 </build>
 
