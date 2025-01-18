@@ -27,6 +27,7 @@ public class Optimizer {
      * @param objective The optimization objective: true for minimizing total distance, false for minimizing total duration.
      */
     public static void optimizeTrip(Trip trip) {
+        System.out.println("Optimization started");
         
         SolverConfig solverConfig;
         
@@ -47,7 +48,7 @@ public class Optimizer {
                     .withTerminationSpentLimit(Duration.ofSeconds(5));
             
         }
-//
+
         SolverFactory<RoutePlan> solverFactory = SolverFactory.create(solverConfig);
 
         // Load the problem
@@ -56,6 +57,7 @@ public class Optimizer {
         // Solve the problem
         Solver<RoutePlan> solver = solverFactory.buildSolver();
         RoutePlan solution = solver.solve(problem);
+        System.out.println(solution);
 
         // Optimize Trip Instance
         trip.setOptimizedSights(solution.getSightsList());

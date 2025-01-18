@@ -9,11 +9,21 @@ import java.util.Map;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
-
+/**
+ * SightsFileHandler is responsible for reading and handling data related to sights and distances.
+ * It parses JSON files containing information about sights and distances, providing methods to filter
+ * sights by category, retrieve sight locations, and calculate distances and durations between sights.
+ */
 public class SightsFileHandler {
+    
     private List<Sight> sights;
 
-    // Constructor reads from json and initialises sights list
+    /**
+     * Constructs a SightsFileHandler instance and initializes the list of sights by reading from the
+     * "data/sights.json" file in the classpath.
+     * 
+     * @throws IOException If an error occurs while reading the JSON files or parsing the data.
+     */
     public SightsFileHandler() {
         ObjectMapper mapper = new ObjectMapper();
         try {
@@ -32,11 +42,20 @@ public class SightsFileHandler {
         }
     }
 
+    /**
+     * Returns the list of Sight objects.
+     * 
+     * @return A list of Sight objects loaded from the "sights.json" file.
+     */
     public List<Sight> getSights() {
         return sights;
     }
 
-    // Is used to create distances.json file from sight addresses
+    /**
+     * Returns a list of locations of all the sights.
+     * 
+     * @return A list of locations as strings extracted from the list of sights.
+     */
     public List<String> getLocations() {
         List<String> locations = new ArrayList<>();
         
@@ -46,7 +65,12 @@ public class SightsFileHandler {
         return locations;
     }
 
-    // Is used by interface to show available sights to user
+    /**
+     * Filters the sights by category and returns a list of matching sights.
+     * 
+     * @param category The category to filter by. If category is 0, only "must-see" sights are returned.
+     * @return A list of Sight objects matching the specified category.
+     */
     public List<Sight> filterSightsByCategory(int category) {
         List<Sight> filteredSights = new ArrayList<>();
     
@@ -63,7 +87,7 @@ public class SightsFileHandler {
                         filteredSights.add(sight);
                     }
                 } catch (NumberFormatException e) {
-                    // Handle cases where the category is not numeric, if needed
+                    // Handle cases where the category is not numeric
                     System.err.println("Invalid category format for sight: " + sight.getName());
                 }
             }
@@ -71,7 +95,13 @@ public class SightsFileHandler {
         return filteredSights;
     }
 
-    // Is used to calculate distance between Sight objects
+    /**
+     * Retrieves the distance between two locations from the "data/distances.json" file.
+     * 
+     * @param origin The origin location.
+     * @param destination The destination location.
+     * @return The distance between the two locations, or -1 if not found or if an error occurs.
+     */
     public double getDistanceFromJson(String origin, String destination) {
         ObjectMapper mapper = new ObjectMapper();
 
@@ -99,7 +129,13 @@ public class SightsFileHandler {
         return -1; // Return -1 if no match or parsing error occurs
     }
 
-    // Is used to calculate duration between Sight objects
+    /**
+     * Retrieves the duration between two locations from the "data/distances.json" file.
+     * 
+     * @param origin The origin location.
+     * @param destination The destination location.
+     * @return The duration between the two locations in minutes, or -1 if not found or if an error occurs.
+     */
     public double getDurationFromJson(String origin, String destination) {
         ObjectMapper mapper = new ObjectMapper();
 
@@ -123,6 +159,6 @@ public class SightsFileHandler {
         } catch (NumberFormatException e) {
             e.printStackTrace();
         }
-        return -1;
+        return -1; // Return -1 if no match or parsing error occurs
     }
 }

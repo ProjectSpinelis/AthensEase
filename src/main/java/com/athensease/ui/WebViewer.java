@@ -1,6 +1,5 @@
 package com.athensease.ui;
 
-
 import javafx.scene.Scene;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.web.WebEngine;
@@ -10,19 +9,34 @@ import javafx.stage.Stage;
 import java.io.File;
 import java.io.IOException;
 
+/**
+ * The WebViewer class is responsible for displaying HTML content (such as a map) in a WebView within a JavaFX window.
+ * It allows the user to view dynamic content rendered from HTML passed into the displayMap method.
+ */
 public class WebViewer {
 
     private Stage stage;
 
+    /**
+     * Constructs a WebViewer object with the given stage for displaying the map content.
+     * 
+     * @param stage The stage where the WebView will be displayed.
+     */
     public WebViewer(Stage stage) {
         this.stage = stage;
     }
 
+    /**
+     * Displays an HTML map (or any HTML content) inside a WebView in a new scene on the provided stage.
+     * The HTML content is temporarily written to a file, which is then loaded into the WebView.
+     *
+     * @param htmlContent The HTML content to be displayed in the WebView.
+     */
     public void displayMap(String htmlContent) {
         try {
             // Write the HTML content to a temporary file
             File tempFile = File.createTempFile("map_", ".html");
-            tempFile.deleteOnExit(); // Ensure it gets deleted when the application exits
+            tempFile.deleteOnExit(); // Ensure the file is deleted when the application exits
             java.nio.file.Files.write(tempFile.toPath(), htmlContent.getBytes());
 
             // Load the temporary HTML file into a WebView
@@ -45,8 +59,7 @@ public class WebViewer {
             stage.setScene(scene);
             stage.show();
         } catch (IOException e) {
-            e.printStackTrace();
+            e.printStackTrace();  // Handle any IO exceptions that may occur while writing or reading files
         }
     }
 }
-

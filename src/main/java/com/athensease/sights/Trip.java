@@ -1,3 +1,10 @@
+/**
+ * Represents a trip with a set of chosen sights and other parameters that define the trip's characteristics.
+ * This class is responsible for managing trip details, such as budget, duration, chosen sights, and optimizing the travel route.
+ * It includes methods for calculating the total cost, distance, and duration of the trip, optimizing the sightseeing order,
+ * and interacting with external APIs for distance and duration calculations.
+ */
+
 package com.athensease.sights;
 
 import java.io.IOException;
@@ -5,7 +12,6 @@ import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
-//import com.athensease.sights.Sight;
 
 import org.optaplanner.core.api.score.buildin.hardsoft.HardSoftScore;
 

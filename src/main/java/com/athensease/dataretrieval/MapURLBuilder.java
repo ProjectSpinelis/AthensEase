@@ -4,17 +4,34 @@ import java.util.List;
 
 import com.athensease.sights.Sight;
 
+/**
+ * The MapURLBuilder class is responsible for generating a URL for the Google Directions API.
+ * The URL is built based on a list of sights (tourist locations), representing a route starting
+ * from the first sight and ending at the last sight, with waypoints for all intermediate sights.
+ * This URL can be used to request directions between the sights using the Google Maps API.
+ */
 public class MapURLBuilder {
 
+    // List of optimized sights (tourist locations) to be used for route generation.
     private List<Sight> optimizedSights;
-    private final String API_KEY = "AIzaSyDits1cNQEJkWEK_FSF_crxVCeV-brw3rE"; // Store the API key
 
-    // Constructor accepts the API key and generates mock data for the sights
+    // The API key for accessing the Google Directions API.
+    private final String API_KEY = "AIzaSyDits1cNQEJkWEK_FSF_crxVCeV-brw3rE"; 
+
+    /**
+     * Constructor that initializes the MapURLBuilder with a list of optimized sights.
+     * 
+     * @param optimizedSights The list of sights to be used for generating the route.
+     */
     public MapURLBuilder(List<Sight> optimizedSights) {
         this.optimizedSights = optimizedSights;
     }
 
-    // Method to generate the API request URL for Google Directions API
+    /**
+     * Generates the API request URL for the Google Directions API using the list of optimized sights.
+     * 
+     * @return The generated URL as a string, or null if the number of sights is insufficient.
+     */
     public String generateApiRequestUrl() {
         if (optimizedSights == null || optimizedSights.size() < 2) {
             System.out.println("Error: Insufficient number of sights to create a route.");
@@ -54,11 +71,15 @@ public class MapURLBuilder {
         urlBuilder.append("&key=").append(API_KEY);
 
         // Return the complete API request URL
-        System.out.println("Generated API Request URL: " + urlBuilder.toString());
         return urlBuilder.toString();
     }
 
-    // Utility method to encode the URL parameters (e.g., spaces to %20)
+    /**
+     * Utility method to encode URL parameters (e.g., replacing spaces with "%20").
+     * 
+     * @param value The value to be URL-encoded.
+     * @return The URL-encoded string.
+     */
     private String encodeURIComponent(String value) {
         return value.replace(" ", "%20")
                     .replace(":", "%3A")
@@ -70,7 +91,11 @@ public class MapURLBuilder {
                     .replace(",", "%2C");
     }
 
-    // Main method to test the URL generation and return the URL as a String
+    /**
+     * Main method to test the URL generation and print the result.
+     * 
+     * @param args Command-line arguments (unused).
+     */
     public static void main(String[] args) {
         // Example: Create URLBuilder instance with a mock API key
         MapURLBuilder urlBuilder = new MapURLBuilder(null);
@@ -80,10 +105,15 @@ public class MapURLBuilder {
         if (apiUrl != null) {
             System.out.println("Generated API Request URL: " + apiUrl);
         }
-        
     }
+
+    /**
+     * Gets the generated API request URL as a string.
+     * 
+     * @return The generated API request URL as a string.
+     */
     public String getUrl() {
-        // Generate and print the API request URL
+        // Generate and return the API request URL
         String apiUrl = generateApiRequestUrl();
         return apiUrl;
     }

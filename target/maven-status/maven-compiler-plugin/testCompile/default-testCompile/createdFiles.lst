@@ -1,7 +1,12 @@
 com\athensease\optimization\solver\RoutePlanConstraintProviderTest.class
 com\athensease\optimization\OptimizerTest.class
 com\athensease\optimization\domain\RoutePlanTest.class
-com\athensease\sights\SightsFileHandlerTest.class
-com\athensease\optimization\TrailHeadInclusionTest.class
+com\athensease\dataretrieval\ApiHandlerTest$1.class
+com\athensease\dataretrieval\JsonFormatterTest.class
+com\athensease\dataretrieval\MapURLBuilderTest.class
 com\athensease\sights\TripTest.class
 com\athensease\optimization\solver\RoutePlanConstraintProviderForDurationTest.class
+com\athensease\dataretrieval\MainDataHandlerTest.class
+com\athensease\dataretrieval\ApiHandlerTest.class
+com\athensease\sights\SightsFileHandlerTest.class
+com\athensease\optimization\TrailHeadInclusionTest.class
