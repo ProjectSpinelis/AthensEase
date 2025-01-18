@@ -71,7 +71,6 @@ public class MapURLBuilder {
         urlBuilder.append("&key=").append(API_KEY);
 
         // Return the complete API request URL
-        System.out.println("Generated API Request URL: " + urlBuilder.toString());
         return urlBuilder.toString();
     }
 

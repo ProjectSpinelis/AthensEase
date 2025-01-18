@@ -70,9 +70,6 @@ public class ProgressBarScreen {
                     if (progressBar.getProgress() < 1.0) {
                         progressBar.setProgress(progressBar.getProgress() + increment);
                     }
-                    if (progressBar.getProgress() >= 1.0) {
-                        goToResultsScreen();
-                    }
                 }
             )
         );
